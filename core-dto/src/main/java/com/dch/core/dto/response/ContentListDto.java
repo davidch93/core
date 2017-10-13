@@ -10,6 +10,8 @@ import java.util.List;
  * @version 1.0.0
  * @since 1.0.0-SNAPSHOT
  * @updated Apr 23, 2017
+ * @param <T>
+ *            the object to store.
  */
 public class ContentListDto<T> {
 
