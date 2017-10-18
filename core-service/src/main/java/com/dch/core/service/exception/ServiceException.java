@@ -1,16 +1,16 @@
 package com.dch.core.service.exception;
 
 /**
- * Class exception that extends {@link Exception} and used to capture all errors
- * in the service process. This class is root of exception hierarchy for checked
- * exceptions in service.
+ * Class exception that extends {@link RuntimeException} and used to capture all
+ * errors in the service process. This class is root of exception hierarchy for
+ * checked exceptions in service.
  * 
  * @author David.Christianto
  * @version 1.0.0
  * @since 1.0.0-SNAPSHOT
  * @updated Apr 25, 2017
  */
-public class ServiceException extends Exception {
+public class ServiceException extends RuntimeException {
 
 	private static final long serialVersionUID = -3714801513165400146L;
 

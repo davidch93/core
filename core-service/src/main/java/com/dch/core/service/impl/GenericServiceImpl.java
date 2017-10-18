@@ -2,7 +2,9 @@ package com.dch.core.service.impl;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -32,14 +34,14 @@ public abstract class GenericServiceImpl<T extends BaseEntity, ID extends Serial
 	private JpaRepository<T, ID> repository;
 
 	@Override
-	public T save(T entity) {
+	public Optional<T> save(T entity) {
 		entity.setStatus(DataStatus.ACTIVATED);
-		return repository.save(entity);
+		return Optional.of(repository.save(entity));
 	}
 
 	@Override
-	public T update(T entity) {
-		return repository.save(entity);
+	public Optional<T> update(T entity) {
+		return Optional.of(repository.save(entity));
 	}
 
 	@Override
@@ -48,8 +50,8 @@ public abstract class GenericServiceImpl<T extends BaseEntity, ID extends Serial
 	}
 
 	@Override
-	public T get(ID id) {
-		return repository.findOne(id);
+	public Optional<T> get(ID id) {
+		return Optional.of(repository.findOne(id));
 	}
 
 	@Override
@@ -69,7 +71,7 @@ public abstract class GenericServiceImpl<T extends BaseEntity, ID extends Serial
 
 	@Override
 	public void remove(ID id) {
-		T entity = get(id);
+		T entity = get(id).orElseThrow(() -> new ServiceException("ID not found!"));
 		entity.setStatus(DataStatus.DELETED);
 		update(entity);
 	}

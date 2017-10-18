@@ -2,6 +2,7 @@ package com.dch.core.service;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 import com.dch.core.dataaccess.BaseEntity;
 
@@ -27,7 +28,7 @@ public interface GenericService<T extends BaseEntity, ID extends Serializable> {
 	 *            {@link T} the object to save.
 	 * @return the updated object
 	 */
-	T save(T entity);
+	Optional<T> save(T entity);
 
 	/**
 	 * Generic method to update an object.
@@ -36,7 +37,7 @@ public interface GenericService<T extends BaseEntity, ID extends Serializable> {
 	 *            {@link T} the object to save.
 	 * @return the updated object
 	 */
-	T update(T entity);
+	Optional<T> update(T entity);
 
 	/**
 	 * Checks for existence of an object of type T using the id arg.
@@ -56,7 +57,7 @@ public interface GenericService<T extends BaseEntity, ID extends Serializable> {
 	 *            the identifier (primary key) of the object to get
 	 * @return a populated object
 	 */
-	T get(ID id);
+	Optional<T> get(ID id);
 
 	/**
 	 * Generic method used to get all objects of a particular type. This is the

@@ -1,11 +1,9 @@
 package com.dch.core.dto.response;
 
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.dch.core.datastatic.GenericStatus;
 import com.dch.core.datastatic.response.GenericResponse;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * Class that define response message from service and represents the HTTP
@@ -21,8 +19,7 @@ public class ResponseServiceDto<T> implements GenericResponse {
 
 	private GenericStatus status;
 	private T message;
-	private List<T> messageList;
-	private String error;
+	private ContentListDto<T> messageList;
 
 	public ResponseServiceDto() {
 	}
@@ -32,14 +29,9 @@ public class ResponseServiceDto<T> implements GenericResponse {
 		this.message = message;
 	}
 
-	public ResponseServiceDto(GenericStatus status, List<T> messageList) {
+	public ResponseServiceDto(GenericStatus status, ContentListDto<T> messageList) {
 		this.status = status;
 		this.messageList = messageList;
-	}
-
-	public ResponseServiceDto(GenericStatus status, String error) {
-		this.status = status;
-		this.error = error;
 	}
 
 	/**
@@ -75,7 +67,7 @@ public class ResponseServiceDto<T> implements GenericResponse {
 	/**
 	 * @return the messageList
 	 */
-	public List<T> getMessageList() {
+	public ContentListDto<T> getMessageList() {
 		return messageList;
 	}
 
@@ -83,22 +75,7 @@ public class ResponseServiceDto<T> implements GenericResponse {
 	 * @param messageList
 	 *            the messageList to set
 	 */
-	public void setMessageList(List<T> messageList) {
+	public void setMessageList(ContentListDto<T> messageList) {
 		this.messageList = messageList;
-	}
-
-	/**
-	 * @return the error
-	 */
-	public String getError() {
-		return error;
-	}
-
-	/**
-	 * @param error
-	 *            the error to set
-	 */
-	public void setError(String error) {
-		this.error = error;
 	}
 }
