@@ -16,7 +16,7 @@ Core libraries and dependencies for HTTP security using Oauth2. This library inc
        }
    }
    ```
-   If you want to change or use {@link JwtTokenStore} from the authorization server configuration, then you just need to override the methods in the **AuthorizationServerConfigurerSupport** class. You can look at this example for using {@link JwtTokenStore}.
+   If you want to change or use **JwtTokenStore** from the authorization server configuration, then you just need to override the methods in the **AuthorizationServerConfigurerSupport** class. You can look at this example for using **JwtTokenStore**.
    ```Java
    @Configuration
    @EnableAuthorizationServer
