@@ -1,4 +1,4 @@
-# Core Data Static
+# Core Data Transfer Object
 Core libraries and dependencies for all data transfer object.
 
 ## How to use it
