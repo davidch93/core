@@ -50,6 +50,9 @@ public class AuthorizationServerConfigurerSupport extends AuthorizationServerCon
 	@Autowired
 	protected SecurityDetailsService securityDetailsService;
 
+	@Autowired
+	protected AuthorizationSetting authorizationSetting;
+
 	/**
 	 * Bean of JDBC Client Details Service.
 	 * 

@@ -6,7 +6,7 @@ import java.io.FileOutputStream;
 import java.lang.reflect.Field;
 
 /**
- * Classes that provides function to manipulate Number.
+ * Classes that provides function to manipulate Object.
  * 
  * @author David.Christianto
  * @version 1.0.0

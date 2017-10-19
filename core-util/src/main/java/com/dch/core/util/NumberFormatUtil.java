@@ -5,7 +5,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 /**
- * Classes that provides function to manipulate Object.
+ * Classes that provides function to manipulate format number (currency).
  * 
  * @author David.Christianto
  * @version 1.0.0
