@@ -1,25 +1,19 @@
 package com.dch.core.security.oauth2;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.dch.core.datastatic.response.GenericResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
-import org.springframework.security.oauth2.provider.error.AbstractOAuth2SecurityExceptionHandler;
-import org.springframework.security.oauth2.provider.error.DefaultOAuth2ExceptionRenderer;
-import org.springframework.security.oauth2.provider.error.DefaultWebResponseExceptionTranslator;
-import org.springframework.security.oauth2.provider.error.OAuth2ExceptionRenderer;
-import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
+import org.springframework.security.oauth2.provider.error.*;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver;
 
-import com.dch.core.datastatic.response.GenericResponse;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Convenient base class containing utility methods and dependency setters for
@@ -27,95 +21,87 @@ import com.dch.core.datastatic.response.GenericResponse;
  * <p>
  * For more detail look at {@link AbstractOAuth2SecurityExceptionHandler}.
  * </p>
- * 
+ *
  * @author David.Christianto
  * @version 1.0.0
- * @since 1.0.0-SNAPSHOT
  * @updated Jun 11, 2017
+ * @since 1.0.0-SNAPSHOT
  */
 public abstract class AbstractRestSecurityExceptionHandler {
 
-	protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractRestSecurityExceptionHandler.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractRestSecurityExceptionHandler.class);
 
-	private WebResponseExceptionTranslator exceptionTranslator = new DefaultWebResponseExceptionTranslator();
-	private OAuth2ExceptionRenderer exceptionRenderer = new DefaultOAuth2ExceptionRenderer();
-	private HandlerExceptionResolver handlerExceptionResolver = new DefaultHandlerExceptionResolver();
+    private WebResponseExceptionTranslator exceptionTranslator = new DefaultWebResponseExceptionTranslator();
+    private OAuth2ExceptionRenderer exceptionRenderer = new DefaultOAuth2ExceptionRenderer();
+    private HandlerExceptionResolver handlerExceptionResolver = new DefaultHandlerExceptionResolver();
 
-	/**
-	 * Method used to handle errors during the authentication process in OAuth2.
-	 * 
-	 * @param request
-	 *            {@link HttpServletRequest} HTTP request.
-	 * @param response
-	 *            {@link HttpServletResponse} HTTP response.
-	 * @param authException
-	 *            {@link Exception} Authentication exception.
-	 * @throws IOException
-	 * @throws ServletException
-	 */
-	protected final void doHandle(HttpServletRequest request, HttpServletResponse response, Exception authException)
-			throws IOException, ServletException {
-		try {
-			LOGGER.error(authException.getMessage(), authException);
+    /**
+     * Method used to handle errors during the authentication process in OAuth2.
+     *
+     * @param request       {@link HttpServletRequest} HTTP request.
+     * @param response      {@link HttpServletResponse} HTTP response.
+     * @param authException {@link Exception} Authentication exception.
+     * @throws IOException
+     * @throws ServletException
+     */
+    protected final void doHandle(HttpServletRequest request, HttpServletResponse response, Exception authException)
+            throws IOException, ServletException {
+        try {
+            LOGGER.error(authException.getMessage(), authException);
 
-			ResponseEntity<OAuth2Exception> result = exceptionTranslator.translate(authException);
-			exceptionRenderer.handleHttpEntityResponse(enhanceResponse(result, authException),
-					new ServletWebRequest(request, response));
-			response.flushBuffer();
-		} catch (ServletException e) {
-			/*
-			 * Re-use some of the default Spring dispatcher behaviour - the
-			 * exception came from the filter chain and not from an MVC handler
-			 * so it won't be caught by the dispatcher (even if there is one)
-			 */
-			if (handlerExceptionResolver.resolveException(request, response, this, e) == null) {
-				throw e;
-			}
-		} catch (IOException e) {
-			throw e;
-		} catch (RuntimeException e) {
-			throw e;
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
+            ResponseEntity<OAuth2Exception> result = exceptionTranslator.translate(authException);
+            exceptionRenderer.handleHttpEntityResponse(enhanceResponse(result, authException),
+                    new ServletWebRequest(request, response));
+            response.flushBuffer();
+        } catch (ServletException e) {
+            /*
+             * Re-use some of the default Spring dispatcher behaviour - the
+             * exception came from the filter chain and not from an MVC handler
+             * so it won't be caught by the dispatcher (even if there is one)
+             */
+            if (handlerExceptionResolver.resolveException(request, response, this, e) == null) {
+                throw e;
+            }
+        } catch (IOException e) {
+            throw e;
+        } catch (RuntimeException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-	/**
-	 * Allow subclasses to manipulate the response before it is rendered.
-	 * 
-	 * @param response
-	 *            the response that was generated by the
-	 *            {@link #setExceptionTranslator(WebResponseExceptionTranslator)
-	 *            exception translator}.
-	 * @param authException
-	 *            the authentication exception that is being handled
-	 */
-	protected ResponseEntity<GenericResponse> enhanceResponse(ResponseEntity<OAuth2Exception> response,
-			Exception authException) {
-		return new ResponseEntity<GenericResponse>(null, response.getHeaders(), response.getStatusCode());
-	}
+    /**
+     * Allow subclasses to manipulate the response before it is rendered.
+     *
+     * @param response      the response that was generated by the
+     *                      {@link #setExceptionTranslator(WebResponseExceptionTranslator)
+     *                      exception translator}.
+     * @param authException the authentication exception that is being handled
+     */
+    protected ResponseEntity<GenericResponse> enhanceResponse(ResponseEntity<OAuth2Exception> response,
+                                                              Exception authException) {
+        return new ResponseEntity<GenericResponse>(null, response.getHeaders(), response.getStatusCode());
+    }
 
-	/**
-	 * @param exceptionTranslator
-	 *            the exceptionTranslator to set
-	 */
-	public void setExceptionTranslator(WebResponseExceptionTranslator exceptionTranslator) {
-		this.exceptionTranslator = exceptionTranslator;
-	}
+    /**
+     * @param exceptionTranslator the exceptionTranslator to set
+     */
+    public void setExceptionTranslator(WebResponseExceptionTranslator exceptionTranslator) {
+        this.exceptionTranslator = exceptionTranslator;
+    }
 
-	/**
-	 * @param exceptionRenderer
-	 *            the exceptionRenderer to set
-	 */
-	public void setExceptionRenderer(OAuth2ExceptionRenderer exceptionRenderer) {
-		this.exceptionRenderer = exceptionRenderer;
-	}
+    /**
+     * @param exceptionRenderer the exceptionRenderer to set
+     */
+    public void setExceptionRenderer(OAuth2ExceptionRenderer exceptionRenderer) {
+        this.exceptionRenderer = exceptionRenderer;
+    }
 
-	/**
-	 * @param handlerExceptionResolver
-	 *            the handlerExceptionResolver to set
-	 */
-	public void setHandlerExceptionResolver(HandlerExceptionResolver handlerExceptionResolver) {
-		this.handlerExceptionResolver = handlerExceptionResolver;
-	}
+    /**
+     * @param handlerExceptionResolver the handlerExceptionResolver to set
+     */
+    public void setHandlerExceptionResolver(HandlerExceptionResolver handlerExceptionResolver) {
+        this.handlerExceptionResolver = handlerExceptionResolver;
+    }
 }

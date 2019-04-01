@@ -1,33 +1,32 @@
 package com.dch.core.security.jwt.auth.token.extractor;
 
+import com.dch.core.util.TextUtil;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.stereotype.Component;
-
-import com.dch.core.util.TextUtil;
 
 /**
  * An implementation of {@link TokenExtractor} extracts token from
  * Authorization: Bearer scheme and provide your custom implementation that will
  * for example extract token from URL
- * 
+ *
  * @author David.Christianto
  * @version 1.0.0
- * @since 1.0.0-SNAPSHOT
  * @updated May 20, 2017
+ * @since 1.0.0-SNAPSHOT
  */
 @Component
 public class JwtTokenExtractor implements TokenExtractor {
 
-	public static final String HEADER_PREFIX = "Bearer ";
+    public static final String HEADER_PREFIX = "Bearer ";
 
-	@Override
-	public String extract(String header) {
-		if (TextUtil.isEmpty(header))
-			throw new AuthenticationServiceException("Authorization header cannot be blank!");
+    @Override
+    public String extract(String header) {
+        if (TextUtil.isEmpty(header))
+            throw new AuthenticationServiceException("Authorization header cannot be blank!");
 
-		if (header.length() < HEADER_PREFIX.length())
-			throw new AuthenticationServiceException("Invalid authorization header size.");
+        if (header.length() < HEADER_PREFIX.length())
+            throw new AuthenticationServiceException("Invalid authorization header size.");
 
-		return header.substring(HEADER_PREFIX.length(), header.length());
-	}
+        return header.substring(HEADER_PREFIX.length(), header.length());
+    }
 }

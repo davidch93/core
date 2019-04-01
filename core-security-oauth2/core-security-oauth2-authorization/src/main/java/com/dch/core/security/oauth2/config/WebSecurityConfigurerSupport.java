@@ -1,5 +1,8 @@
 package com.dch.core.security.oauth2.config;
 
+import com.dch.core.datastatic.WebSecuritySupport;
+import com.dch.core.security.oauth2.RestAuthenticationEntryPoint;
+import com.dch.core.security.oauth2.service.SecurityDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,34 +14,30 @@ import org.springframework.security.config.annotation.web.configurers.Expression
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
-import com.dch.core.datastatic.WebSecuritySupport;
-import com.dch.core.security.oauth2.RestAuthenticationEntryPoint;
-import com.dch.core.security.oauth2.service.SecurityDetailsService;
-
 /**
  * Web security configurer that extends {@link WebSecurityConfigurerAdapter} to
  * provide security configuration support.
- * 
+ *
  * @author David.Christianto
  * @version 1.0.0
- * @since 1.0.0-SNAPSHOT
  * @updated Jun 9, 2017
+ * @since 1.0.0-SNAPSHOT
  */
 @ComponentScan("com.dch.core.security.oauth2")
 public class WebSecurityConfigurerSupport extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	protected SecurityDetailsService securityDetailsService;
+    @Autowired
+    protected SecurityDetailsService securityDetailsService;
 
-	@Override
-	@Bean
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-	}
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
-	@Override
-	protected void configure(final HttpSecurity http) throws Exception {
-		// @formatter:off
+    @Override
+    protected void configure(final HttpSecurity http) throws Exception {
+        // @formatter:off
 		ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests = http
 			.csrf().disable()
 			.exceptionHandling()
@@ -53,30 +52,30 @@ public class WebSecurityConfigurerSupport extends WebSecurityConfigurerAdapter {
 		authorizeRequests = configureAuthorization(authorizeRequests)
 			.anyRequest().authenticated();
 		// @formatter:on
-	}
+    }
 
-	/**
-	 * Method used to get default authentication entry point.
-	 * 
-	 * @return {@link RestAuthenticationEntryPoint}
-	 */
-	protected AuthenticationEntryPoint authenticationEntryPoint() {
-		return new RestAuthenticationEntryPoint(securityDetailsService);
-	}
+    /**
+     * Method used to get default authentication entry point.
+     *
+     * @return {@link RestAuthenticationEntryPoint}
+     */
+    protected AuthenticationEntryPoint authenticationEntryPoint() {
+        return new RestAuthenticationEntryPoint(securityDetailsService);
+    }
 
-	/**
-	 * Method used to add custom authorization configurations. By default do
-	 * nothing.
-	 * 
-	 * @param authorizeRequests
-	 *            {@link ExpressionUrlAuthorizationConfigurer}&lt;{@link HttpSecurity}&gt;.{@link ExpressionInterceptUrlRegistry}
-	 * @return {@link ExpressionUrlAuthorizationConfigurer}&lt;{@link HttpSecurity}&gt;.{@link ExpressionInterceptUrlRegistry}
-	 * @throws Exception
-	 *             if there are errors during configure authorization.
-	 */
-	protected ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry configureAuthorization(
-			ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests)
-			throws Exception {
-		return authorizeRequests;
-	}
+    /**
+     * Method used to add custom authorization configurations. By default do
+     * nothing.
+     *
+     * @param authorizeRequests {@link ExpressionUrlAuthorizationConfigurer}&lt;{@link HttpSecurity}&gt;
+     *                                                                      .{@link ExpressionInterceptUrlRegistry}
+     * @return {@link ExpressionUrlAuthorizationConfigurer}&lt;{@link HttpSecurity}&gt;
+     * .{@link ExpressionInterceptUrlRegistry}
+     * @throws Exception if there are errors during configure authorization.
+     */
+    protected ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry configureAuthorization(
+            ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests)
+            throws Exception {
+        return authorizeRequests;
+    }
 }

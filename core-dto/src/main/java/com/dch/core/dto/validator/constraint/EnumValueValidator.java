@@ -1,53 +1,51 @@
 package com.dch.core.dto.validator.constraint;
 
+import com.dch.core.dto.validator.EnumValue;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import com.dch.core.dto.validator.EnumValue;
-
 /**
  * Checks that a given string is valid value from Enum class.
- * 
+ *
  * @author David.Christianto
  * @version 1.0.0
- * @since 1.0.0-SNAPSHOT
  * @updated Jul 27, 2017
+ * @since 1.0.0-SNAPSHOT
  */
 public class EnumValueValidator implements ConstraintValidator<EnumValue, String> {
 
-	private EnumValue annotation;
+    private EnumValue annotation;
 
-	@Override
-	public void initialize(EnumValue annotation) {
-		this.annotation = annotation;
-	}
+    @Override
+    public void initialize(EnumValue annotation) {
+        this.annotation = annotation;
+    }
 
-	@Override
-	public boolean isValid(String value, ConstraintValidatorContext context) {
-		if (value == null || value.length() == 0)
-			return false;
+    @Override
+    public boolean isValid(String value, ConstraintValidatorContext context) {
+        if (value == null || value.length() == 0)
+            return false;
 
-		Object[] enumValues = this.annotation.enumClass().getEnumConstants();
-		return enumValues != null ? checkEnumValues(enumValues, value) : false;
-	}
+        Object[] enumValues = this.annotation.enumClass().getEnumConstants();
+        return enumValues != null ? checkEnumValues(enumValues, value) : false;
+    }
 
-	/**
-	 * Method used to check if value for validation exist in enum class.
-	 * 
-	 * @param enumValues
-	 *            {@link Object}[] List of value in enum class.
-	 * @param value
-	 *            {@link String} Value for validation.
-	 * @return {@link boolean} true if value exist in enum class and vice versa.
-	 */
-	private boolean checkEnumValues(Object[] enumValues, String value) {
-		for (Object enumValue : enumValues) {
-			if (value.equals(enumValue.toString())
-					|| (this.annotation.ignoreCase() && value.equalsIgnoreCase(enumValue.toString()))) {
-				return true;
-			}
-		}
+    /**
+     * Method used to check if value for validation exist in enum class.
+     *
+     * @param enumValues {@link Object}[] List of value in enum class.
+     * @param value      {@link String} Value for validation.
+     * @return {@link boolean} true if value exist in enum class and vice versa.
+     */
+    private boolean checkEnumValues(Object[] enumValues, String value) {
+        for (Object enumValue : enumValues) {
+            if (value.equals(enumValue.toString())
+                    || (this.annotation.ignoreCase() && value.equalsIgnoreCase(enumValue.toString()))) {
+                return true;
+            }
+        }
 
-		return false;
-	}
+        return false;
+    }
 }

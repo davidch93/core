@@ -6,22 +6,22 @@ import org.springframework.security.oauth2.provider.authentication.BearerTokenEx
 
 /**
  * Class that used to configure custom token extractor.
- * 
+ *
  * @author David.Christianto
  * @version 1.0.0
- * @since 1.0.0-SNAPSHOT
  * @updated Jun 12, 2017
+ * @since 1.0.0-SNAPSHOT
  */
 @Configuration
 public class TokenExtractorConfig {
 
-	/**
-	 * Bean of Bearer Token Extractor.
-	 * 
-	 * @return {@link BearerTokenExtractor}
-	 */
-	@Bean
-	public BearerTokenExtractor tokenExtractor() {
-		return new BearerTokenExtractor();
-	}
+    /**
+     * Bean of Bearer Token Extractor.
+     *
+     * @return {@link BearerTokenExtractor}
+     */
+    @Bean
+    public BearerTokenExtractor tokenExtractor() {
+        return new BearerTokenExtractor();
+    }
 }

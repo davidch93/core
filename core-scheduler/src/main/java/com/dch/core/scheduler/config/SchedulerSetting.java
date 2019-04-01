@@ -7,91 +7,87 @@ import org.springframework.context.annotation.PropertySource;
 /**
  * Class property source that contains parameter setting of Scheduler and
  * executor configuration.
- * 
+ *
  * @author David.Christianto
  * @version 1.0.0
- * @since 1.0.0-SNAPSHOT
  * @updated Jun 20, 2017
+ * @since 1.0.0-SNAPSHOT
  */
 @Configuration
 @PropertySource("classpath:config/scheduler/core-scheduler-config.properties")
 @ConfigurationProperties(prefix = "core.scheduler")
 public class SchedulerSetting {
 
-	private String identityPrefix = "SCHEDULER";
-	private SchedulerExecutorSetting executor;
+    private String identityPrefix = "SCHEDULER";
+    private SchedulerExecutorSetting executor;
 
-	/**
-	 * @return the identityPrefix
-	 */
-	public String getIdentityPrefix() {
-		return identityPrefix;
-	}
+    /**
+     * @return the identityPrefix
+     */
+    public String getIdentityPrefix() {
+        return identityPrefix;
+    }
 
-	/**
-	 * @param identityPrefix
-	 *            the identityPrefix to set
-	 */
-	public void setIdentityPrefix(String identityPrefix) {
-		this.identityPrefix = identityPrefix;
-	}
+    /**
+     * @param identityPrefix the identityPrefix to set
+     */
+    public void setIdentityPrefix(String identityPrefix) {
+        this.identityPrefix = identityPrefix;
+    }
 
-	/**
-	 * @return the executor
-	 */
-	public SchedulerExecutorSetting getExecutor() {
-		return executor;
-	}
+    /**
+     * @return the executor
+     */
+    public SchedulerExecutorSetting getExecutor() {
+        return executor;
+    }
 
-	/**
-	 * @param executor
-	 *            the executor to set
-	 */
-	public void setExecutor(SchedulerExecutorSetting executor) {
-		this.executor = executor;
-	}
+    /**
+     * @param executor the executor to set
+     */
+    public void setExecutor(SchedulerExecutorSetting executor) {
+        this.executor = executor;
+    }
 
-	/**
-	 * Class that contains parameter setting of Scheduler Executor configuration.
-	 * 
-	 * @author David.Christianto
-	 * @version 1.0.0-SNAPSHOT
-	 * @since 1.0.0-SNAPSHOT
-	 * @updated Jun 16, 2017
-	 */
-	public static class SchedulerExecutorSetting {
+    /**
+     * Class that contains parameter setting of Scheduler Executor configuration.
+     *
+     * @author David.Christianto
+     * @version 1.0.0-SNAPSHOT
+     * @updated Jun 16, 2017
+     * @since 1.0.0-SNAPSHOT
+     */
+    public static class SchedulerExecutorSetting {
 
-		private int poolSize;
-		private String threadNamePrefix;
+        private int poolSize;
+        private String threadNamePrefix;
 
-		/**
-		 * @return the poolSize
-		 */
-		public int getPoolSize() {
-			return poolSize;
-		}
+        /**
+         * @return the poolSize
+         */
+        public int getPoolSize() {
+            return poolSize;
+        }
 
-		/**
-		 * @param poolSize
-		 *            the poolSize to set
-		 */
-		public void setPoolSize(int poolSize) {
-			this.poolSize = poolSize;
-		}
+        /**
+         * @param poolSize the poolSize to set
+         */
+        public void setPoolSize(int poolSize) {
+            this.poolSize = poolSize;
+        }
 
-		/**
-		 * @return the threadNamePrefix
-		 */
-		public String getThreadNamePrefix() {
-			return threadNamePrefix;
-		}
+        /**
+         * @return the threadNamePrefix
+         */
+        public String getThreadNamePrefix() {
+            return threadNamePrefix;
+        }
 
-		/**
-		 * @param threadNamePrefix
-		 *            the threadNamePrefix to set
-		 */
-		public void setThreadNamePrefix(String threadNamePrefix) {
-			this.threadNamePrefix = threadNamePrefix;
-		}
-	}
+        /**
+         * @param threadNamePrefix the threadNamePrefix to set
+         */
+        public void setThreadNamePrefix(String threadNamePrefix) {
+            this.threadNamePrefix = threadNamePrefix;
+        }
+    }
 }

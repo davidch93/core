@@ -11,18 +11,18 @@ import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecur
  * {@link GlobalMethodSecurityConfiguration} to enabled OAuth2 expression
  * handler. For more information look at
  * {@link OAuth2MethodSecurityExpressionHandler}.
- * 
+ *
  * @author David.Christianto
  * @version 1.0.0
- * @since 1.0.0-SNAPSHOT
  * @updated Jun 13, 2017
+ * @since 1.0.0-SNAPSHOT
  */
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true, proxyTargetClass = true)
 public class OAuth2GlobalMethodSecurityConfiguration extends GlobalMethodSecurityConfiguration {
 
-	@Override
-	protected MethodSecurityExpressionHandler createExpressionHandler() {
-		return new OAuth2MethodSecurityExpressionHandler();
-	}
+    @Override
+    protected MethodSecurityExpressionHandler createExpressionHandler() {
+        return new OAuth2MethodSecurityExpressionHandler();
+    }
 }

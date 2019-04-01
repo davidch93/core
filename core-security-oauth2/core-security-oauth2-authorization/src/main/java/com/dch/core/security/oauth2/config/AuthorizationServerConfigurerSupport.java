@@ -1,7 +1,8 @@
 package com.dch.core.security.oauth2.config;
 
-import javax.sql.DataSource;
-
+import com.dch.core.security.oauth2.RestAccessDeniedHandler;
+import com.dch.core.security.oauth2.RestAuthenticationEntryPoint;
+import com.dch.core.security.oauth2.service.SecurityDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,9 +19,7 @@ import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
-import com.dch.core.security.oauth2.RestAccessDeniedHandler;
-import com.dch.core.security.oauth2.RestAuthenticationEntryPoint;
-import com.dch.core.security.oauth2.service.SecurityDetailsService;
+import javax.sql.DataSource;
 
 /**
  * The server configuration that used to provide implementations of the client
@@ -29,103 +28,103 @@ import com.dch.core.security.oauth2.service.SecurityDetailsService;
  * {@link JdbcTokenStore} and extends
  * {@link AuthorizationServerConfigurerAdapter} to provide authorization server
  * configuration support.
- * 
+ *
  * @author David.Christianto
  * @version 1.0.0
- * @since 1.0.0-SNAPSHOT
  * @updated May 31, 2017
+ * @since 1.0.0-SNAPSHOT
  */
 @ComponentScan("com.cnx.core.security.oauth2")
 public class AuthorizationServerConfigurerSupport extends AuthorizationServerConfigurerAdapter {
 
-	@Autowired
-	protected AuthenticationManager authenticationManager;
+    @Autowired
+    protected AuthenticationManager authenticationManager;
 
-	@Autowired
-	protected DataSource dataSource;
+    @Autowired
+    protected DataSource dataSource;
 
-	@Autowired
-	protected UserDetailsService userDetailsService;
+    @Autowired
+    protected UserDetailsService userDetailsService;
 
-	@Autowired
-	protected SecurityDetailsService securityDetailsService;
+    @Autowired
+    protected SecurityDetailsService securityDetailsService;
 
-	@Autowired
-	protected AuthorizationSetting authorizationSetting;
+    @Autowired
+    protected AuthorizationSetting authorizationSetting;
 
-	/**
-	 * Bean of JDBC Client Details Service.
-	 * 
-	 * @return {@link JdbcClientDetailsService}
-	 */
-	@Bean
-	public JdbcClientDetailsService clientDetailsService() {
-		return new JdbcClientDetailsService(dataSource);
-	}
+    /**
+     * Bean of JDBC Client Details Service.
+     *
+     * @return {@link JdbcClientDetailsService}
+     */
+    @Bean
+    public JdbcClientDetailsService clientDetailsService() {
+        return new JdbcClientDetailsService(dataSource);
+    }
 
-	/**
-	 * Bean of JDBC Token Store.
-	 * 
-	 * @return {@link TokenStore}
-	 */
-	@Bean
-	public TokenStore tokenStore() {
-		return new JdbcTokenStore(dataSource);
-	}
+    /**
+     * Bean of JDBC Token Store.
+     *
+     * @return {@link TokenStore}
+     */
+    @Bean
+    public TokenStore tokenStore() {
+        return new JdbcTokenStore(dataSource);
+    }
 
-	@Override
-	public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-		// @formatter:off
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
+        // @formatter:off
 		oauthServer
 			.authenticationEntryPoint(authenticationEntryPoint())
 			.accessDeniedHandler(accessDeniedHandler())
 			.checkTokenAccess("isAuthenticated()")
 			.tokenKeyAccess("permitAll()");
 		// @formatter:on
-	}
+    }
 
-	@Override
-	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		// @formatter:off
+    @Override
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        // @formatter:off
 		clients.withClientDetails(clientDetailsService());
 		// @formatter:on
-	}
+    }
 
-	@Override
-	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		// @formatter:off
+    @Override
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        // @formatter:off
 		endpoints
 			.tokenStore(tokenStore())
 			.tokenEnhancer(tokenEnhancerChain())
 			.authenticationManager(authenticationManager)
 			.userDetailsService(userDetailsService);
 		// @formatter:on
-	}
+    }
 
-	/**
-	 * Method used to get default authentication entry point.
-	 * 
-	 * @return {@link RestAuthenticationEntryPoint}
-	 */
-	protected AuthenticationEntryPoint authenticationEntryPoint() {
-		return new RestAuthenticationEntryPoint(securityDetailsService);
-	}
+    /**
+     * Method used to get default authentication entry point.
+     *
+     * @return {@link RestAuthenticationEntryPoint}
+     */
+    protected AuthenticationEntryPoint authenticationEntryPoint() {
+        return new RestAuthenticationEntryPoint(securityDetailsService);
+    }
 
-	/**
-	 * Method used to get default access denied handler.
-	 * 
-	 * @return {@link RestAccessDeniedHandler}
-	 */
-	protected AccessDeniedHandler accessDeniedHandler() {
-		return new RestAccessDeniedHandler();
-	}
+    /**
+     * Method used to get default access denied handler.
+     *
+     * @return {@link RestAccessDeniedHandler}
+     */
+    protected AccessDeniedHandler accessDeniedHandler() {
+        return new RestAccessDeniedHandler();
+    }
 
-	/**
-	 * Method used to get custom token using token enhancer.
-	 * 
-	 * @return {@link TokenEnhancerChain}
-	 */
-	protected TokenEnhancerChain tokenEnhancerChain() {
-		return new TokenEnhancerChain();
-	}
+    /**
+     * Method used to get custom token using token enhancer.
+     *
+     * @return {@link TokenEnhancerChain}
+     */
+    protected TokenEnhancerChain tokenEnhancerChain() {
+        return new TokenEnhancerChain();
+    }
 }

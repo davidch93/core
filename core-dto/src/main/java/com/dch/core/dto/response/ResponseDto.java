@@ -1,147 +1,141 @@
 package com.dch.core.dto.response;
 
-import java.util.Date;
-
+import com.dch.core.datastatic.response.GenericResponse;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.dch.core.datastatic.response.GenericResponse;
+
+import java.util.Date;
 
 /**
  * Class that defined response message from server and the return type should be
  * written straight to the HTTP response body.
- * 
+ *
  * @author David.Christianto
  * @version 1.0.0
- * @since 1.0.0-SNAPSHOT
  * @updated Apr 23, 2017
+ * @since 1.0.0-SNAPSHOT
  */
 @JsonInclude(Include.NON_NULL)
 public class ResponseDto implements GenericResponse {
 
-	private Date timestamp;
-	private Object data;
-	private ResponseStatusDto status;
+    private Date timestamp;
+    private Object data;
+    private ResponseStatusDto status;
 
-	public ResponseDto() {
-	}
+    public ResponseDto() {
+    }
 
-	public ResponseDto(Date timestamp, Object data, ResponseStatusDto status) {
-		this.timestamp = timestamp;
-		this.data = data;
-		this.status = status;
-	}
+    public ResponseDto(Date timestamp, Object data, ResponseStatusDto status) {
+        this.timestamp = timestamp;
+        this.data = data;
+        this.status = status;
+    }
 
-	/**
-	 * @return the timestamp
-	 */
-	public Date getTimestamp() {
-		return timestamp;
-	}
+    /**
+     * @return the timestamp
+     */
+    public Date getTimestamp() {
+        return timestamp;
+    }
 
-	/**
-	 * @param timestamp
-	 *            the timestamp to set
-	 */
-	public void setTimestamp(Date timestamp) {
-		this.timestamp = timestamp;
-	}
+    /**
+     * @param timestamp the timestamp to set
+     */
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
 
-	/**
-	 * @return the data
-	 */
-	public Object getData() {
-		return data;
-	}
+    /**
+     * @return the data
+     */
+    public Object getData() {
+        return data;
+    }
 
-	/**
-	 * @param data
-	 *            the data to set
-	 */
-	public void setData(Object data) {
-		this.data = data;
-	}
+    /**
+     * @param data the data to set
+     */
+    public void setData(Object data) {
+        this.data = data;
+    }
 
-	/**
-	 * @return the status
-	 */
-	public ResponseStatusDto getStatus() {
-		return status;
-	}
+    /**
+     * @return the status
+     */
+    public ResponseStatusDto getStatus() {
+        return status;
+    }
 
-	/**
-	 * @param status
-	 *            the status to set
-	 */
-	public void setStatus(ResponseStatusDto status) {
-		this.status = status;
-	}
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(ResponseStatusDto status) {
+        this.status = status;
+    }
 
-	/**
-	 * Class that define response status from service.
-	 * 
-	 * @author David.Christianto
-	 * @version 1.0.0-SNAPSHOT
-	 * @since 1.0.0-SNAPSHOT
-	 * @updated Apr 23, 2017
-	 */
-	public static class ResponseStatusDto {
+    /**
+     * Class that define response status from service.
+     *
+     * @author David.Christianto
+     * @version 1.0.0-SNAPSHOT
+     * @updated Apr 23, 2017
+     * @since 1.0.0-SNAPSHOT
+     */
+    public static class ResponseStatusDto {
 
-		private String code;
-		private String type;
-		private String message;
+        private String code;
+        private String type;
+        private String message;
 
-		public ResponseStatusDto() {
-		}
+        public ResponseStatusDto() {
+        }
 
-		public ResponseStatusDto(String code, String type, String message) {
-			this.code = code;
-			this.type = type;
-			this.message = message;
-		}
+        public ResponseStatusDto(String code, String type, String message) {
+            this.code = code;
+            this.type = type;
+            this.message = message;
+        }
 
-		/**
-		 * @return the code
-		 */
-		public String getCode() {
-			return code;
-		}
+        /**
+         * @return the code
+         */
+        public String getCode() {
+            return code;
+        }
 
-		/**
-		 * @param code
-		 *            the code to set
-		 */
-		public void setCode(String code) {
-			this.code = code;
-		}
+        /**
+         * @param code the code to set
+         */
+        public void setCode(String code) {
+            this.code = code;
+        }
 
-		/**
-		 * @return the type
-		 */
-		public String getType() {
-			return type;
-		}
+        /**
+         * @return the type
+         */
+        public String getType() {
+            return type;
+        }
 
-		/**
-		 * @param type
-		 *            the type to set
-		 */
-		public void setType(String type) {
-			this.type = type;
-		}
+        /**
+         * @param type the type to set
+         */
+        public void setType(String type) {
+            this.type = type;
+        }
 
-		/**
-		 * @return the message
-		 */
-		public String getMessage() {
-			return message;
-		}
+        /**
+         * @return the message
+         */
+        public String getMessage() {
+            return message;
+        }
 
-		/**
-		 * @param message
-		 *            the message to set
-		 */
-		public void setMessage(String message) {
-			this.message = message;
-		}
-	}
+        /**
+         * @param message the message to set
+         */
+        public void setMessage(String message) {
+            this.message = message;
+        }
+    }
 }

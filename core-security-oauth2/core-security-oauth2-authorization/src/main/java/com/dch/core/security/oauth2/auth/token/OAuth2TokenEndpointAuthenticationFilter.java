@@ -1,14 +1,6 @@
 package com.dch.core.security.oauth2.auth.token;
 
-import java.io.IOException;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.dch.core.security.oauth2.service.SecurityDetailsService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
@@ -17,7 +9,13 @@ import org.springframework.security.oauth2.provider.endpoint.TokenEndpointAuthen
 import org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
-import com.dch.core.security.oauth2.service.SecurityDetailsService;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Custom configuration of {@link TokenEndpointAuthenticationFilter}. This
@@ -25,56 +23,53 @@ import com.dch.core.security.oauth2.service.SecurityDetailsService;
  * that the <b>allowFormAuthenticationForClients</b> parameter is true. This
  * filter can also use custom {@link OAuth2AuthenticationEntryPoint} and
  * {@link OAuth2RequestFactory}.
- * 
+ *
  * @author David.Christianto
  * @version 1.0.0
- * @since 1.0.0-SNAPSHOT
  * @updated Jun 12, 2017
+ * @since 1.0.0-SNAPSHOT
  */
 public class OAuth2TokenEndpointAuthenticationFilter extends TokenEndpointAuthenticationFilter {
 
-	private AuthenticationEntryPoint authenticationEntryPoint;
-	private SecurityDetailsService securityDetailsService;
-	
-	/**
-	 * Constructs a {@code OAuth2TokenEndpointAuthenticationFilter} with the
-	 * specified authenticationManager, oAuth2RequestFactory,
-	 * securityDetailsService, and authenticationEntryPoint.
-	 * 
-	 * @param authenticationManager
-	 *            {@link AuthenticationManager}
-	 * @param oAuth2RequestFactory
-	 *            {@link OAuth2RequestFactory}
-	 * @param authenticationEntryPoint
-	 *            {@link AuthenticationEntryPoint}
-	 * @param securityDetailsService
-	 *            {@link SecurityDetailsService}
-	 */
-	public OAuth2TokenEndpointAuthenticationFilter(AuthenticationManager authenticationManager,
-			OAuth2RequestFactory oAuth2RequestFactory, AuthenticationEntryPoint authenticationEntryPoint,
-			SecurityDetailsService securityDetailsService) {
-		super(authenticationManager, oAuth2RequestFactory);
-		setAuthenticationEntryPoint(authenticationEntryPoint);
+    private AuthenticationEntryPoint authenticationEntryPoint;
+    private SecurityDetailsService securityDetailsService;
 
-		this.authenticationEntryPoint = authenticationEntryPoint;
-		this.securityDetailsService = securityDetailsService;
-	}
+    /**
+     * Constructs a {@code OAuth2TokenEndpointAuthenticationFilter} with the
+     * specified authenticationManager, oAuth2RequestFactory,
+     * securityDetailsService, and authenticationEntryPoint.
+     *
+     * @param authenticationManager    {@link AuthenticationManager}
+     * @param oAuth2RequestFactory     {@link OAuth2RequestFactory}
+     * @param authenticationEntryPoint {@link AuthenticationEntryPoint}
+     * @param securityDetailsService   {@link SecurityDetailsService}
+     */
+    public OAuth2TokenEndpointAuthenticationFilter(AuthenticationManager authenticationManager,
+                                                   OAuth2RequestFactory oAuth2RequestFactory,
+                                                   AuthenticationEntryPoint authenticationEntryPoint,
+                                                   SecurityDetailsService securityDetailsService) {
+        super(authenticationManager, oAuth2RequestFactory);
+        setAuthenticationEntryPoint(authenticationEntryPoint);
 
-	@Override
-	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
-			throws IOException, ServletException {
-		try {
-			if (securityDetailsService.validateRequest((HttpServletRequest) req))
-				super.doFilter(req, res, chain);
-		} catch (AuthenticationException ex) {
-			authenticationEntryPoint.commence((HttpServletRequest) req, (HttpServletResponse) res, ex);
-			onUnsuccessfulAuthentication((HttpServletRequest) req, (HttpServletResponse) res, ex);
-		}
-	}
+        this.authenticationEntryPoint = authenticationEntryPoint;
+        this.securityDetailsService = securityDetailsService;
+    }
 
-	@Override
-	protected void onUnsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-			AuthenticationException failed) throws IOException {
-		// TODO Add your custom unsuccessful authentication or using OAuth2AuthenticationEntryPoint.
-	}
+    @Override
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
+            throws IOException, ServletException {
+        try {
+            if (securityDetailsService.validateRequest((HttpServletRequest) req))
+                super.doFilter(req, res, chain);
+        } catch (AuthenticationException ex) {
+            authenticationEntryPoint.commence((HttpServletRequest) req, (HttpServletResponse) res, ex);
+            onUnsuccessfulAuthentication((HttpServletRequest) req, (HttpServletResponse) res, ex);
+        }
+    }
+
+    @Override
+    protected void onUnsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                                AuthenticationException failed) throws IOException {
+        // TODO Add your custom unsuccessful authentication or using OAuth2AuthenticationEntryPoint.
+    }
 }
