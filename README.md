@@ -1,5 +1,5 @@
 # Core Project
-Core libraries and dependencies for spring-boot-based and contains model class at a higher level of abstraction. This project based on Spring 4 and Java 8.
+Core libraries and dependencies for spring-boot-based and contains model class at a higher level of abstraction. This project based on Spring and Java 8.
 
 ## Main Features
 1. [Core Async](https://github.com/davidch93/core/tree/master/core-async#core-async)<br/>

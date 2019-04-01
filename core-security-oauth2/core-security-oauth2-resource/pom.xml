@@ -5,12 +5,13 @@
     <parent>
         <groupId>com.dch.core</groupId>
         <artifactId>core-security-oauth2</artifactId>
-        <version>1.0.0</version>
+        <version>2.0.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>core-security-oauth2-resource</artifactId>
     <name>Core Security Oauth2 Resource</name>
-    <description>Core libraries and dependencies for HTTP security using Oauth2. This library is only used as resource
+    <description>
+        Core libraries and dependencies for HTTP security using Oauth2. This library is only used as resource
         server configuration.
     </description>
 
