@@ -7,3 +7,4 @@ Core libraries and dependencies for all data transfer object.
    - `BaseDTO` define common field that exist in every data transfer object.
    - Response DTO that defined common response message from server.
    - Any common validator using JSR-303.
+   - `ValidatorService`: Service used to validate object. Extends this interface if you want to create custom validator services.

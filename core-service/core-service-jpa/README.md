@@ -6,4 +6,3 @@ Core libraries and dependencies for generic service using JPA.
 2. You can used any of class that you need it. Main features of this libraries is:
    - `GenericService`: Generic Manager that talks to GenericDao to CRUD POJOs. Extend this interface if you want typesafe (no casting necessary) managers for your domain objects.
    - `GenericTreeService`: `GenericService` with some tree service.
-   - `BaseValidatorService`: Service used to validate object. Extends this interface if you want to create custom validator services.
