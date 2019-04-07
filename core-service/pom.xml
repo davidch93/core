@@ -9,18 +9,20 @@
     </parent>
 
     <artifactId>core-service</artifactId>
+    <packaging>pom</packaging>
     <name>Core Service</name>
-    <description>Core libraries and dependencies for generic service and controller.</description>
+    <description>Core libraries and dependencies for general service.</description>
 
     <dependencies>
         <!-- Core -->
         <dependency>
             <groupId>com.dch.core</groupId>
-            <artifactId>core-data-access</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.dch.core</groupId>
             <artifactId>core-data-static</artifactId>
         </dependency>
     </dependencies>
+
+    <modules>
+        <module>core-service-cassandra</module>
+        <module>core-service-jpa</module>
+    </modules>
 </project>

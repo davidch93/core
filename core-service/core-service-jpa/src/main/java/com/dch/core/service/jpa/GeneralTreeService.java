@@ -1,4 +1,4 @@
-package com.dch.core.service;
+package com.dch.core.service.jpa;
 
 import com.dch.core.dataaccess.TreeBaseEntity;
 
@@ -13,7 +13,7 @@ import java.util.Set;
  * @param <ID> the primary key for that type.
  * @author David.Christianto
  * @version 2.0.0
- * @see com.dch.core.service.GeneralService
+ * @see GeneralService
  * @since 1.0.0
  */
 public interface GeneralTreeService<T extends TreeBaseEntity<T>, ID extends Serializable>

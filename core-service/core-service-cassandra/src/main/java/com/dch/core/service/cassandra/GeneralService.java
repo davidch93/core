@@ -1,10 +1,9 @@
-package com.dch.core.service;
+package com.dch.core.service.cassandra;
 
-import com.dch.core.dataaccess.BaseEntity;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * General Manager that talks to GeneralDao to CRUD POJOs. Extend this interface
@@ -14,33 +13,32 @@ import java.util.Optional;
  * @param <ID> the primary key for that type.
  * @author david.christianto
  * @version 2.0.0
- * @since 1.0.0
  */
-public interface GeneralService<T extends BaseEntity, ID extends Serializable> {
+public interface GeneralService<T, ID extends Serializable> {
 
     /**
      * Generic method to save an object.
      *
      * @param entity {@link T} the object to save.
-     * @return the updated object
+     * @return {@link Mono} the updated object
      */
-    Optional<T> save(T entity);
+    Mono<T> save(T entity);
 
     /**
      * Generic method to update an object.
      *
      * @param entity {@link T} the object to save.
-     * @return the updated object
+     * @return {@link Mono} the updated object
      */
-    Optional<T> update(T entity);
+    Mono<T> update(T entity);
 
     /**
      * Checks for existence of an object of type T using the id arg.
      *
      * @param id the identifier (primary key) of the object to get
-     * @return - true if it exists, false if it doesn't
+     * @return {@code true} if it exists, false if it doesn't
      */
-    boolean exists(ID id);
+    Mono<Boolean> exists(ID id);
 
     /**
      * General method to get an object based on class and identifier. An
@@ -48,43 +46,31 @@ public interface GeneralService<T extends BaseEntity, ID extends Serializable> {
      * found.
      *
      * @param id the identifier (primary key) of the object to get
-     * @return a populated object
+     * @return {@link Mono} a populated object
      */
-    Optional<T> get(ID id);
+    Mono<T> get(ID id);
 
     /**
      * General method used to get all objects of a particular type. This is the
      * same as lookup up all rows in a table.
      *
-     * @return List of populated objects
+     * @return {@link Flux} List of populated objects
      */
-    List<T> getAll();
+    Flux<T> getAll();
 
     /**
      * General method to delete an object based on class and id
      *
      * @param id the identifier (primary key) of the object to delete
+     * @return {@link Mono} void.
      */
-    void delete(ID id);
+    Mono<Void> delete(ID id);
 
     /**
      * General method to delete an object
      *
      * @param entity the object to delete
+     * @return {@link Mono} void.
      */
-    void delete(T entity);
-
-    /**
-     * General method to remove an object based on class and id
-     *
-     * @param id the identifier (primary key) of the object to remove
-     */
-    void remove(ID id);
-
-    /**
-     * General method to remove an object
-     *
-     * @param entity the object to remove
-     */
-    void remove(T entity);
+    Mono<Void> delete(T entity);
 }

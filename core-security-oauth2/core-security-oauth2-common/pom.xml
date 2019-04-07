@@ -10,6 +10,7 @@
 
     <artifactId>core-security-oauth2-common</artifactId>
     <name>Core Security Oauth2 Common</name>
-    <description>Core libraries and dependencies for common function and configuration Core Security Oauth2.
+    <description>
+        Core libraries and dependencies for common function and configuration Core Security Oauth2.
     </description>
 </project>

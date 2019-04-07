@@ -1,9 +1,8 @@
 # Core Service
-Core libraries and dependencies for generic service and controller.
+Core libraries and dependencies for generic service.
 
-## How to use it
-1. Add this dependency to your project.
-2. You can used any of class that you need it. Main features of this libraries is:
-   - `GenericService`: Generic Manager that talks to GenericDao to CRUD POJOs. Extend this interface if you want typesafe (no casting necessary) managers for your domain objects.
-   - `GenericTreeService`: `GenericService` with some tree service.
-   - `BaseValidatorService`: Service used to validate object. Extends this interface if you want to create custom validator services.
+## Main Features
+1. [Core Service Cassandra](https://github.com/davidch93/core/tree/master/core-service/core-service-cassandra#core-service-cassandra)
+   <br/>Core libraries and dependencies for generic service using Cassandra.
+2. [Core Service JPA](https://github.com/davidch93/core/tree/master/core-service/core-service-jpa#core-service-jpa)
+   <br/>Core libraries and dependencies for generic service using JPA.

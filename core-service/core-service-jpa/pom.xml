@@ -4,22 +4,19 @@
 
     <parent>
         <groupId>com.dch.core</groupId>
-        <artifactId>core-security-oauth2</artifactId>
+        <artifactId>core-service</artifactId>
         <version>2.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>core-security-oauth2-authorization</artifactId>
-    <name>Core Security Oauth2 Authorization Server</name>
-    <description>
-        Core libraries and dependencies for HTTP security using Oauth2. This library includes configuration for
-        authorization server.
-    </description>
+    <artifactId>core-service-jpa</artifactId>
+    <name>Core Service JPA</name>
+    <description>Core libraries and dependencies for general service using JPA.</description>
 
     <dependencies>
         <!-- Core -->
         <dependency>
             <groupId>com.dch.core</groupId>
-            <artifactId>core-security-oauth2-common</artifactId>
+            <artifactId>core-data-access</artifactId>
         </dependency>
     </dependencies>
 </project>
