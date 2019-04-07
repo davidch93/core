@@ -2,16 +2,17 @@ package com.dch.core.security.jwt.model.token;
 
 import com.dch.core.security.jwt.config.JwtSetting;
 import com.dch.core.security.jwt.model.Scopes;
-import com.dch.core.util.TextUtil;
+import com.dch.core.util.DateUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.joda.time.DateTime;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -19,16 +20,14 @@ import java.util.stream.Collectors;
  * Factory class that should be always used to create {@link JwtToken}.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated May 20, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 @Component
 public class JwtTokenFactory {
 
     private final JwtSetting settings;
 
-    @Autowired
     public JwtTokenFactory(JwtSetting settings) {
         this.settings = settings;
     }
@@ -36,32 +35,25 @@ public class JwtTokenFactory {
     /**
      * Factory method for issuing new JWT Tokens.
      *
-     * @param userDetails
-     *            {@link UserDetails}
+     * @param userDetails {@link UserDetails}
      * @return {@link AccessJwtToken}
      */
     public AccessJwtToken createAccessJwtToken(UserDetails userDetails) {
-        if (TextUtil.isEmpty(userDetails.getUsername()))
-            throw new IllegalArgumentException("Cannot create JWT Token without username");
-
-        if (userDetails.getAuthorities() == null || userDetails.getAuthorities().isEmpty())
-            throw new IllegalArgumentException("User doesn't have any privileges");
+        Assert.hasLength(userDetails.getUsername(), "Cannot create JWT Token without username!");
+        Assert.notEmpty(userDetails.getAuthorities(), "User doesn't have any privileges!");
 
         Claims claims = Jwts.claims().setSubject(userDetails.getUsername());
-        claims.put("scopes", userDetails.getAuthorities().stream().map(s -> s.toString()).collect(Collectors.toList()));
+        claims.put("scopes", userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(",")));
 
-        DateTime currentTime = new DateTime();
-
-        // @formatter:off
-		String token = Jwts
-			.builder()
-				.setClaims(claims)
-				.setIssuer(settings.getTokenIssuer())
-				.setIssuedAt(currentTime.toDate())
-				.setExpiration(currentTime.plusMinutes(settings.getTokenExpirationTime()).toDate())
-				.signWith(SignatureAlgorithm.HS512, settings.getTokenSigningKey())
-			.compact();
-		// @formatter:on
+        Date currentDate = new Date();
+        String token = Jwts.builder()
+                .setClaims(claims)
+                .setIssuer(settings.getTokenIssuer())
+                .setIssuedAt(currentDate)
+                .setExpiration(DateUtil.addMinute(currentDate, settings.getTokenExpirationTime()))
+                .signWith(SignatureAlgorithm.HS512, settings.getTokenSigningKey())
+                .compact();
 
         return new AccessJwtToken(token, claims);
     }
@@ -73,24 +65,19 @@ public class JwtTokenFactory {
      * @return {@link JwtToken}
      */
     public JwtToken createRefreshToken(UserDetails userDetails) {
-        if (TextUtil.isEmpty(userDetails.getUsername()))
-            throw new IllegalArgumentException("Cannot create JWT Token without username");
-
-        DateTime currentTime = new DateTime();
+        Assert.hasLength(userDetails.getUsername(), "Cannot create JWT Token without username!");
 
         Claims claims = Jwts.claims().setSubject(userDetails.getUsername());
-        claims.put("scopes", Arrays.asList(Scopes.REFRESH_TOKEN.authority()));
+        claims.put("scopes", Collections.singletonList(Scopes.REFRESH_TOKEN.authority()));
 
-        // @formatter:off
-		String token = Jwts
-			.builder()
-				.setClaims(claims).setIssuer(settings.getTokenIssuer())
-				.setId(UUID.randomUUID().toString())
-				.setIssuedAt(currentTime.toDate())
-				.setExpiration(currentTime.plusMinutes(settings.getRefreshTokenExpTime()).toDate())
-				.signWith(SignatureAlgorithm.HS512, settings.getTokenSigningKey())
-			.compact();
-		// @formatter:on
+        Date currentDate = new Date();
+        String token = Jwts.builder()
+                .setClaims(claims).setIssuer(settings.getTokenIssuer())
+                .setId(UUID.randomUUID().toString())
+                .setIssuedAt(currentDate)
+                .setExpiration(DateUtil.addMinute(currentDate, settings.getRefreshTokenExpTime()))
+                .signWith(SignatureAlgorithm.HS512, settings.getTokenSigningKey())
+                .compact();
 
         return new AccessJwtToken(token, claims);
     }

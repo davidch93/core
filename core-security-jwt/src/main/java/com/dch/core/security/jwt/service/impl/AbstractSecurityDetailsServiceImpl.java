@@ -1,28 +1,28 @@
 package com.dch.core.security.jwt.service.impl;
 
-import com.dch.core.datastatic.builder.ResponseBuilderHelper;
-import com.dch.core.security.jwt.builder.SecurityResponseBuilder;
+import com.dch.core.dto.response.builder.ResponseBuilder;
 import com.dch.core.security.jwt.service.SecurityDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 
 /**
  * This class serves as the Base class for all security details service - namely
- * to hold common service methods that they might all use. This class implements
- * {@link SecurityDetailsService}.
+ * to hold common service methods that they might all use.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jul 24, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see com.dch.core.security.jwt.service.SecurityDetailsService
+ * @since 1.0.0
  */
 public abstract class AbstractSecurityDetailsServiceImpl implements SecurityDetailsService {
 
-    @Autowired
-    protected MessageSource messageSource;
+    protected final MessageSource messageSource;
+
+    protected AbstractSecurityDetailsServiceImpl(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
 
     @Override
-    public ResponseBuilderHelper getSecurityResponseBuilder() {
-        return new SecurityResponseBuilder(messageSource);
+    public ResponseBuilder getSecurityResponseBuilder() {
+        return new ResponseBuilder(messageSource);
     }
 }

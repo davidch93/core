@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.dch.core.util.test;
 
 import com.dch.core.util.DateUtil;
@@ -20,9 +17,8 @@ import static org.junit.Assert.assertThat;
  * Test class used to test all methods in the {@link DateUtil} class.
  *
  * @author David.Christianto
- * @version 1.0.0-SNAPSHOT
- * @since 1.0.0-SNAPSHOT
- * @updated Apr 22, 2017
+ * @version 2.0.0
+ * @since 1.0.0
  */
 public class DateUtilTest {
 
@@ -34,11 +30,9 @@ public class DateUtilTest {
     /**
      * Test method for
      * {@link com.dch.core.util.DateUtil#formatDate(java.util.Date, java.lang.String)}.
-     *
-     * @throws Exception
      */
     @Test
-    public void testFormatDate() throws Exception {
+    public void testFormatDate() {
         String actualDate = DateUtil.formatDate(new Date(), DATE_FORMAT);
         String expectedDate = new SimpleDateFormat(DATE_FORMAT).format(new Date());
         assertThat(actualDate, is(equalTo(expectedDate)));
@@ -48,12 +42,10 @@ public class DateUtilTest {
      * Test method for
      * {@link com.dch.core.util.DateUtil#formatDate(java.util.Date, java.lang.String)}
      * with empty parameter date.
-     *
-     * @throws Exception
      */
     @Test
-    public void testFormatDateEmptyDate() throws Exception {
-        expectedException.expect(Exception.class);
+    public void testFormatDateEmptyDate() {
+        expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("Parameter date can't be null");
         DateUtil.formatDate(null, DATE_FORMAT);
     }
@@ -62,21 +54,17 @@ public class DateUtilTest {
      * Test method for
      * {@link com.dch.core.util.DateUtil#formatDate(java.util.Date, java.lang.String)}
      * with empty parameter format.
-     *
-     * @throws Exception
      */
     @Test
-    public void testFormatDateEmptyFormat() throws Exception {
-        expectedException.expect(Exception.class);
-        expectedException.expectMessage("Parameter format can't be null");
+    public void testFormatDateEmptyFormat() {
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("Parameter format can't be empty");
         DateUtil.formatDate(new Date(), null);
     }
 
     /**
      * Test method for
      * {@link com.dch.core.util.DateUtil#parseDate(java.lang.String, java.lang.String)}.
-     *
-     * @throws Exception
      */
     @Test
     public void testParseDate() throws Exception {
@@ -90,13 +78,11 @@ public class DateUtilTest {
      * Test method for
      * {@link com.dch.core.util.DateUtil#parseDate(java.lang.String, java.lang.String)}
      * with empty parameter date.
-     *
-     * @throws Exception
      */
     @Test
-    public void testParseDateEmptyDate() throws Exception {
-        expectedException.expect(Exception.class);
-        expectedException.expectMessage("Parameter date can't be null");
+    public void testParseDateEmptyDate() {
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("Parameter date can't be empty");
         DateUtil.parseDate(null, DATE_FORMAT);
     }
 
@@ -104,24 +90,20 @@ public class DateUtilTest {
      * Test method for
      * {@link com.dch.core.util.DateUtil#parseDate(java.lang.String, java.lang.String)}
      * with empty parameter format.
-     *
-     * @throws Exception
      */
     @Test
-    public void testParseDateEmptyFormat() throws Exception {
-        expectedException.expect(Exception.class);
-        expectedException.expectMessage("Parameter format can't be null");
+    public void testParseDateEmptyFormat() {
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("Parameter format can't be empty");
         DateUtil.parseDate(new Date().toString(), null);
     }
 
     /**
      * Test method for
      * {@link com.dch.core.util.DateUtil#setBeginningOfDay(java.util.Date)}.
-     *
-     * @throws Exception
      */
     @Test
-    public void testSetBeginningOfDay() throws Exception {
+    public void testSetBeginningOfDay() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -138,13 +120,11 @@ public class DateUtilTest {
      * Test method for
      * {@link com.dch.core.util.DateUtil#setBeginningOfDay(java.util.Date)} with
      * empty parameter date.
-     *
-     * @throws Exception
      */
     @Test
-    public void testSetBeginningOfDayWithEmptyDate() throws Exception {
-        expectedException.expect(Exception.class);
-        expectedException.expectMessage("Date can't be null");
+    public void testSetBeginningOfDayWithEmptyDate() {
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("Parameter date can't be null");
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
@@ -161,11 +141,9 @@ public class DateUtilTest {
     /**
      * Test method for
      * {@link com.dch.core.util.DateUtil#setEndingOfDay(java.util.Date)}.
-     *
-     * @throws Exception
      */
     @Test
-    public void testSetEndingOfDay() throws Exception {
+    public void testSetEndingOfDay() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.set(Calendar.HOUR_OF_DAY, 23);
@@ -182,13 +160,11 @@ public class DateUtilTest {
      * Test method for
      * {@link com.dch.core.util.DateUtil#setEndingOfDay(java.util.Date)} with
      * empty parameter date.
-     *
-     * @throws Exception
      */
     @Test
-    public void testSetEndingOfDayWithEmptDate() throws Exception {
-        expectedException.expect(Exception.class);
-        expectedException.expectMessage("Date can't be null");
+    public void testSetEndingOfDayWithEmptDate() {
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("Parameter date can't be null");
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
@@ -205,11 +181,9 @@ public class DateUtilTest {
     /**
      * Test method for
      * {@link com.dch.core.util.DateUtil#addDate(java.util.Date, int)}.
-     *
-     * @throws Exception
      */
     @Test
-    public void testAddDate() throws Exception {
+    public void testAddDate() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.DATE, 1);
@@ -223,13 +197,11 @@ public class DateUtilTest {
      * Test method for
      * {@link com.dch.core.util.DateUtil#addDate(java.util.Date, int)} with empty
      * parameter date.
-     *
-     * @throws Exception
      */
     @Test
-    public void testAddDateWithEmptyDate() throws Exception {
-        expectedException.expect(Exception.class);
-        expectedException.expectMessage("Date can't be null");
+    public void testAddDateWithEmptyDate() {
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("Parameter date can't be null");
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
@@ -243,11 +215,9 @@ public class DateUtilTest {
     /**
      * Test method for
      * {@link com.dch.core.util.DateUtil#addHour(java.util.Date, int)}.
-     *
-     * @throws Exception
      */
     @Test
-    public void testAddHour() throws Exception {
+    public void testAddHour() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.HOUR, 1);
@@ -261,13 +231,11 @@ public class DateUtilTest {
      * Test method for
      * {@link com.dch.core.util.DateUtil#addHour(java.util.Date, int)} with empty
      * parameter date.
-     *
-     * @throws Exception
      */
     @Test
-    public void testAddHourWithEmptyDate() throws Exception {
-        expectedException.expect(Exception.class);
-        expectedException.expectMessage("Date can't be null");
+    public void testAddHourWithEmptyDate() {
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("Parameter date can't be null");
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
@@ -281,11 +249,9 @@ public class DateUtilTest {
     /**
      * Test method for
      * {@link com.dch.core.util.DateUtil#addMinute(java.util.Date, int)}.
-     *
-     * @throws Exception
      */
     @Test
-    public void testAddMinute() throws Exception {
+    public void testAddMinute() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.MINUTE, 1);
@@ -299,13 +265,11 @@ public class DateUtilTest {
      * Test method for
      * {@link com.dch.core.util.DateUtil#addMinute(java.util.Date, int)}with
      * empty parameter date.
-     *
-     * @throws Exception
      */
     @Test
-    public void testAddMinuteWithEmptyDate() throws Exception {
-        expectedException.expect(Exception.class);
-        expectedException.expectMessage("Date can't be null");
+    public void testAddMinuteWithEmptyDate() {
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("Parameter date can't be null");
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
@@ -319,11 +283,9 @@ public class DateUtilTest {
     /**
      * Test method for
      * {@link com.dch.core.util.DateUtil#addSecond(java.util.Date, int)}.
-     *
-     * @throws Exception
      */
     @Test
-    public void testAddSecond() throws Exception {
+    public void testAddSecond() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.SECOND, 1);
@@ -337,13 +299,11 @@ public class DateUtilTest {
      * Test method for
      * {@link com.dch.core.util.DateUtil#addSecond(java.util.Date, int)} with
      * empty parameter date.
-     *
-     * @throws Exception
      */
     @Test
-    public void testAddSecondWithEmptyDate() throws Exception {
-        expectedException.expect(Exception.class);
-        expectedException.expectMessage("Date can't be null");
+    public void testAddSecondWithEmptyDate() {
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("Parameter date can't be null");
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());

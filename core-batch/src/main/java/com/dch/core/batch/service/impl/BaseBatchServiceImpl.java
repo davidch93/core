@@ -16,38 +16,35 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
-import org.springframework.batch.item.ItemProcessor;
-import org.springframework.batch.item.ItemWriter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * This class serves as the Base class for all other Managers - namely to hold
+ * This class serves as the Base class for all other Batch Service - namely to hold
  * common batch methods that they might all use. You should only need to extend
- * this class when your require custom batch service. This class implements
- * {@link BaseBatchService}.
+ * this class when your require custom batch service.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jun 18, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see BaseBatchService
+ * @since 1.0.0
  */
 @ComponentScan("com.dch.core.batch")
 public abstract class BaseBatchServiceImpl implements BaseBatchService {
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(BaseBatchServiceImpl.class);
+    protected static final Logger logger = LoggerFactory.getLogger(BaseBatchServiceImpl.class);
 
-    @Autowired
-    protected JobLauncher jobLauncher;
+    protected final JobLauncher jobLauncher;
+    protected final JobBuilderFactory jobBuilderFactory;
+    protected final StepBuilderFactory stepBuilderFactory;
+    protected final BatchSetting batchSetting;
 
-    @Autowired
-    protected JobBuilderFactory jobBuilderFactory;
-
-    @Autowired
-    protected StepBuilderFactory stepBuilderFactory;
-
-    @Autowired
-    protected BatchSetting batchSetting;
+    protected BaseBatchServiceImpl(JobLauncher jobLauncher, JobBuilderFactory jobBuilderFactory,
+                                   StepBuilderFactory stepBuilderFactory, BatchSetting batchSetting) {
+        this.jobLauncher = jobLauncher;
+        this.jobBuilderFactory = jobBuilderFactory;
+        this.stepBuilderFactory = stepBuilderFactory;
+        this.batchSetting = batchSetting;
+    }
 
     @Override
     public void execute(String jobName, String stepName, JobParameters jobParameters) {
@@ -55,35 +52,27 @@ public abstract class BaseBatchServiceImpl implements BaseBatchService {
             jobLauncher.run(getJob(jobName, stepName, jobParameters), jobParameters);
         } catch (JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException
                 | JobParametersInvalidException ex) {
-            LOGGER.error(String.format("[%s] %s", batchSetting.getIdentityPrefix(), ex.getMessage()), ex);
+            logger.error(String.format("[%s] Error occurred when execute batch job!",
+                    batchSetting.getIdentityPrefix()), ex);
             throw new BatchException("Error occurred when execute batch job!", ex);
         }
     }
 
     @Override
     public Job getJob(String jobName, String stepName, JobParameters jobParameters) {
-        // @formatter:off
-		return jobBuilderFactory
-			.get(jobName)
-				.incrementer(new RunIdIncrementer())
-				.listener(getListener(jobParameters))
-				.flow(getStep(stepName, jobParameters))
-				.end()
-			.build();
-		// @formatter:on
+        return jobBuilderFactory.get(jobName)
+                .incrementer(new RunIdIncrementer())
+                .listener(getListener(jobParameters))
+                .flow(getStep(stepName, jobParameters)).end()
+                .build();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Step getStep(String stepName, JobParameters jobParameters) {
-        // @formatter:off
-		return stepBuilderFactory
-			.get(stepName)
-				.chunk(batchSetting.getChunkSize())
-				.reader(getReader(jobParameters))
-				.processor((ItemProcessor<? super Object, ? extends Object>) getProcessor(jobParameters))
-				.writer((ItemWriter<? super Object>) getWriter(jobParameters))
-			.build();
-		// @formatter:on
+        return stepBuilderFactory.get(stepName).chunk(batchSetting.getChunkSize())
+                .reader(getReader(jobParameters))
+                .processor(getProcessor(jobParameters))
+                .writer(getWriter(jobParameters))
+                .build();
     }
 }

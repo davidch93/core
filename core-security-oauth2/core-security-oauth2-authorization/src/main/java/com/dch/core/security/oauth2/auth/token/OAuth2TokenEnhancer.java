@@ -9,12 +9,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Class that implements {@link TokenEnhancer} and used to enhance access token.
+ * Class used to enhance access token.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated May 31, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see org.springframework.security.oauth2.provider.token.TokenEnhancer
+ * @since 1.0.0
  */
 public class OAuth2TokenEnhancer implements TokenEnhancer {
 

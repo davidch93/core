@@ -14,7 +14,6 @@ import com.dch.core.security.jwt.auth.token.extractor.TokenExtractor;
 import com.dch.core.security.jwt.model.token.JwtTokenFactory;
 import com.dch.core.security.jwt.service.SecurityDetailsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,36 +37,35 @@ import java.util.List;
  * provide security configuration support.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated May 20, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 @ComponentScan("com.dch.core.security.jwt")
 public class WebSecurityConfigurerSupport extends WebSecurityConfigurerAdapter {
 
-    @Autowired
     private AuthenticationManager authenticationManager;
-
-    @Autowired
     private AjaxAuthenticationProvider ajaxAuthenticationProvider;
-
-    @Autowired
     private JwtAuthenticationProvider jwtAuthenticationProvider;
-
-    @Autowired
     private JwtSetting jwtSetting;
-
-    @Autowired
     private JwtTokenFactory tokenFactory;
-
-    @Autowired
     private SecurityDetailsService securityDetailsService;
-
-    @Autowired
-    private TokenExtractor tokenExtractor;
-
-    @Autowired
+    private TokenExtractor jwtTokenExtractor;
     private ObjectMapper objectMapper;
+
+    public WebSecurityConfigurerSupport(AuthenticationManager authenticationManager,
+                                        AjaxAuthenticationProvider ajaxAuthenticationProvider,
+                                        JwtAuthenticationProvider jwtAuthenticationProvider, JwtSetting jwtSetting,
+                                        JwtTokenFactory tokenFactory, SecurityDetailsService securityDetailsService,
+                                        TokenExtractor jwtTokenExtractor, ObjectMapper objectMapper) {
+        this.authenticationManager = authenticationManager;
+        this.ajaxAuthenticationProvider = ajaxAuthenticationProvider;
+        this.jwtAuthenticationProvider = jwtAuthenticationProvider;
+        this.jwtSetting = jwtSetting;
+        this.tokenFactory = tokenFactory;
+        this.securityDetailsService = securityDetailsService;
+        this.jwtTokenExtractor = jwtTokenExtractor;
+        this.objectMapper = objectMapper;
+    }
 
     @Bean
     @Override
@@ -98,9 +96,7 @@ public class WebSecurityConfigurerSupport extends WebSecurityConfigurerAdapter {
 					.antMatchers(WebSecuritySupport.JWT_BASED_LOGIN_ENTRY_POINT.getValue()).permitAll()
 					.antMatchers(WebSecuritySupport.JWT_BASED_REFRESH_ENTRY_POINT.getValue()).permitAll();
 
-		authorizeRequests = configureAuthorization(authorizeRequests);
-
-		authorizeRequests.anyRequest().authenticated()
+		configureAuthorization(authorizeRequests).anyRequest().authenticated()
         	.and()
 				.addFilterBefore(buildAjaxLoginProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
 				.addFilterBefore(buildJwtTokenAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -111,9 +107,8 @@ public class WebSecurityConfigurerSupport extends WebSecurityConfigurerAdapter {
      * Method used to build login processing filter.
      *
      * @return {@link AjaxLoginProcessingFilter}
-     * @throws Exception
      */
-    protected AjaxLoginProcessingFilter buildAjaxLoginProcessingFilter() throws Exception {
+    protected AjaxLoginProcessingFilter buildAjaxLoginProcessingFilter() {
         AjaxLoginProcessingFilter filter = new AjaxLoginProcessingFilter(
                 WebSecuritySupport.JWT_BASED_LOGIN_ENTRY_POINT.getValue(), authenticationSuccessHandler(),
                 authenticationFailureHandler());
@@ -125,14 +120,13 @@ public class WebSecurityConfigurerSupport extends WebSecurityConfigurerAdapter {
      * Method used to build JWT Token authentication processing filter.
      *
      * @return {@link JwtTokenAuthenticationProcessingFilter}
-     * @throws Exception
      */
-    protected JwtTokenAuthenticationProcessingFilter buildJwtTokenAuthenticationProcessingFilter() throws Exception {
+    protected JwtTokenAuthenticationProcessingFilter buildJwtTokenAuthenticationProcessingFilter() {
         List<String> pathsToSkip = requestAntPathsToPermitAll();
         SkipPathRequestMatcher matcher = new SkipPathRequestMatcher(pathsToSkip,
                 WebSecuritySupport.BASED_AUTH_ENTRY_POINT.getValue());
         JwtTokenAuthenticationProcessingFilter filter = new JwtTokenAuthenticationProcessingFilter(
-                authenticationFailureHandler(), tokenExtractor, matcher);
+                authenticationFailureHandler(), jwtTokenExtractor, matcher);
         filter.setAuthenticationManager(this.authenticationManager);
         return filter;
     }
@@ -187,15 +181,11 @@ public class WebSecurityConfigurerSupport extends WebSecurityConfigurerAdapter {
      * Method used to add custom authorization configurations. By default do
      * nothing.
      *
-     * @param authorizeRequests {@link ExpressionUrlAuthorizationConfigurer}&lt;{@link HttpSecurity}&gt;
-     *                                                                      .{@link ExpressionInterceptUrlRegistry}
-     * @return {@link ExpressionUrlAuthorizationConfigurer}&lt;{@link HttpSecurity}&gt;
-     * .{@link ExpressionInterceptUrlRegistry}
-     * @throws Exception if there are errors during configure authorization.
+     * @param authorizeRequests {@link ExpressionInterceptUrlRegistry}
+     * @return Custom {@link ExpressionInterceptUrlRegistry}
      */
     protected ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry configureAuthorization(
-            ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests)
-            throws Exception {
+            ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests) {
         return authorizeRequests;
     }
 }

@@ -15,16 +15,16 @@ import static java.util.regex.Pattern.CASE_INSENSITIVE;
  * address.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jul 27, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see javax.validation.ConstraintValidator
+ * @since 1.0.0
  */
 public class EmailValidator implements ConstraintValidator<Email, CharSequence> {
 
     private static final String LOCAL_PART_ATOM = "[a-z0-9!#$%&'*+/=?^_`{|}~\u0080-\uFFFF-]";
     private static final String DOMAIN_LABEL = "[a-z0-9!#$%&'*+/=?^_`{|}~-]";
     private static final String DOMAIN = DOMAIN_LABEL + "+(\\." + DOMAIN_LABEL + "+)*";
-    private static final String IP_DOMAIN = "\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\]";
+    private static final String IP_DOMAIN = "\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}]";
     private static final int MAX_LOCAL_PART_LENGTH = 64;
 
     /**
@@ -76,7 +76,7 @@ public class EmailValidator implements ConstraintValidator<Email, CharSequence> 
     /**
      * Method used to match local part email.
      *
-     * @param localPart
+     * @param localPart Email parts
      * @return {@link boolean} true if local part matched and vice versa.
      */
     private boolean matchLocalPart(String localPart) {
@@ -90,7 +90,7 @@ public class EmailValidator implements ConstraintValidator<Email, CharSequence> 
     /**
      * Method used to match domain email.
      *
-     * @param domain
+     * @param domain Email domain
      * @return {@link boolean} true if domain matched and vice versa.
      */
     private boolean matchDomain(String domain) {

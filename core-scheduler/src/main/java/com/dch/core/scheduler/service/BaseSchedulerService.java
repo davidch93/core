@@ -11,9 +11,8 @@ import java.util.List;
  * scheduler.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jun 17, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 public interface BaseSchedulerService {
 
@@ -27,7 +26,7 @@ public interface BaseSchedulerService {
     /**
      * Method used to schedule all jobs.
      *
-     * @param schedulerItems {@link List}&lt;{@link SchedulerItem}&gt;
+     * @param schedulerItems {@link List} of {@link SchedulerItem}
      */
     void scheduleAll(List<SchedulerItem<?>> schedulerItems);
 

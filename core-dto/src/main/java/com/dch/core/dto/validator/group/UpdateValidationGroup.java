@@ -4,13 +4,13 @@ import javax.validation.groups.Default;
 
 /**
  * Interface of update validation group. Use this interface for grouping
- * validate request body. This class extends {@link Default}.
+ * validate request body.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jul 27, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see javax.validation.groups.Default
+ * @since 1.0.0
  */
-public interface UpdateValidationGroup {
+public interface UpdateValidationGroup extends Default {
 
 }

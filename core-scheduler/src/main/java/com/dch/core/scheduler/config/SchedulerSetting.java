@@ -9,9 +9,8 @@ import org.springframework.context.annotation.PropertySource;
  * executor configuration.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jun 20, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 @Configuration
 @PropertySource("classpath:config/scheduler/core-scheduler-config.properties")
@@ -53,9 +52,8 @@ public class SchedulerSetting {
      * Class that contains parameter setting of Scheduler Executor configuration.
      *
      * @author David.Christianto
-     * @version 1.0.0-SNAPSHOT
-     * @updated Jun 16, 2017
-     * @since 1.0.0-SNAPSHOT
+     * @version 2.0.0
+     * @since 1.0.0
      */
     public static class SchedulerExecutorSetting {
 

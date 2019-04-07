@@ -1,9 +1,8 @@
 package com.dch.core.scheduler.config;
 
-import com.dch.core.scheduler.error.SchedulerErrorHandler;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.util.ErrorHandler;
 
@@ -12,15 +11,17 @@ import org.springframework.util.ErrorHandler;
  * {@link ThreadPoolTaskScheduler}.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jun 16, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
-@ComponentScan("com.dch.core.scheduler")
 public class SchedulerConfigurerSupport {
 
-    @Autowired
-    private SchedulerSetting schedulerSetting;
+    private static final Logger logger = LoggerFactory.getLogger(SchedulerConfigurerSupport.class);
+    private final SchedulerSetting schedulerSetting;
+
+    public SchedulerConfigurerSupport(SchedulerSetting schedulerSetting) {
+        this.schedulerSetting = schedulerSetting;
+    }
 
     /**
      * Bean of Task Scheduler.
@@ -39,9 +40,10 @@ public class SchedulerConfigurerSupport {
     /**
      * Method used to get scheduler error handler.
      *
-     * @return {@link SchedulerErrorHandler}
+     * @return {@link ErrorHandler}
      */
-    protected ErrorHandler schedulerErrorHandler() {
-        return new SchedulerErrorHandler(schedulerSetting.getIdentityPrefix());
+    private ErrorHandler schedulerErrorHandler() {
+        return throwable -> logger.error(String.format("[%s] Error occurred while executing scheduler job!",
+                schedulerSetting.getIdentityPrefix()), throwable);
     }
 }

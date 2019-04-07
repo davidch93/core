@@ -6,7 +6,6 @@ import com.dch.core.security.jwt.model.token.JwtToken;
 import com.dch.core.security.jwt.model.token.RawAccessJwtToken;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -17,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * An {@link AuthenticationProvider} implementation that will use provided
@@ -29,32 +29,29 @@ import java.util.stream.Collectors;
  * with the appropriate signing key Authentication exception will be thrown.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated May 20, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see org.springframework.security.authentication.AuthenticationProvider
+ * @since 1.0.0
  */
 @Component
 public class JwtAuthenticationProvider implements AuthenticationProvider {
 
     private final JwtSetting jwtSettings;
 
-    @Autowired
     public JwtAuthenticationProvider(JwtSetting jwtSettings) {
         this.jwtSettings = jwtSettings;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         RawAccessJwtToken rawAccessToken = (RawAccessJwtToken) authentication.getCredentials();
 
         Jws<Claims> jwsClaims = rawAccessToken.parseClaims(jwtSettings.getTokenSigningKey());
-        String subject = jwsClaims.getBody().getSubject();
-        List<String> scopes = jwsClaims.getBody().get("scopes", List.class);
-        List<GrantedAuthority> authorities = scopes.stream().map(authority -> new SimpleGrantedAuthority(authority))
+        List<GrantedAuthority> authorities = Stream.of(jwsClaims.getBody().get("scopes", String.class).split(","))
+                .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
 
-        return new JwtAuthenticationToken(new User(subject, "N/A", authorities), authorities);
+        return new JwtAuthenticationToken(new User(jwsClaims.getBody().getSubject(), "N/A", authorities), authorities);
     }
 
     @Override

@@ -10,9 +10,9 @@ import java.util.regex.Pattern;
  * Check that a string is valid phone number.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jul 27, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see javax.validation.ConstraintValidator
+ * @since 1.0.0
  */
 public class PhoneValidator implements ConstraintValidator<Phone, CharSequence> {
 
@@ -25,7 +25,7 @@ public class PhoneValidator implements ConstraintValidator<Phone, CharSequence> 
      * Validate phone number with -, . or spaces. <br/>
      * Ex. 123-456-7890
      */
-    private static final String SPECIAL_CHAR_REGEX = "\\d{3}[-\\.\\s]\\d{3}[-\\.\\s]\\d{4}";
+    private static final String SPECIAL_CHAR_REGEX = "\\d{3}[-.\\s]\\d{3}[-.\\s]\\d{4}";
 
     /**
      * Validate phone number with extension length from 3 to 5. <br/>
@@ -59,9 +59,6 @@ public class PhoneValidator implements ConstraintValidator<Phone, CharSequence> 
             return true;
         if (EXTENSION_PATTERN.matcher(value).matches())
             return true;
-        if (AREA_CODE_PATTERN.matcher(value).matches())
-            return true;
-
-        return false;
+        return AREA_CODE_PATTERN.matcher(value).matches();
     }
 }

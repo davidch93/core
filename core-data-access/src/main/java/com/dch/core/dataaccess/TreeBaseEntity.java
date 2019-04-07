@@ -8,14 +8,11 @@ import java.util.Set;
  *
  * @param <T> Entity class.
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jul 13, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 @MappedSuperclass
 public abstract class TreeBaseEntity<T> extends BaseEntity implements Comparable<T> {
-
-    private static final long serialVersionUID = 7689262902084055454L;
 
     @Column(name = "level", nullable = false)
     protected Integer level;

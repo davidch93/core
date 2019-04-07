@@ -10,9 +10,9 @@ import java.lang.reflect.Field;
  * Checks that a given object have 2 fields with the same value.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jul 27, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see javax.validation.ConstraintValidator
+ * @since 1.0.0
  */
 public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Object> {
 

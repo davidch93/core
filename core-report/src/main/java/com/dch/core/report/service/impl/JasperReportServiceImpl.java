@@ -11,7 +11,6 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 
 import java.io.ByteArrayOutputStream;
@@ -21,27 +20,29 @@ import java.sql.SQLException;
 /**
  * This class serves as the Base class for all other Managers - namely to hold
  * common report methods that they might all use. You should only need to extend
- * this class when your require custom report service. This class implements
- * {@link JasperReportService}.
+ * this class when your require custom report service.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jun 19, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see JasperReportService
+ * @since 1.0.0
  */
 @ComponentScan("com.dch.core.report")
 public abstract class JasperReportServiceImpl implements JasperReportService {
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(JasperReportServiceImpl.class);
+    protected static final Logger logger = LoggerFactory.getLogger(JasperReportServiceImpl.class);
 
-    @Autowired
-    protected JasperReportFillProvider jasperReportFillProvider;
+    protected final JasperReportFillProvider jasperReportFillProvider;
+    protected final JasperReportExportProvider jasperReportExportProvider;
+    protected final ReportSetting reportSetting;
 
-    @Autowired
-    protected JasperReportExportProvider jasperReportExportProvider;
-
-    @Autowired
-    protected ReportSetting reportSetting;
+    protected JasperReportServiceImpl(JasperReportFillProvider jasperReportFillProvider,
+                                      JasperReportExportProvider jasperReportExportProvider,
+                                      ReportSetting reportSetting) {
+        this.jasperReportFillProvider = jasperReportFillProvider;
+        this.jasperReportExportProvider = jasperReportExportProvider;
+        this.reportSetting = reportSetting;
+    }
 
     @Override
     public void createReportWithDataSourceConnection(ReportType reportType, ReportDetails reportDetails) {
@@ -50,8 +51,9 @@ public abstract class JasperReportServiceImpl implements JasperReportService {
                     reportDetails.getReportFileName(), reportDetails.getParameters());
             exportReport(reportType, reportDetails, jasperPrint);
         } catch (JRException | SQLException | IOException ex) {
-            LOGGER.error(String.format("[%s] %s", reportSetting.getIdentityPrefix(), ex.getMessage()), ex);
-            throw new ReportException("Error occured when create report!", ex);
+            logger.error(String.format("[%s] Error occurred when creating report with DataSource connection!",
+                    reportSetting.getIdentityPrefix()), ex);
+            throw new ReportException("Error occurred when creating report with DataSource connection!", ex);
         }
     }
 
@@ -62,9 +64,10 @@ public abstract class JasperReportServiceImpl implements JasperReportService {
                     reportDetails.getReportFileName(), reportDetails.getParameters(),
                     reportDetails.getBeanCollectionDataSource());
             exportReport(reportType, reportDetails, jasperPrint);
-        } catch (JRException | SQLException | IOException ex) {
-            LOGGER.error(String.format("[%s] %s", reportSetting.getIdentityPrefix(), ex.getMessage()), ex);
-            throw new ReportException("Error occured when create report!", ex);
+        } catch (JRException | IOException ex) {
+            logger.error(String.format("[%s] Error occurred when creating report with JRBean Collection!",
+                    reportSetting.getIdentityPrefix()), ex);
+            throw new ReportException("Error occurred when creating report with JRBean Collection!", ex);
         }
     }
 
@@ -74,11 +77,11 @@ public abstract class JasperReportServiceImpl implements JasperReportService {
         try {
             JasperPrint jasperPrint = jasperReportFillProvider.prepareReportDataSourceConnection(
                     reportDetails.getReportFileName(), reportDetails.getParameters());
-
             return exportStreamReport(reportType, reportDetails, jasperPrint);
         } catch (JRException | SQLException | IOException ex) {
-            LOGGER.error(String.format("[%s] %s", reportSetting.getIdentityPrefix(), ex.getMessage()), ex);
-            throw new ReportException("Error occured when create report!", ex);
+            logger.error(String.format("[%s] Error occurred when creating stream report with DataSource connection!",
+                    reportSetting.getIdentityPrefix()), ex);
+            throw new ReportException("Error occurred when creating stream report with DataSource connection!", ex);
         }
     }
 
@@ -89,21 +92,21 @@ public abstract class JasperReportServiceImpl implements JasperReportService {
             JasperPrint jasperPrint = jasperReportFillProvider.prepareReportJRBeanCollection(
                     reportDetails.getReportFileName(), reportDetails.getParameters(),
                     reportDetails.getBeanCollectionDataSource());
-
             return exportStreamReport(reportType, reportDetails, jasperPrint);
-        } catch (JRException | SQLException | IOException ex) {
-            LOGGER.error(String.format("[%s] %s", reportSetting.getIdentityPrefix(), ex.getMessage()), ex);
-            throw new ReportException("Error occured when create report!", ex);
+        } catch (JRException | IOException ex) {
+            logger.error(String.format("[%s] Error occurred when creating stream report with JRBean Collection!",
+                    reportSetting.getIdentityPrefix()), ex);
+            throw new ReportException("Error occurred when creating stream report with JRBean Collection!", ex);
         }
     }
 
     /**
      * Method used to export report to desired format.
      *
-     * @param reportType    {@link ReportType}
+     * @param reportType    {@link ReportType} such as CSV, DOCX, HTML, ODT, PDF, RTF, XLSX
      * @param reportDetails {@link ReportDetails}
      * @param jasperPrint   {@link JasperPrint}
-     * @throws JRException
+     * @throws JRException If error occurred while exporting report.
      */
     private void exportReport(ReportType reportType, ReportDetails reportDetails, JasperPrint jasperPrint)
             throws JRException {
@@ -137,40 +140,32 @@ public abstract class JasperReportServiceImpl implements JasperReportService {
     /**
      * Method used to export stream report to desired format.
      *
-     * @param reportType    {@link ReportType}
+     * @param reportType    {@link ReportType} such as CSV, DOCX, HTML, ODT, PDF, RTF, XLSX
      * @param reportDetails {@link ReportDetails}
      * @param jasperPrint   {@link JasperPrint}
      * @return {@link ByteArrayOutputStream} Output stream.
-     * @throws JRException
+     * @throws JRException If error occurred while exporting stream report.
      */
     private ByteArrayOutputStream exportStreamReport(ReportType reportType, ReportDetails reportDetails,
                                                      JasperPrint jasperPrint) throws JRException {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
         switch (reportType) {
             case CSV:
-                jasperReportExportProvider.exportToCsv(jasperPrint, outputStream);
-                break;
+                return jasperReportExportProvider.exportToCsv(jasperPrint);
             case DOCX:
-                jasperReportExportProvider.exportToDocx(jasperPrint, outputStream);
-                break;
+                return jasperReportExportProvider.exportToDocx(jasperPrint);
             case HTML:
-                jasperReportExportProvider.exportToHtml(jasperPrint, outputStream);
-                break;
+                return jasperReportExportProvider.exportToHtml(jasperPrint);
             case ODT:
-                jasperReportExportProvider.exportToOdt(jasperPrint, outputStream);
-                break;
+                return jasperReportExportProvider.exportToOdt(jasperPrint);
             case PDF:
-                jasperReportExportProvider.exportToPdf(jasperPrint, outputStream, reportDetails.getAuthor());
-                break;
+                return jasperReportExportProvider.exportToPdf(jasperPrint, reportDetails.getAuthor());
             case RTF:
-                jasperReportExportProvider.exportToRtf(jasperPrint, outputStream);
-                break;
+                return jasperReportExportProvider.exportToRtf(jasperPrint);
             case XLSX:
-                jasperReportExportProvider.exportToXlsx(jasperPrint, outputStream, reportDetails.getSheetName());
-                break;
+                return jasperReportExportProvider.exportToXlsx(jasperPrint, reportDetails.getSheetName());
+            default:
+                throw new ReportException(String.format("[%s] Unsupported report type: '%s'",
+                        reportSetting.getIdentityPrefix(), reportType));
         }
-
-        return outputStream;
     }
 }

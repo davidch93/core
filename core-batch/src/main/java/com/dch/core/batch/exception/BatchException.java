@@ -5,13 +5,10 @@ package com.dch.core.batch.exception;
  * errors during batch process.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jul 23, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 public class BatchException extends RuntimeException {
-
-    private static final long serialVersionUID = 1410455517920997526L;
 
     /**
      * Construct a {@code BatchException} with a generic message.

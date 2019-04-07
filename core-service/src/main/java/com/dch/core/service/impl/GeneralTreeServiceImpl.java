@@ -1,24 +1,29 @@
 package com.dch.core.service.impl;
 
 import com.dch.core.dataaccess.TreeBaseEntity;
-import com.dch.core.service.GenericTreeService;
+import com.dch.core.service.GeneralTreeService;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.io.Serializable;
 import java.util.*;
 
 /**
- * Implementation of {@link GenericServiceImpl} with tree service.This class
- * implements {@link GenericTreeService}.
+ * Implementation of {@link GeneralServiceImpl} with tree service.
  *
  * @param <T>  entity.
  * @param <ID> the primary key for that type.
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jul 13, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see com.dch.core.service.GeneralService
+ * @see com.dch.core.service.GeneralTreeService
+ * @since 1.0.0
  */
-public abstract class GenericTreeServiceImpl<T extends TreeBaseEntity<T>, ID extends Serializable>
-        extends GenericServiceImpl<T, ID> implements GenericTreeService<T, ID> {
+public abstract class GeneralTreeServiceImpl<T extends TreeBaseEntity<T>, ID extends Serializable>
+        extends GeneralServiceImpl<T, ID> implements GeneralTreeService<T, ID> {
+
+    public GeneralTreeServiceImpl(JpaRepository<T, ID> repository) {
+        super(repository);
+    }
 
     @Override
     public Set<T> buildTree(List<T> nodes) {

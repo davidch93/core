@@ -3,17 +3,14 @@ package com.dch.core.security.jwt.exception;
 import org.springframework.security.authentication.AuthenticationServiceException;
 
 /**
- * Class exception that extends {@link AuthenticationServiceException} and
- * thrown if token not valid.
+ * Class exception that thrown if token not valid.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated May 20, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see org.springframework.security.authentication.AuthenticationServiceException
+ * @since 1.0.0
  */
 public class InvalidJwtTokenException extends AuthenticationServiceException {
-
-    private static final long serialVersionUID = 5861918607704102665L;
 
     /**
      * Construct a {@code InvalidJwtTokenException} with a generic message.

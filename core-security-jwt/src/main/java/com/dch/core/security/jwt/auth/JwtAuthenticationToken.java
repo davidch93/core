@@ -9,17 +9,14 @@ import java.util.Collection;
 
 /**
  * An {@link org.springframework.security.core.Authentication} implementation
- * that is designed for simple presentation of JwtToken. This class extends
- * {@link AbstractAuthenticationToken}.
+ * that is designed for simple presentation of JwtToken.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated May 20, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see org.springframework.security.authentication.AbstractAuthenticationToken
+ * @since 1.0.0
  */
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
-
-    private static final long serialVersionUID = 27947165148965494L;
 
     private RawAccessJwtToken rawAccessToken;
     private UserDetails userDetails;

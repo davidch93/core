@@ -7,17 +7,17 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * {@link GenericService} with some tree service.
+ * General Manager that talks to GeneralDao to CRUD POJOs with some tree service.
  *
  * @param <T>  entity.
  * @param <ID> the primary key for that type.
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jul 13, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see com.dch.core.service.GeneralService
+ * @since 1.0.0
  */
-public interface GenericTreeService<T extends TreeBaseEntity<T>, ID extends Serializable>
-        extends GenericService<T, ID> {
+public interface GeneralTreeService<T extends TreeBaseEntity<T>, ID extends Serializable>
+        extends GeneralService<T, ID> {
 
     /**
      * Converts an list of objects into a forest of trees. The returned

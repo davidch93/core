@@ -1,6 +1,5 @@
 package com.dch.core.dto.response;
 
-import com.dch.core.datastatic.response.GenericResponse;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -11,12 +10,11 @@ import java.util.Date;
  * written straight to the HTTP response body.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Apr 23, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 @JsonInclude(Include.NON_NULL)
-public class ResponseDto implements GenericResponse {
+public class ResponseDto implements GeneralResponse {
 
     private Date timestamp;
     private Object data;
@@ -77,9 +75,8 @@ public class ResponseDto implements GenericResponse {
      * Class that define response status from service.
      *
      * @author David.Christianto
-     * @version 1.0.0-SNAPSHOT
-     * @updated Apr 23, 2017
-     * @since 1.0.0-SNAPSHOT
+     * @version 2.0.0
+     * @since 1.0.0
      */
     public static class ResponseStatusDto {
 

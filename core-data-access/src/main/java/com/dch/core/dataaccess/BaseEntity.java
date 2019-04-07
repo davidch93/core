@@ -17,15 +17,12 @@ import java.util.Date;
  * superclass.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Apr 23, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 3413927315317624024L;
 
     @Audited
     @Enumerated(EnumType.STRING)

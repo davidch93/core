@@ -1,8 +1,8 @@
 package com.dch.core.report.details;
 
-import com.dch.core.datastatic.builder.GenericBuilder;
-import com.dch.core.util.TextUtil;
+import com.dch.core.datastatic.builder.GeneralBuilder;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.springframework.util.StringUtils;
 
 import java.util.Map;
 
@@ -10,9 +10,8 @@ import java.util.Map;
  * Class that provides various parameters for the report.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jun 19, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 public class ReportDetails {
 
@@ -87,14 +86,13 @@ public class ReportDetails {
 
     /**
      * Class builder used to create {@link ReportDetails}. This class implements
-     * {@link GenericBuilder}.
+     * {@link GeneralBuilder}.
      *
      * @author David.Christianto
-     * @version 1.0.0-SNAPSHOT
-     * @updated Jun 19, 2017
-     * @since 1.0.0-SNAPSHOT
+     * @version 2.0.0
+     * @since 1.0.0
      */
-    public static class ReportDetailsBuilder implements GenericBuilder<ReportDetails> {
+    public static class ReportDetailsBuilder implements GeneralBuilder<ReportDetails> {
 
         private String reportFileName;
         private String outputFileName;
@@ -125,6 +123,14 @@ public class ReportDetails {
         }
 
         /**
+         * @param sheetName the sheetName to set
+         */
+        public ReportDetailsBuilder setSheetName(String sheetName) {
+            this.sheetName = sheetName;
+            return this;
+        }
+
+        /**
          * @param beanCollectionDataSource the beanCollectionDataSource to set
          */
         public ReportDetailsBuilder setBeanCollectionDataSource(JRBeanCollectionDataSource beanCollectionDataSource) {
@@ -147,7 +153,7 @@ public class ReportDetails {
          */
         @Override
         public ReportDetails build() {
-            if (TextUtil.isEmpty(reportFileName) || TextUtil.isEmpty(outputFileName))
+            if (StringUtils.isEmpty(reportFileName) || StringUtils.isEmpty(outputFileName))
                 throw new IllegalStateException("Report file name or output file name can't be empty");
 
             return new ReportDetails(this);

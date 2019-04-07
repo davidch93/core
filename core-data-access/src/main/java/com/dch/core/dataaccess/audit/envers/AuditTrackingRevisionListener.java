@@ -1,9 +1,9 @@
 package com.dch.core.dataaccess.audit.envers;
 
+import com.dch.core.dataaccess.audit.service.AuditService;
 import org.hibernate.envers.EntityTrackingRevisionListener;
 import org.hibernate.envers.RevisionType;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 
@@ -12,16 +12,23 @@ import java.io.Serializable;
  * to get additional information about revision entity.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Sep 26, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see org.hibernate.envers.EntityTrackingRevisionListener
+ * @since 1.0.0
  */
+@Component
 public class AuditTrackingRevisionListener implements EntityTrackingRevisionListener {
+
+    private final AuditService auditService;
+
+    public AuditTrackingRevisionListener(AuditService auditService) {
+        this.auditService = auditService;
+    }
 
     @Override
     public void newRevision(Object revisionEntity) {
         final AuditEntity auditEntity = (AuditEntity) revisionEntity;
-        auditEntity.setAuditedBy(getCurrentAuditor());
+        auditEntity.setAuditedBy(auditService.getCurrentAuditor());
     }
 
     @SuppressWarnings("rawtypes")
@@ -30,17 +37,5 @@ public class AuditTrackingRevisionListener implements EntityTrackingRevisionList
                               Object revisionEntity) {
         final AuditEntity auditEntity = (AuditEntity) revisionEntity;
         auditEntity.setEntityName(entityName);
-    }
-
-    /**
-     * Method used to get current username from {@link SecurityContext}. If
-     * authentication name not exist, then default auditor will be "Anonymous".
-     *
-     * @return {@link String} Username.
-     */
-    public String getCurrentAuditor() {
-        final SecurityContext securityContext = SecurityContextHolder.getContext();
-        return securityContext != null && securityContext.getAuthentication() != null
-                ? securityContext.getAuthentication().getName() : "Anonymous";
     }
 }

@@ -3,18 +3,14 @@ package com.dch.core.security.jwt.exception;
 import org.springframework.security.authentication.AuthenticationServiceException;
 
 /**
- * Class exception that extends {@link AuthenticationServiceException} and
- * thrown if an authentication request could not be processed due to a system
- * problem.
+ * Class exception that thrown if an authentication request could not be processed due to a system problem.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated May 20, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see org.springframework.security.authentication.AuthenticationServiceException
+ * @since 1.0.0
  */
 public class AuthMethodNotSupportedException extends AuthenticationServiceException {
-
-    private static final long serialVersionUID = 772605467200346604L;
 
     /**
      * Construct a {@code AuthMethodNotSupportedException} with a generic

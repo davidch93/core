@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.dch.core.util.test;
 
 import com.dch.core.util.NumberFormatUtil;
@@ -18,9 +15,8 @@ import static org.junit.Assert.assertThat;
  * Test class used to test all methods in the {@link NumberFormatUtil} class.
  *
  * @author David.Christianto
- * @version 1.0.0-SNAPSHOT
- * @since 1.0.0-SNAPSHOT
- * @updated Apr 22, 2017
+ * @version 2.0.0
+ * @since 1.0.0
  */
 public class NumberFormatUtilTest {
 
@@ -30,11 +26,9 @@ public class NumberFormatUtilTest {
     /**
      * Test method for
      * {@link com.dch.core.util.NumberFormatUtil#formatAmount(java.math.BigDecimal)}.
-     *
-     * @throws Exception
      */
     @Test
-    public void testFormatAmountBigDecimal() throws Exception {
+    public void testFormatAmountBigDecimal() {
         String actual = NumberFormatUtil.formatAmount(BigDecimal.valueOf(100000));
         assertThat(actual, is(equalTo("100,000.00")));
     }
@@ -43,12 +37,10 @@ public class NumberFormatUtilTest {
      * Test method for
      * {@link com.dch.core.util.NumberFormatUtil#formatAmount(java.math.BigDecimal)}
      * with empty number.
-     *
-     * @throws Exception
      */
     @Test
-    public void testFormatAmountBigDecimalWithEmptyNumber() throws Exception {
-        expectedException.expect(Exception.class);
+    public void testFormatAmountBigDecimalWithEmptyNumber() {
+        expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("Number can't be null");
         NumberFormatUtil.formatAmount(null);
     }
@@ -56,11 +48,9 @@ public class NumberFormatUtilTest {
     /**
      * Test method for
      * {@link com.dch.core.util.NumberFormatUtil#formatAmountNoComma(java.math.BigDecimal)}.
-     *
-     * @throws Exception
      */
     @Test
-    public void testFormatAmountNoCommaBigDecimal() throws Exception {
+    public void testFormatAmountNoCommaBigDecimal() {
         String actual = NumberFormatUtil.formatAmountNoComma(BigDecimal.valueOf(100000));
         assertThat(actual, is(equalTo("100000.00")));
     }
@@ -69,12 +59,10 @@ public class NumberFormatUtilTest {
      * Test method for
      * {@link com.dch.core.util.NumberFormatUtil#formatAmountNoComma(java.math.BigDecimal)}
      * with empty number.
-     *
-     * @throws Exception
      */
     @Test
-    public void testFormatAmountNoCommaBigDecimalWithEmptyNumber() throws Exception {
-        expectedException.expect(Exception.class);
+    public void testFormatAmountNoCommaBigDecimalWithEmptyNumber() {
+        expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("Number can't be null");
         NumberFormatUtil.formatAmountNoComma(null);
     }
@@ -102,11 +90,9 @@ public class NumberFormatUtilTest {
     /**
      * Test method for
      * {@link com.dch.core.util.NumberFormatUtil#parseToLong(java.lang.String)}.
-     *
-     * @throws Exception
      */
     @Test
-    public void testParseToLong() throws Exception {
+    public void testParseToLong() {
         Long actual = NumberFormatUtil.parseToLong("100000");
         assertThat(actual, is(equalTo(100000L)));
     }
@@ -115,12 +101,10 @@ public class NumberFormatUtilTest {
      * Test method for
      * {@link com.dch.core.util.NumberFormatUtil#parseToLong(java.lang.String)}
      * with empty value.
-     *
-     * @throws Exception
      */
     @Test
-    public void testParseToLongWithEmptyValue() throws Exception {
-        expectedException.expect(Exception.class);
+    public void testParseToLongWithEmptyValue() {
+        expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("Value can't be null");
         NumberFormatUtil.parseToLong(null);
     }
@@ -128,11 +112,9 @@ public class NumberFormatUtilTest {
     /**
      * Test method for
      * {@link com.dch.core.util.NumberFormatUtil#parseToInteger(java.lang.String)}.
-     *
-     * @throws Exception
      */
     @Test
-    public void testParseToInteger() throws Exception {
+    public void testParseToInteger() {
         int actual = NumberFormatUtil.parseToInteger("100000");
         assertThat(actual, is(equalTo(100000)));
     }
@@ -141,12 +123,10 @@ public class NumberFormatUtilTest {
      * Test method for
      * {@link com.dch.core.util.NumberFormatUtil#parseToInteger(java.lang.String)}
      * with empty value.
-     *
-     * @throws Exception
      */
     @Test
-    public void testParseToIntegerWithEmptyValue() throws Exception {
-        expectedException.expect(Exception.class);
+    public void testParseToIntegerWithEmptyValue() {
+        expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("Value can't be null");
         NumberFormatUtil.parseToInteger(null);
     }

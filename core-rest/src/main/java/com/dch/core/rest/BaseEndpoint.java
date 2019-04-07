@@ -1,17 +1,22 @@
 package com.dch.core.rest;
 
+import com.dch.core.dto.response.builder.ResponseBuilder;
 import com.dch.core.rest.exception.RestException;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 
 /**
- * Class that define common function for all controller.
+ * Class that define common function for all endpoint.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Apr 23, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
-public abstract class BaseController {
+public abstract class BaseEndpoint {
+
+    @Autowired
+    private MessageSource messageSource;
 
     /**
      * Method used to Copy bean properties.
@@ -50,7 +55,16 @@ public abstract class BaseController {
 
             return target;
         } catch (InstantiationException | IllegalAccessException ex) {
-            throw new RestException(ex.getMessage(), ex);
+            throw new RestException("Error occurred while copying properties!", ex);
         }
+    }
+
+    /**
+     * Method used to get response builder to build a generic response.
+     *
+     * @return {@link ResponseBuilder}
+     */
+    protected ResponseBuilder getResponseBuilder() {
+        return new ResponseBuilder(messageSource);
     }
 }

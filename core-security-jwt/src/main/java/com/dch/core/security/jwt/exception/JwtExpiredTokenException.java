@@ -4,17 +4,14 @@ import com.dch.core.security.jwt.model.token.JwtToken;
 import org.springframework.security.core.AuthenticationException;
 
 /**
- * Class exception that extends {@link AuthenticationException} and thrown if
- * security token had been expired.
+ * Class exception that thrown if security token had been expired.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated May 20, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see org.springframework.security.core.AuthenticationException
+ * @since 1.0.0
  */
 public class JwtExpiredTokenException extends AuthenticationException {
-
-    private static final long serialVersionUID = 594131875553964846L;
 
     private JwtToken token;
 

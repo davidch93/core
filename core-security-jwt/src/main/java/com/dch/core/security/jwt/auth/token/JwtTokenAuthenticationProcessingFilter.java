@@ -4,7 +4,6 @@ import com.dch.core.datastatic.WebSecuritySupport;
 import com.dch.core.security.jwt.auth.JwtAuthenticationToken;
 import com.dch.core.security.jwt.auth.token.extractor.TokenExtractor;
 import com.dch.core.security.jwt.model.token.RawAccessJwtToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
@@ -27,19 +26,17 @@ import java.io.IOException;
  * throw authentication exception.<br/>
  * 2. Invokes success or failure strategies based on the outcome of
  * authentication process performed by JwtAuthenticationProvider.<br/>
- * This class extends {@link AbstractAuthenticationProcessingFilter}.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated May 20, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see AbstractAuthenticationProcessingFilter
+ * @since 1.0.0
  */
 public class JwtTokenAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
 
     private final AuthenticationFailureHandler failureHandler;
     private final TokenExtractor tokenExtractor;
 
-    @Autowired
     public JwtTokenAuthenticationProcessingFilter(AuthenticationFailureHandler failureHandler,
                                                   TokenExtractor tokenExtractor, RequestMatcher matcher) {
         super(matcher);
@@ -49,7 +46,7 @@ public class JwtTokenAuthenticationProcessingFilter extends AbstractAuthenticati
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
-            throws AuthenticationException, IOException, ServletException {
+            throws AuthenticationException {
         String tokenPayload = request.getHeader(WebSecuritySupport.JWT_TOKEN_HEADER_PARAM.getValue());
         RawAccessJwtToken token = new RawAccessJwtToken(tokenExtractor.extract(tokenPayload));
         return getAuthenticationManager().authenticate(new JwtAuthenticationToken(token));

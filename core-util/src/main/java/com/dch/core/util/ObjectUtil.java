@@ -1,17 +1,19 @@
 package com.dch.core.util;
 
+import org.springframework.util.Assert;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Field;
 
 /**
  * Classes that provides function to manipulate Object.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Apr 22, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 public class ObjectUtil {
 
@@ -20,40 +22,35 @@ public class ObjectUtil {
      *
      * @param file {@link File}
      * @return byte[] array of bytes.
-     * @throws Exception File can't be null.
      */
-    public static byte[] convertFileToBytes(File file) throws Exception {
-        if (file == null)
-            throw new Exception("File can't be null");
-
-        FileInputStream fileInputStream = null;
-        byte[] bFile = new byte[(int) file.length()];
+    public static byte[] convertFileToBytes(File file) {
+        Assert.notNull(file, "File can't be null");
 
         // Convert file into array of bytes
-        fileInputStream = new FileInputStream(file);
-        fileInputStream.read(bFile);
-        fileInputStream.close();
-
-        return bFile;
+        try (FileInputStream fileInputStream = new FileInputStream(file)) {
+            byte[] bFile = new byte[(int) file.length()];
+            fileInputStream.read(bFile);
+            return bFile;
+        } catch (IOException ex) {
+            throw new RuntimeException("Input stream failed", ex);
+        }
     }
 
     /**
      * Method used to convert array of bytes to file.
      *
      * @param bFile       byte file
-     * @param destination {@link String} Destination path of file.
-     * @throws Exception Array of bytes can't be null.
+     * @param destination {@code String} Destination path of file.
      */
-    public static void convertBytesToFile(byte[] bFile, String destination) throws Exception {
-        if (bFile == null)
-            throw new Exception("Array of bytes can't be null");
+    public static void convertBytesToFile(byte[] bFile, String destination) {
+        Assert.notNull(bFile, "Array of bytes can't be null");
+        Assert.hasLength(destination, "Destination path can't be empty");
 
-        if (TextUtil.isEmpty(destination))
-            throw new Exception("Destination path can't be empty");
-
-        FileOutputStream fileOuputStream = new FileOutputStream(destination);
-        fileOuputStream.write(bFile);
-        fileOuputStream.close();
+        try (FileOutputStream fileOuputStream = new FileOutputStream(destination)) {
+            fileOuputStream.write(bFile);
+        } catch (IOException ex) {
+            throw new RuntimeException("Output stream failed", ex);
+        }
     }
 
     /**
@@ -61,18 +58,16 @@ public class ObjectUtil {
      *
      * @param bFile byte file
      * @param file  {@link File} new destination file.
-     * @throws Exception Array of bytes and file can't be null.
      */
-    public static void convertBytesToFile(byte[] bFile, File file) throws Exception {
-        if (bFile == null)
-            throw new Exception("Array of bytes can't be null");
+    public static void convertBytesToFile(byte[] bFile, File file) {
+        Assert.notNull(bFile, "Array of bytes can't be null");
+        Assert.notNull(file, "File can't be null");
 
-        if (file == null)
-            throw new Exception("File can't be null");
-
-        FileOutputStream fileOuputStream = new FileOutputStream(file);
-        fileOuputStream.write(bFile);
-        fileOuputStream.close();
+        try (FileOutputStream fileOuputStream = new FileOutputStream(file)) {
+            fileOuputStream.write(bFile);
+        } catch (IOException ex) {
+            throw new RuntimeException("Output stream failed", ex);
+        }
     }
 
     /**
@@ -81,12 +76,15 @@ public class ObjectUtil {
      * @param object    {@link Object} Base object.
      * @param fieldName {@link String} Field name.
      * @return {@link Object} Field.
-     * @throws Exception if there are error during reflect object.
      */
-    public static Object getFieldValue(Object object, String fieldName) throws Exception {
-        Class<?> clazz = object.getClass();
-        Field declaredField = clazz.getDeclaredField(fieldName);
-        declaredField.setAccessible(true);
-        return declaredField.get(object);
+    public static Object getFieldValue(Object object, String fieldName) {
+        try {
+            Class<?> clazz = object.getClass();
+            Field declaredField = clazz.getDeclaredField(fieldName);
+            declaredField.setAccessible(true);
+            return declaredField.get(object);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException("Error occurred while reflect object", e);
+        }
     }
 }

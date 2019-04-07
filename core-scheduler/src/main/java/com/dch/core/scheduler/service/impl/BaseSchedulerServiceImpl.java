@@ -7,7 +7,6 @@ import com.dch.core.scheduler.service.BaseSchedulerService;
 import com.dch.core.scheduler.task.TaskRunnable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.task.TaskRejectedException;
@@ -21,29 +20,29 @@ import java.util.concurrent.ScheduledFuture;
 /**
  * This class serves as the Base class for all other Managers - namely to hold
  * common scheduler methods that they might all use. You should only need to
- * extend this class when your require custom scheduler service. This class
- * implements {@link BaseSchedulerService}.
+ * extend this class when your require custom scheduler service.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jun 17, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see com.dch.core.scheduler.service.BaseSchedulerService
+ * @since 1.0.0
  */
 @ComponentScan("com.dch.core.scheduler")
 public abstract class BaseSchedulerServiceImpl implements BaseSchedulerService {
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(BaseSchedulerServiceImpl.class);
+    protected static final Logger logger = LoggerFactory.getLogger(BaseSchedulerServiceImpl.class);
 
-    @Autowired
-    private ApplicationContext applicationContext;
-
-    @Autowired
-    protected ThreadPoolTaskScheduler taskScheduler;
-
-    @Autowired
-    protected SchedulerSetting schedulerSetting;
-
+    private final ApplicationContext applicationContext;
+    protected final ThreadPoolTaskScheduler taskScheduler;
+    protected final SchedulerSetting schedulerSetting;
     protected Map<Integer, ScheduledFuture<?>> scheduleFeatures = new HashMap<>();
+
+    protected BaseSchedulerServiceImpl(ApplicationContext applicationContext, ThreadPoolTaskScheduler taskScheduler,
+                                       SchedulerSetting schedulerSetting) {
+        this.applicationContext = applicationContext;
+        this.taskScheduler = taskScheduler;
+        this.schedulerSetting = schedulerSetting;
+    }
 
     @Override
     public void schedule(SchedulerItem<?> schedulerItem) {
@@ -52,14 +51,14 @@ public abstract class BaseSchedulerServiceImpl implements BaseSchedulerService {
                     .schedule(new TaskRunnable(applicationContext, this, schedulerItem), getTrigger(schedulerItem));
             scheduleFeatures.put(schedulerItem.getSchedulerId(), scheduledFuture);
         } catch (TaskRejectedException ex) {
-            LOGGER.error(String.format("[%s] %s", schedulerSetting.getIdentityPrefix(), ex.getMessage()), ex);
-            throw new SchedulerException(ex.getMessage(), ex);
+            logger.error(String.format("[%s] %s", schedulerSetting.getIdentityPrefix(), ex.getMessage()), ex);
+            throw new SchedulerException("Error occurred while scheduling job!", ex);
         }
     }
 
     @Override
     public void scheduleAll(List<SchedulerItem<?>> schedulerItems) {
-        schedulerItems.forEach(schedulerItem -> schedule(schedulerItem));
+        schedulerItems.forEach(this::schedule);
     }
 
     @Override

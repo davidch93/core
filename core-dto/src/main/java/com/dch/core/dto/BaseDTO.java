@@ -8,9 +8,8 @@ import java.util.Date;
  * Class that define common field that exist in every data transfer object.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Apr 23, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 public abstract class BaseDTO {
 

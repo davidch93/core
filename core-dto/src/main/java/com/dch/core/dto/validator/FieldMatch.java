@@ -36,9 +36,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * </p>
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jul 27, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 @Documented
 @Constraint(validatedBy = FieldMatchValidator.class)

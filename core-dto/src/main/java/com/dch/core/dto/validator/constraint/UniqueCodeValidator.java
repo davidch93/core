@@ -1,9 +1,10 @@
 package com.dch.core.dto.validator.constraint;
 
 import com.dch.core.dto.validator.UniqueCode;
-import com.dch.core.service.validator.BaseValidatorService;
+import com.dch.core.dto.validator.service.ValidatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.util.StringUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -12,9 +13,9 @@ import javax.validation.ConstraintValidatorContext;
  * Checks that a given string is a unique code.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jul 27, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see javax.validation.ConstraintValidator
+ * @since 1.0.0
  */
 public class UniqueCodeValidator implements ConstraintValidator<UniqueCode, String> {
 
@@ -30,10 +31,10 @@ public class UniqueCodeValidator implements ConstraintValidator<UniqueCode, Stri
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (value == null || value.length() == 0)
+        if (!StringUtils.hasLength(value))
             return false;
 
-        BaseValidatorService validatorService = applicationContext.getBean(serviceName, BaseValidatorService.class);
+        ValidatorService validatorService = applicationContext.getBean(serviceName, ValidatorService.class);
         return validatorService.isValidCode(value);
     }
 }

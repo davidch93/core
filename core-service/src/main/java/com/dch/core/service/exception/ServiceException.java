@@ -6,19 +6,15 @@ package com.dch.core.service.exception;
  * checked exceptions in service.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Apr 25, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 public class ServiceException extends RuntimeException {
-
-    private static final long serialVersionUID = -3714801513165400146L;
 
     /**
      * Construct a {@code ServiceException} with a generic message.
      *
      * @param message the message
-     * @param cause   the cause of the exception
      */
     public ServiceException(String message) {
         super(message);

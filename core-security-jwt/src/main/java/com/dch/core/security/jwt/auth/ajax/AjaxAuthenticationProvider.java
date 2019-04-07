@@ -1,6 +1,5 @@
 package com.dch.core.security.jwt.auth.ajax;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
@@ -17,12 +16,12 @@ import org.springframework.stereotype.Component;
  * Class provider that used to Verify user credentials against database, LDAP or
  * some other system which holds the user data, create UserContext and populate
  * it with user data you need, and upon successful authentication delegate
- * creation of JWT Token. This class implements {@link AuthenticationProvider}.
+ * creation of JWT Token.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated May 20, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see org.springframework.security.authentication.AuthenticationProvider
+ * @since 1.0.0
  */
 @Component
 public class AjaxAuthenticationProvider implements AuthenticationProvider {
@@ -30,7 +29,6 @@ public class AjaxAuthenticationProvider implements AuthenticationProvider {
     private final UserDetailsService userDetailsService;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    @Autowired
     public AjaxAuthenticationProvider(UserDetailsService userDetailsService, BCryptPasswordEncoder passwordEncoder) {
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;

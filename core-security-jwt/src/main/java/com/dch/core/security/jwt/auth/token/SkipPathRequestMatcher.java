@@ -9,13 +9,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Class filter is configured to skip following endpoints. This class implements
- * {@link RequestMatcher}.
+ * Class filter is configured to skip following endpoints.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated May 20, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see org.springframework.security.web.util.matcher.RequestMatcher
+ * @since 1.0.0
  */
 public class SkipPathRequestMatcher implements RequestMatcher {
 
@@ -23,9 +22,9 @@ public class SkipPathRequestMatcher implements RequestMatcher {
     private RequestMatcher processingMatcher;
 
     public SkipPathRequestMatcher(List<String> pathsToSkip, String processingPath) {
-        List<RequestMatcher> m = pathsToSkip.stream().map(path -> new AntPathRequestMatcher(path))
+        List<RequestMatcher> requestMatchers = pathsToSkip.stream().map(AntPathRequestMatcher::new)
                 .collect(Collectors.toList());
-        matchers = new OrRequestMatcher(m);
+        matchers = new OrRequestMatcher(requestMatchers);
         processingMatcher = new AntPathRequestMatcher(processingPath);
     }
 
@@ -34,6 +33,6 @@ public class SkipPathRequestMatcher implements RequestMatcher {
         if (matchers.matches(request)) {
             return false;
         }
-        return processingMatcher.matches(request) ? true : false;
+        return processingMatcher.matches(request);
     }
 }

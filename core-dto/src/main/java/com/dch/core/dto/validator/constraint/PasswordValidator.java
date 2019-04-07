@@ -12,9 +12,9 @@ import java.util.regex.Pattern;
  * expression.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jul 27, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see javax.validation.ConstraintValidator
+ * @since 1.0.0
  */
 public class PasswordValidator implements ConstraintValidator<Password, CharSequence> {
 
@@ -24,7 +24,7 @@ public class PasswordValidator implements ConstraintValidator<Password, CharSequ
      * (?=.*[A-Z])	# must contains one uppercase characters <br/>
      * (?=.*[@#$%])	# must contains one special symbols in the list "@#$%" <br/>
      * . 			# match anything with previous condition checking <br/>
-     * {6,20} 		# length at least 6 characters and maximum of 20 <br/>
+     * {8,20} 		# length at least 6 characters and maximum of 20 <br/>
      */
     private static final String PASSWORD_REGEX = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})";
     private static final Pattern PASSWORD_PATTERN = Pattern.compile(PASSWORD_REGEX);

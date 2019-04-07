@@ -1,42 +1,39 @@
 package com.dch.core.rest.exception;
 
-import com.dch.core.datastatic.GenericStatus;
+import com.dch.core.datastatic.GeneralStatus;
 
 /**
  * Class exception that extends {@link RuntimeException} and used to capture all
  * errors in the rest process.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Apr 25, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 public class RestException extends RuntimeException {
 
-    private static final long serialVersionUID = -6072014895614093858L;
-
-    private GenericStatus genericStatus;
+    private GeneralStatus generalStatus;
 
     /**
      * Construct a {@code RestException} with generic status.
      *
-     * @param genericStatus {@link GenericStatus}
+     * @param generalStatus {@link GeneralStatus}
      */
-    public RestException(GenericStatus genericStatus) {
+    public RestException(GeneralStatus generalStatus) {
         super();
-        this.genericStatus = genericStatus;
+        this.generalStatus = generalStatus;
     }
 
     /**
      * Construct a {@code RestException} with generic status and a generic
      * message.
      *
-     * @param genericStatus {@link GenericStatus}
+     * @param generalStatus {@link GeneralStatus}
      * @param message       the message
      */
-    public RestException(GenericStatus genericStatus, String message) {
+    public RestException(GeneralStatus generalStatus, String message) {
         super(message);
-        this.genericStatus = genericStatus;
+        this.generalStatus = generalStatus;
     }
 
     /**
@@ -53,21 +50,21 @@ public class RestException extends RuntimeException {
      * Construct a {@code RestException} with generic status, a generic message
      * and a cause.
      *
-     * @param responseStatus {@link GenericStatus}
-     * @param message        the message
-     * @param cause          the cause of the exception
+     * @param generalStatus {@link GeneralStatus}
+     * @param message       the message
+     * @param cause         the cause of the exception
      */
-    public RestException(GenericStatus genericStatus, String message, Throwable cause) {
+    public RestException(GeneralStatus generalStatus, String message, Throwable cause) {
         super(message, cause);
-        this.genericStatus = genericStatus;
+        this.generalStatus = generalStatus;
     }
 
     /**
      * Method used to get generic status.
      *
-     * @return {@link GenericStatus}
+     * @return {@link GeneralStatus}
      */
-    public GenericStatus getGenericStatus() {
-        return genericStatus;
+    public GeneralStatus getGeneralStatus() {
+        return generalStatus;
     }
 }

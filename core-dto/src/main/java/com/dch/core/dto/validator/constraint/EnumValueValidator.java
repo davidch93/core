@@ -9,9 +9,9 @@ import javax.validation.ConstraintValidatorContext;
  * Checks that a given string is valid value from Enum class.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jul 27, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see javax.validation.ConstraintValidator
+ * @since 1.0.0
  */
 public class EnumValueValidator implements ConstraintValidator<EnumValue, String> {
 
@@ -28,7 +28,7 @@ public class EnumValueValidator implements ConstraintValidator<EnumValue, String
             return false;
 
         Object[] enumValues = this.annotation.enumClass().getEnumConstants();
-        return enumValues != null ? checkEnumValues(enumValues, value) : false;
+        return enumValues != null && checkEnumValues(enumValues, value);
     }
 
     /**

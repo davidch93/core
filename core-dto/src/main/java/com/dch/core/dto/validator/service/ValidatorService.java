@@ -1,15 +1,14 @@
-package com.dch.core.service.validator;
+package com.dch.core.dto.validator.service;
 
 /**
- * Service used to validate object. Extends this interface if you want to create
+ * Service used to validate object. Implement this interface if you want to create
  * custom validator services.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jul 28, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
-public interface BaseValidatorService {
+public interface ValidatorService {
 
     /**
      * Method used to check if code already exist or not.

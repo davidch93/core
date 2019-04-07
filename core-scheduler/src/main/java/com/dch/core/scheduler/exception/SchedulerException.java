@@ -5,13 +5,10 @@ package com.dch.core.scheduler.exception;
  * errors during the schedule process.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jul 24, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 public class SchedulerException extends RuntimeException {
-
-    private static final long serialVersionUID = 8134567604679084904L;
 
     /**
      * Construct a {@code SchedulerException} with a generic message.

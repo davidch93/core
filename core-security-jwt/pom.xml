@@ -13,7 +13,7 @@
     <description>Core libraries and dependencies for HTTP security using JSON Web Token.</description>
 
     <properties>
-        <jsonwebtoken.version>0.7.0</jsonwebtoken.version>
+        <jsonwebtoken.version>0.9.1</jsonwebtoken.version>
     </properties>
 
     <dependencies>
@@ -21,17 +21,14 @@
         <dependency>
             <groupId>com.dch.core</groupId>
             <artifactId>core-data-static</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.dch.core</groupId>
             <artifactId>core-dto</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.dch.core</groupId>
             <artifactId>core-util</artifactId>
-            <scope>provided</scope>
         </dependency>
 
         <!-- Spring -->
@@ -43,23 +40,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
 
         <!-- JWT Token -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>${jsonwebtoken.version}</version>
-        </dependency>
-
-        <!-- Joda Time -->
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
         </dependency>
     </dependencies>
 </project>

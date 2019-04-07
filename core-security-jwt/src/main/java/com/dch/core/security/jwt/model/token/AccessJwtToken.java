@@ -7,9 +7,9 @@ import io.jsonwebtoken.Claims;
  * Raw representation of JWT Token.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated May 20, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see com.dch.core.security.jwt.model.token.JwtToken
+ * @since 1.0.0
  */
 public final class AccessJwtToken implements JwtToken {
 

@@ -9,14 +9,11 @@ import java.util.UUID;
  * Ordered entity with an auto generated primary key.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Apr 23, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 @MappedSuperclass
 public abstract class GeneratedIdOrderedEntity extends OrderedEntity {
-
-    private static final long serialVersionUID = 7315892858786144045L;
 
     @Id
     @GeneratedValue

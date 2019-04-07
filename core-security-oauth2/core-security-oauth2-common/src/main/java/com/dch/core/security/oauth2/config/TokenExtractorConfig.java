@@ -8,9 +8,8 @@ import org.springframework.security.oauth2.provider.authentication.BearerTokenEx
  * Class that used to configure custom token extractor.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jun 12, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 @Configuration
 public class TokenExtractorConfig {

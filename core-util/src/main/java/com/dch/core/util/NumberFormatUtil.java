@@ -1,5 +1,7 @@
 package com.dch.core.util;
 
+import org.springframework.util.Assert;
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -8,13 +10,19 @@ import java.text.NumberFormat;
  * Classes that provides function to manipulate format number (currency).
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Apr 22, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 public class NumberFormatUtil {
 
+    /**
+     * Default value for decimal format.
+     */
     public static final String DECIMAL_FORMAT = "#,###,###,###,##0.00";
+
+    /**
+     * Default value for decimal without comma format.
+     */
     public static final String DECIMAL_FORMAT_NO_COMMA = "############0.00";
 
     /**
@@ -23,11 +31,9 @@ public class NumberFormatUtil {
      *
      * @param number {@link BigDecimal}
      * @return {@link String} #,###,###,###,##0.00
-     * @throws Exception Number can't be null.
      */
-    public static String formatAmount(BigDecimal number) throws Exception {
-        if (number == null)
-            throw new Exception("Number can't be null");
+    public static String formatAmount(BigDecimal number) {
+        Assert.notNull(number, "Number can't be null");
 
         NumberFormat nf = new DecimalFormat(DECIMAL_FORMAT);
         return nf.format(number);
@@ -38,12 +44,10 @@ public class NumberFormatUtil {
      * format type ############0.00
      *
      * @param number {@link BigDecimal}
-     * @return {@link String}
-     * @throws Exception Number can't be null.
+     * @return {@code String}
      */
-    public static String formatAmountNoComma(BigDecimal number) throws Exception {
-        if (number == null)
-            throw new Exception("Number can't be null");
+    public static String formatAmountNoComma(BigDecimal number) {
+        Assert.notNull(number, "Number can't be null");
 
         DecimalFormat formatter = new DecimalFormat(DECIMAL_FORMAT_NO_COMMA);
         return formatter.format(number);
@@ -54,7 +58,7 @@ public class NumberFormatUtil {
      * #,###,###,###,##0.00
      *
      * @param number {@link double}
-     * @return {@link String}
+     * @return {@code String}
      */
     public static String formatAmount(double number) {
         DecimalFormat formatter = new DecimalFormat(DECIMAL_FORMAT);
@@ -66,7 +70,7 @@ public class NumberFormatUtil {
      * format type ############0.00
      *
      * @param number {@link double}
-     * @return {@link String}
+     * @return {@code String}
      */
     public static String formatAmountNoComma(double number) {
         DecimalFormat formatter = new DecimalFormat(DECIMAL_FORMAT_NO_COMMA);
@@ -77,12 +81,10 @@ public class NumberFormatUtil {
      * Method used to format String data type to Long.
      *
      * @param value {@link String}
-     * @return {@link Long}
-     * @throws Exception Value can't be null.
+     * @return {@code Long}
      */
-    public static Long parseToLong(String value) throws Exception {
-        if (TextUtil.isEmpty(value))
-            throw new Exception("Value can't be null");
+    public static Long parseToLong(String value) {
+        Assert.hasLength(value, "Value can't be null");
 
         return Long.valueOf(value);
     }
@@ -91,12 +93,10 @@ public class NumberFormatUtil {
      * Method used to format String data type to Integer.
      *
      * @param value {@link String}
-     * @return {@link Integer}
-     * @throws Exception Value can't be null.
+     * @return {@code Integer}
      */
-    public static Integer parseToInteger(String value) throws Exception {
-        if (TextUtil.isEmpty(value))
-            throw new Exception("Value can't be null");
+    public static Integer parseToInteger(String value) {
+        Assert.hasLength(value, "Value can't be null");
 
         return Integer.parseInt(value);
     }

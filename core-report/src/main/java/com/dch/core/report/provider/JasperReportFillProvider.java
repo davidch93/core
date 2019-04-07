@@ -3,112 +3,90 @@ package com.dch.core.report.provider;
 import com.dch.core.report.config.ReportSetting;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.util.FileResolver;
 import net.sf.jasperreports.engine.util.JRSaver;
-import org.springframework.util.ResourceUtils;
+import org.springframework.core.io.ClassPathResource;
 
 import javax.sql.DataSource;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Class that provide function to compile and fill JasperReport.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jun 18, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 public class JasperReportFillProvider {
 
     private final DataSource dataSource;
     private final ReportSetting reportSetting;
+    private final JasperReportsContext reportsContext;
 
-    public JasperReportFillProvider(DataSource dataSource, ReportSetting reportSetting) {
+    public JasperReportFillProvider(DataSource dataSource, ReportSetting reportSetting,
+                                    JasperReportsContext reportsContext) {
         this.dataSource = dataSource;
         this.reportSetting = reportSetting;
+        this.reportsContext = reportsContext;
     }
-
-    private final FileResolver FILE_RESOLVER = new FileResolver() {
-
-        @Override
-        public File resolveFile(String fileName) {
-            try {
-                return ResourceUtils.getFile(reportSetting.getReportPath() + fileName);
-            } catch (FileNotFoundException e) {
-                return null;
-            }
-        }
-    };
 
     /**
      * Method used to compile JasperReport.
      *
-     * @param reportFileName {@link String} JasperReport filename.
+     * @param fileName {@code String} JasperReport filename.
      * @return {@link JasperReport}
-     * @throws JRException
-     * @throws IOException
+     * @throws JRException If error occurred while compiling report.
+     * @throws IOException If error occurred while creating input stream.
      */
-    public JasperReport compileReport(String reportFileName) throws JRException, IOException {
-        InputStream inputStream = getClass().getResourceAsStream(reportSetting.getReportPath().concat(reportFileName));
-        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
-        JRSaver.saveObject(jasperReport, reportSetting.getCompilePath() + reportFileName.replace(".jrxml", ".jasper"));
-        inputStream.close();
-        return jasperReport;
+    private JasperReport compileReport(String fileName) throws JRException, IOException {
+        try (InputStream is = new ClassPathResource(reportSetting.getReportPath().concat(fileName)).getInputStream()) {
+            JasperReport jasperReport = JasperCompileManager.getInstance(reportsContext).compile(is);
+            JRSaver.saveObject(jasperReport, reportSetting.getCompilePath().concat(fileName.replace(".jrxml",
+                    ".jasper")));
+            return jasperReport;
+        }
     }
 
     /**
      * Method used to fill report with data source connection.
      *
      * @param jasperReport {@link JasperReport}
-     * @param parameters   {@link Map}&lt;{@link String}, {@link Object}&gt;
+     * @param parameters   {@link Map} Report parameters.
      * @return {@link JasperPrint}
-     * @throws JRException
-     * @throws SQLException
+     * @throws JRException  If error occurred while creating Jasper report.
+     * @throws SQLException If error occurred while connecting to data source.
      */
-    public JasperPrint fillReportDataSourceConnection(JasperReport jasperReport, Map<String, Object> parameters)
+    private JasperPrint fillReportDataSourceConnection(JasperReport jasperReport, Map<String, Object> parameters)
             throws JRException, SQLException {
-        if (parameters == null)
-            parameters = new HashMap<String, Object>();
-        parameters.put("REPORT_FILE_RESOLVER", this.FILE_RESOLVER);
-
-        return JasperFillManager.fillReport(jasperReport, parameters, dataSource.getConnection());
+        return JasperFillManager.getInstance(reportsContext).fill(jasperReport, parameters, dataSource.getConnection());
     }
 
     /**
      * Method used to fill report with bean collection.
      *
      * @param jasperReport             {@link JasperReport}
-     * @param parameters               {@link Map}&lt;{@link String}, {@link Object}&gt;
+     * @param parameters               {@link Map} Report parameters.
      * @param beanCollectionDataSource {@link JRBeanCollectionDataSource}
      * @return {@link JasperPrint}
-     * @throws JRException
-     * @throws SQLException
+     * @throws JRException If error occurred while creating Jasper report.
      */
-    public JasperPrint fillReportJRBeanCollection(JasperReport jasperReport, Map<String, Object> parameters,
-                                                  JRBeanCollectionDataSource beanCollectionDataSource) throws JRException, SQLException {
-        if (parameters == null)
-            parameters = new HashMap<String, Object>();
-        parameters.put("REPORT_FILE_RESOLVER", this.FILE_RESOLVER);
-
-        return JasperFillManager.fillReport(jasperReport, parameters, beanCollectionDataSource);
+    private JasperPrint fillReportJRBeanCollection(JasperReport jasperReport, Map<String, Object> parameters,
+                                                   JRBeanCollectionDataSource beanCollectionDataSource) throws JRException {
+        return JasperFillManager.getInstance(reportsContext).fill(jasperReport, parameters, beanCollectionDataSource);
     }
 
     /**
      * Method used to prepare JasperReport with data source connection. This
      * method call compile report and fill report data source connection.
      *
-     * @param reportFileName {@link String} JasperReport filename.
-     * @param parameters     {@link Map}&lt;{@link String}, {@link Object}&gt;
+     * @param reportFileName {@code String} JasperReport filename.
+     * @param parameters     {@link Map} Report parameters.
      * @return {@link JasperPrint}
-     * @throws JRException
-     * @throws SQLException
-     * @throws IOException
+     * @throws JRException  If error occurred while creating Jasper report.
+     * @throws SQLException If error occurred while connecting to data source.
+     * @throws IOException  If error occurred while creating input stream.
      */
     public JasperPrint prepareReportDataSourceConnection(String reportFileName, Map<String, Object> parameters)
             throws JRException, SQLException, IOException {
@@ -119,16 +97,15 @@ public class JasperReportFillProvider {
      * Method used to prepare JasperReport with bean collection. This method
      * call compile report and fill report bean collection.
      *
-     * @param reportFileName           {@link String} JasperReport filename.
-     * @param parameters               {@link Map}&lt;{@link String}, {@link Object}&gt;
+     * @param reportFileName           {@code String} JasperReport filename.
+     * @param parameters               {@link Map} Report parameters.
      * @param beanCollectionDataSource {@link JRBeanCollectionDataSource}
      * @return {@link JasperPrint}
-     * @throws JRException
-     * @throws SQLException
-     * @throws IOException
+     * @throws JRException If error occurred while creating Jasper report.
+     * @throws IOException If error occurred while creating input stream.
      */
     public JasperPrint prepareReportJRBeanCollection(String reportFileName, Map<String, Object> parameters,
-                                                     JRBeanCollectionDataSource beanCollectionDataSource) throws JRException, SQLException, IOException {
+                                                     JRBeanCollectionDataSource beanCollectionDataSource) throws JRException, IOException {
         return fillReportJRBeanCollection(compileReport(reportFileName), parameters, beanCollectionDataSource);
     }
 }

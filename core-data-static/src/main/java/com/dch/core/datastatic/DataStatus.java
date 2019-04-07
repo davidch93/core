@@ -4,9 +4,8 @@ package com.dch.core.datastatic;
  * List of data status that represent database column.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Apr 23, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 public enum DataStatus {
 
@@ -28,5 +27,5 @@ public enum DataStatus {
     /**
      * Status for terminated data.
      */
-    TERMINATED;
+    TERMINATED
 }

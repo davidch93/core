@@ -3,7 +3,6 @@ package com.dch.core.security.oauth2.config;
 import com.dch.core.security.oauth2.RestAccessDeniedHandler;
 import com.dch.core.security.oauth2.RestAuthenticationEntryPoint;
 import com.dch.core.security.oauth2.service.SecurityDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,32 +24,32 @@ import javax.sql.DataSource;
  * The server configuration that used to provide implementations of the client
  * details service and token services and to enable or disable certain aspects
  * of the mechanism globally. This default configuration using
- * {@link JdbcTokenStore} and extends
- * {@link AuthorizationServerConfigurerAdapter} to provide authorization server
- * configuration support.
+ * {@link JdbcTokenStore}.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated May 31, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter
+ * @since 1.0.0
  */
 @ComponentScan("com.cnx.core.security.oauth2")
 public class AuthorizationServerConfigurerSupport extends AuthorizationServerConfigurerAdapter {
 
-    @Autowired
-    protected AuthenticationManager authenticationManager;
+    protected final AuthenticationManager authenticationManager;
+    protected final DataSource dataSource;
+    protected final UserDetailsService userDetailsService;
+    protected final SecurityDetailsService securityDetailsService;
+    protected final AuthorizationSetting authorizationSetting;
 
-    @Autowired
-    protected DataSource dataSource;
-
-    @Autowired
-    protected UserDetailsService userDetailsService;
-
-    @Autowired
-    protected SecurityDetailsService securityDetailsService;
-
-    @Autowired
-    protected AuthorizationSetting authorizationSetting;
+    public AuthorizationServerConfigurerSupport(AuthenticationManager authenticationManager, DataSource dataSource,
+                                                UserDetailsService userDetailsService,
+                                                SecurityDetailsService securityDetailsService,
+                                                AuthorizationSetting authorizationSetting) {
+        this.authenticationManager = authenticationManager;
+        this.dataSource = dataSource;
+        this.userDetailsService = userDetailsService;
+        this.securityDetailsService = securityDetailsService;
+        this.authorizationSetting = authorizationSetting;
+    }
 
     /**
      * Bean of JDBC Client Details Service.
@@ -73,32 +72,26 @@ public class AuthorizationServerConfigurerSupport extends AuthorizationServerCon
     }
 
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-        // @formatter:off
-		oauthServer
-			.authenticationEntryPoint(authenticationEntryPoint())
-			.accessDeniedHandler(accessDeniedHandler())
-			.checkTokenAccess("isAuthenticated()")
-			.tokenKeyAccess("permitAll()");
-		// @formatter:on
+    public void configure(AuthorizationServerSecurityConfigurer oauthServer) {
+        oauthServer
+                .authenticationEntryPoint(authenticationEntryPoint())
+                .accessDeniedHandler(accessDeniedHandler())
+                .checkTokenAccess("isAuthenticated()")
+                .tokenKeyAccess("permitAll()");
     }
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        // @formatter:off
-		clients.withClientDetails(clientDetailsService());
-		// @formatter:on
+        clients.withClientDetails(clientDetailsService());
     }
 
     @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        // @formatter:off
-		endpoints
-			.tokenStore(tokenStore())
-			.tokenEnhancer(tokenEnhancerChain())
-			.authenticationManager(authenticationManager)
-			.userDetailsService(userDetailsService);
-		// @formatter:on
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
+        endpoints
+                .tokenStore(tokenStore())
+                .tokenEnhancer(tokenEnhancerChain())
+                .authenticationManager(authenticationManager)
+                .userDetailsService(userDetailsService);
     }
 
     /**
@@ -116,7 +109,7 @@ public class AuthorizationServerConfigurerSupport extends AuthorizationServerCon
      * @return {@link RestAccessDeniedHandler}
      */
     protected AccessDeniedHandler accessDeniedHandler() {
-        return new RestAccessDeniedHandler();
+        return new RestAccessDeniedHandler(securityDetailsService);
     }
 
     /**

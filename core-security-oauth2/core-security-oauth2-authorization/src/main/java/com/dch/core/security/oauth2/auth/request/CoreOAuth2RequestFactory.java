@@ -15,9 +15,9 @@ import java.util.Map;
  * </p>
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jun 12, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see org.springframework.security.oauth2.provider.OAuth2RequestFactory
+ * @since 1.0.0
  */
 @Component
 public class CoreOAuth2RequestFactory implements OAuth2RequestFactory {

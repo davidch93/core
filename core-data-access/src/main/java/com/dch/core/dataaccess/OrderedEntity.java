@@ -7,14 +7,11 @@ import javax.persistence.MappedSuperclass;
  * Base entity with ordered field.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Apr 23, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 @MappedSuperclass
 public abstract class OrderedEntity extends BaseEntity {
-
-    private static final long serialVersionUID = -1713977518150279772L;
 
     @Column(name = "item_order")
     protected Long order;

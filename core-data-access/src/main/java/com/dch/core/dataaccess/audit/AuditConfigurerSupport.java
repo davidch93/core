@@ -1,18 +1,26 @@
 package com.dch.core.dataaccess.audit;
 
+import com.dch.core.dataaccess.audit.service.AuditService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.AuditorAware;
 
+import java.util.Optional;
+
 /**
  * Default configuration for auditing data. You can create custom auditor aware
- * and date time provider to add in this configuration.
+ * and date time provider to add in this configuration. Auditing the Author of Changes with Spring Security.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Sep 25, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
-public class AuditConfigurerSupport {
+public abstract class AuditConfigurerSupport {
+
+    private final AuditService auditService;
+
+    protected AuditConfigurerSupport(AuditService auditService) {
+        this.auditService = auditService;
+    }
 
     /**
      * Bean of Auditor Provider.
@@ -21,6 +29,6 @@ public class AuditConfigurerSupport {
      */
     @Bean
     public AuditorAware<String> auditorProvider() {
-        return new AuditorAwareImpl();
+        return () -> Optional.of(auditService.getCurrentAuditor());
     }
 }

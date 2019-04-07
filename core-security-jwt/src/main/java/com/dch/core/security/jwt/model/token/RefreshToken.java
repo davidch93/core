@@ -8,13 +8,12 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Class that implements {@link JwtToken} and used to create and validate
- * refresh token.
+ * Class  used to create and validate refresh token.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated May 20, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see com.dch.core.security.jwt.model.token.JwtToken
+ * @since 1.0.0
  */
 public class RefreshToken implements JwtToken {
 
@@ -36,8 +35,7 @@ public class RefreshToken implements JwtToken {
         Jws<Claims> claims = token.parseClaims(signingKey);
 
         List<String> scopes = claims.getBody().get("scopes", List.class);
-        if (scopes == null || scopes.isEmpty() || !scopes.stream()
-                .filter(scope -> Scopes.REFRESH_TOKEN.authority().equals(scope)).findFirst().isPresent())
+        if (scopes == null || scopes.isEmpty() || scopes.stream().noneMatch(scope -> Scopes.REFRESH_TOKEN.authority().equals(scope)))
             return Optional.empty();
 
         return Optional.of(new RefreshToken(claims));

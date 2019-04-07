@@ -4,7 +4,6 @@ import com.dch.core.datastatic.WebSecuritySupport;
 import com.dch.core.security.oauth2.RestAccessDeniedHandler;
 import com.dch.core.security.oauth2.RestAuthenticationEntryPoint;
 import com.dch.core.security.oauth2.service.SecurityDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.access.expression.SecurityExpressionHandler;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,37 +21,35 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 /**
  * The server configuration that protects resources from authorization server,
  * capable of accepting and responding to protected resource requests using
- * {@link TokenStore}. This class extends
- * {@link ResourceServerConfigurerAdapter} to provide resource server
- * configuration support.
+ * {@link TokenStore}.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jun 13, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter
+ * @since 1.0.0
  */
 @ComponentScan("com.cnx.core.security.oauth2")
 public class ResourceServerConfigurerSupport extends ResourceServerConfigurerAdapter {
 
-    @Autowired
-    protected SecurityDetailsService securityDetailsService;
+    protected final SecurityDetailsService securityDetailsService;
+    protected final TokenExtractor tokenExtractor;
+    protected final ResourceSetting resourceSettings;
 
-    @Autowired
-    protected TokenExtractor tokenExtractor;
-
-    @Autowired
-    protected ResourceSetting resourceSettings;
+    public ResourceServerConfigurerSupport(SecurityDetailsService securityDetailsService,
+                                           TokenExtractor tokenExtractor, ResourceSetting resourceSettings) {
+        this.securityDetailsService = securityDetailsService;
+        this.tokenExtractor = tokenExtractor;
+        this.resourceSettings = resourceSettings;
+    }
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
-        // @formatter:off
-		resources
-			.authenticationEntryPoint(authenticationEntryPoint())
-			.accessDeniedHandler(accessDeniedHandler())
-			.expressionHandler(expressionHandler())
-			.resourceId(resourceSettings.getResourceId())
-			.tokenExtractor(tokenExtractor);
-		// @formatter:on
+        resources
+                .authenticationEntryPoint(authenticationEntryPoint())
+                .accessDeniedHandler(accessDeniedHandler())
+                .expressionHandler(expressionHandler())
+                .resourceId(resourceSettings.getResourceId())
+                .tokenExtractor(tokenExtractor);
     }
 
     @Override
@@ -64,7 +61,7 @@ public class ResourceServerConfigurerSupport extends ResourceServerConfigurerAda
 				.antMatchers(WebSecuritySupport.OAUTH2_BASED_CHECK_ENTRY_POINT.getValue()).permitAll()
 				.antMatchers(WebSecuritySupport.OAUTH2_BASED_REVOKE_ENTRY_POINT.getValue()).permitAll();
 
-		authorizeRequests = configureAuthorization(authorizeRequests)
+		configureAuthorization(authorizeRequests)
 				.anyRequest().authenticated();
 		// @formatter:on
     }
@@ -84,7 +81,7 @@ public class ResourceServerConfigurerSupport extends ResourceServerConfigurerAda
      * @return {@link RestAccessDeniedHandler}
      */
     protected AccessDeniedHandler accessDeniedHandler() {
-        return new RestAccessDeniedHandler();
+        return new RestAccessDeniedHandler(securityDetailsService);
     }
 
     /**
@@ -100,15 +97,11 @@ public class ResourceServerConfigurerSupport extends ResourceServerConfigurerAda
      * Method used to add custom authorization configurations. By default do
      * nothing.
      *
-     * @param authorizeRequests {@link ExpressionUrlAuthorizationConfigurer}&lt;{@link HttpSecurity}&gt;
-     *                                                                      .{@link ExpressionInterceptUrlRegistry}
-     * @return {@link ExpressionUrlAuthorizationConfigurer}&lt;{@link HttpSecurity}&gt;
-     * .{@link ExpressionInterceptUrlRegistry}
-     * @throws Exception if there are errors during configure authorization.
+     * @param authorizeRequests {@link ExpressionInterceptUrlRegistry}
+     * @return Custom {@link ExpressionInterceptUrlRegistry}
      */
     protected ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry configureAuthorization(
-            ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests)
-            throws Exception {
+            ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests) {
         return authorizeRequests;
     }
 }

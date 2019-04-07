@@ -25,9 +25,9 @@ import java.io.IOException;
  * {@link OAuth2RequestFactory}.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jun 12, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see org.springframework.security.oauth2.provider.endpoint.TokenEndpointAuthenticationFilter
+ * @since 1.0.0
  */
 public class OAuth2TokenEndpointAuthenticationFilter extends TokenEndpointAuthenticationFilter {
 
@@ -69,7 +69,7 @@ public class OAuth2TokenEndpointAuthenticationFilter extends TokenEndpointAuthen
 
     @Override
     protected void onUnsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-                                                AuthenticationException failed) throws IOException {
+                                                AuthenticationException failed) {
         // TODO Add your custom unsuccessful authentication or using OAuth2AuthenticationEntryPoint.
     }
 }

@@ -1,59 +1,56 @@
 package com.dch.core.security.oauth2.service.impl;
 
-import com.dch.core.datastatic.GenericStatus;
-import com.dch.core.datastatic.builder.ResponseBuilderHelper;
-import com.dch.core.security.oauth2.builder.SecurityResponseBuilder;
+import com.dch.core.datastatic.GeneralStatus;
+import com.dch.core.dto.response.builder.ResponseBuilder;
 import com.dch.core.security.oauth2.service.SecurityDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.oauth2.common.exceptions.*;
 
 /**
  * This class serves as the Base class for all security details service - namely
- * to hold common service methods that they might all use. This class implements
- * {@link SecurityDetailsService}.
+ * to hold common service methods that they might all use.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jul 24, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see com.dch.core.security.oauth2.service.SecurityDetailsService
+ * @since 1.0.0
  */
 public abstract class AbstractSecurityDetailsServiceImpl implements SecurityDetailsService {
 
-    @Autowired
-    protected MessageSource messageSource;
+    protected final MessageSource messageSource;
 
-    @Override
-    public ResponseBuilderHelper getSecurityResponseBuilder() {
-        return new SecurityResponseBuilder(messageSource);
+    protected AbstractSecurityDetailsServiceImpl(MessageSource messageSource) {
+        this.messageSource = messageSource;
     }
 
     @Override
-    public ResponseBuilderHelper getSecurityResponseBuilder(OAuth2Exception oAuth2Exception) {
-        GenericStatus genericStatus;
-        if (oAuth2Exception instanceof InvalidClientException)
-            genericStatus = GenericStatus.INVALID_CLIENT;
-        else if (oAuth2Exception instanceof InvalidGrantException)
-            genericStatus = GenericStatus.INVALID_GRANT;
-        else if (oAuth2Exception instanceof InvalidRequestException)
-            genericStatus = GenericStatus.INVALID_REQUEST;
-        else if (oAuth2Exception instanceof InvalidScopeException)
-            genericStatus = GenericStatus.INVALID_SCOPE;
-        else if (oAuth2Exception instanceof InvalidTokenException)
-            genericStatus = GenericStatus.INVALID_TOKEN;
-        else if (oAuth2Exception instanceof RedirectMismatchException)
-            genericStatus = GenericStatus.REDIRECT_URI_MISMATCH;
-        else if (oAuth2Exception instanceof UnauthorizedClientException)
-            genericStatus = GenericStatus.UNAUTHORIZED_CLIENT;
-        else if (oAuth2Exception instanceof UnsupportedGrantTypeException)
-            genericStatus = GenericStatus.UNSUPPORTED_GRANT_TYPE;
-        else if (oAuth2Exception instanceof UnsupportedResponseTypeException)
-            genericStatus = GenericStatus.UNSUPPORTED_RESPONSE_TYPE;
-        else if (oAuth2Exception instanceof UserDeniedAuthorizationException)
-            genericStatus = GenericStatus.FORBIDDEN;
-        else
-            genericStatus = GenericStatus.INVALID_AUTHENTICATION;
+    public ResponseBuilder getSecurityResponseBuilder() {
+        return new ResponseBuilder(messageSource);
+    }
 
-        return getSecurityResponseBuilder().setGenericStatus(genericStatus);
+    @Override
+    public ResponseBuilder getSecurityResponseBuilder(OAuth2Exception oAuth2Exception) {
+        if (oAuth2Exception instanceof InvalidClientException)
+            return getSecurityResponseBuilder().setGeneralStatus(GeneralStatus.INVALID_CLIENT);
+        else if (oAuth2Exception instanceof InvalidGrantException)
+            return getSecurityResponseBuilder().setGeneralStatus(GeneralStatus.INVALID_GRANT);
+        else if (oAuth2Exception instanceof InvalidRequestException)
+            return getSecurityResponseBuilder().setGeneralStatus(GeneralStatus.INVALID_REQUEST);
+        else if (oAuth2Exception instanceof InvalidScopeException)
+            return getSecurityResponseBuilder().setGeneralStatus(GeneralStatus.INVALID_SCOPE);
+        else if (oAuth2Exception instanceof InvalidTokenException)
+            return getSecurityResponseBuilder().setGeneralStatus(GeneralStatus.INVALID_TOKEN);
+        else if (oAuth2Exception instanceof RedirectMismatchException)
+            return getSecurityResponseBuilder().setGeneralStatus(GeneralStatus.REDIRECT_URI_MISMATCH);
+        else if (oAuth2Exception instanceof UnauthorizedClientException)
+            return getSecurityResponseBuilder().setGeneralStatus(GeneralStatus.UNAUTHORIZED_CLIENT);
+        else if (oAuth2Exception instanceof UnsupportedGrantTypeException)
+            return getSecurityResponseBuilder().setGeneralStatus(GeneralStatus.UNSUPPORTED_GRANT_TYPE);
+        else if (oAuth2Exception instanceof UnsupportedResponseTypeException)
+            return getSecurityResponseBuilder().setGeneralStatus(GeneralStatus.UNSUPPORTED_RESPONSE_TYPE);
+        else if (oAuth2Exception instanceof UserDeniedAuthorizationException)
+            return getSecurityResponseBuilder().setGeneralStatus(GeneralStatus.FORBIDDEN);
+
+        return getSecurityResponseBuilder().setGeneralStatus(GeneralStatus.INVALID_AUTHENTICATION);
     }
 }

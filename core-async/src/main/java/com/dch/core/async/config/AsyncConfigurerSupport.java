@@ -1,13 +1,15 @@
 package com.dch.core.async.config;
 
-import com.dch.core.async.error.AsyncExceptionHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executor;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * A convenience {@link AsyncConfigurer} that implements all methods so that the
@@ -15,15 +17,18 @@ import java.util.concurrent.Executor;
  * {@link AsyncConfigurer} directly.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated May 13, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 @ComponentScan("com.dch.core.async")
 public class AsyncConfigurerSupport implements AsyncConfigurer {
 
-    @Autowired
-    private AsyncSetting asyncSetting;
+    private static final Logger logger = LoggerFactory.getLogger(AsyncConfigurerSupport.class);
+    private final AsyncSetting asyncSetting;
+
+    public AsyncConfigurerSupport(AsyncSetting asyncSetting) {
+        this.asyncSetting = asyncSetting;
+    }
 
     @Override
     public Executor getAsyncExecutor() {
@@ -39,6 +44,10 @@ public class AsyncConfigurerSupport implements AsyncConfigurer {
 
     @Override
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
-        return new AsyncExceptionHandler(asyncSetting.getIdentityPrefix());
+        return (throwable, method, objects) -> {
+            logger.error(String.format("[%s] Error method: %s", asyncSetting.getIdentityPrefix(), method), throwable);
+            logger.info(String.format("[%s] Parameter value: [%s]", asyncSetting.getIdentityPrefix(),
+                    Stream.of(objects).map(Object::toString).collect(Collectors.joining(", "))));
+        };
     }
 }

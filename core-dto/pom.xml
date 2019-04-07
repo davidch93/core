@@ -17,19 +17,6 @@
         <dependency>
             <groupId>com.dch.core</groupId>
             <artifactId>core-data-static</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.dch.core</groupId>
-            <artifactId>core-service</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- Spring -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <scope>provided</scope>
         </dependency>
 
         <!-- Jackson Core -->

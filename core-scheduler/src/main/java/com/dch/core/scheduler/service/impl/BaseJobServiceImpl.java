@@ -6,28 +6,28 @@ import com.dch.core.scheduler.service.BaseJobService;
 import com.dch.core.scheduler.service.BaseSchedulerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * This class serves as the Base class for all other Managers - namely to do
  * common job methods that they might all use. You should only need to extend
- * this class when your require custom job service. This class implements
- * {@link BaseJobService}.
+ * this class when your require custom job service.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jun 17, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see com.dch.core.scheduler.service.BaseJobService
+ * @since 1.0.0
  */
 public abstract class BaseJobServiceImpl implements BaseJobService {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(BaseJobServiceImpl.class);
 
-    @Autowired
-    protected SchedulerSetting schedulerSetting;
+    protected final SchedulerSetting schedulerSetting;
+    protected final BaseSchedulerService schedulerService;
 
-    @Autowired
-    protected BaseSchedulerService schedulerService;
+    protected BaseJobServiceImpl(SchedulerSetting schedulerSetting, BaseSchedulerService schedulerService) {
+        this.schedulerSetting = schedulerSetting;
+        this.schedulerService = schedulerService;
+    }
 
     @Override
     public void doJob(SchedulerItem<?> schedulerItem) {

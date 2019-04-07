@@ -17,12 +17,10 @@
         <dependency>
             <groupId>com.dch.core</groupId>
             <artifactId>core-data-access</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.dch.core</groupId>
             <artifactId>core-data-static</artifactId>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

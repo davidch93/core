@@ -11,16 +11,13 @@ import javax.persistence.Table;
  * custom value of the user who was executing the change and entity name.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Sep 26, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 @Entity
 @RevisionEntity(AuditTrackingRevisionListener.class)
 @Table(name = "revinfo", schema = "audit")
 public class AuditEntity extends DefaultRevisionEntity {
-
-    private static final long serialVersionUID = 3116427087867358723L;
 
     private String auditedBy;
     private String entityName;

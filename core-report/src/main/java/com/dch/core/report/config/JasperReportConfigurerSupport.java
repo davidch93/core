@@ -2,29 +2,34 @@ package com.dch.core.report.config;
 
 import com.dch.core.report.provider.JasperReportExportProvider;
 import com.dch.core.report.provider.JasperReportFillProvider;
-import org.springframework.beans.factory.annotation.Autowired;
+import net.sf.jasperreports.engine.JasperReportsContext;
+import net.sf.jasperreports.engine.SimpleJasperReportsContext;
+import net.sf.jasperreports.repo.FileRepositoryPersistenceServiceFactory;
+import net.sf.jasperreports.repo.FileRepositoryService;
+import net.sf.jasperreports.repo.PersistenceServiceFactory;
+import net.sf.jasperreports.repo.RepositoryService;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
+import java.util.Collections;
 
 /**
  * Class that provide JasperReport configuration support. This configuration
- * using {@link JasperReportFillProvider} and {@link JasperReportExportProvider}
+ * using {@link JasperReportFillProvider} and {@link JasperReportExportProvider}.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jun 18, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
-@Configuration
 public class JasperReportConfigurerSupport {
 
-    @Autowired
-    protected DataSource dataSource;
+    private final DataSource dataSource;
+    private final ReportSetting reportSetting;
 
-    @Autowired
-    protected ReportSetting reportSetting;
+    public JasperReportConfigurerSupport(DataSource dataSource, ReportSetting reportSetting) {
+        this.dataSource = dataSource;
+        this.reportSetting = reportSetting;
+    }
 
     /**
      * Bean of Jasper Report Fill Provider.
@@ -33,7 +38,7 @@ public class JasperReportConfigurerSupport {
      */
     @Bean
     public JasperReportFillProvider jasperReportFillProvider() {
-        return new JasperReportFillProvider(dataSource, reportSetting);
+        return new JasperReportFillProvider(dataSource, reportSetting, jasperReportsContext());
     }
 
     /**
@@ -43,6 +48,20 @@ public class JasperReportConfigurerSupport {
      */
     @Bean
     public JasperReportExportProvider jasperReportExportProvider() {
-        return new JasperReportExportProvider(reportSetting);
+        return new JasperReportExportProvider(reportSetting, jasperReportsContext());
+    }
+
+    /**
+     * Default config JasperReportsContext.
+     *
+     * @return {@link JasperReportsContext}
+     */
+    protected JasperReportsContext jasperReportsContext() {
+        SimpleJasperReportsContext context = new SimpleJasperReportsContext();
+        context.setExtensions(RepositoryService.class,
+                Collections.singletonList(new FileRepositoryService(context, reportSetting.getReportPath(), false)));
+        context.setExtensions(PersistenceServiceFactory.class,
+                Collections.singletonList(FileRepositoryPersistenceServiceFactory.getInstance()));
+        return context;
     }
 }

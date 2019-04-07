@@ -1,15 +1,14 @@
 package com.dch.core.datastatic.builder;
 
 /**
- * Generic interface for all builder class.
+ * General interface for all builder class.
  *
  * @param <T> Object class.
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jul 23, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
-public interface GenericBuilder<T> {
+public interface GeneralBuilder<T> {
 
     /**
      * Method used to build an object.

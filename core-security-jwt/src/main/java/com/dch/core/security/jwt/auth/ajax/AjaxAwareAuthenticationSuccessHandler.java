@@ -1,11 +1,9 @@
 package com.dch.core.security.jwt.auth.ajax;
 
-import com.dch.core.datastatic.GenericStatus;
-import com.dch.core.security.jwt.model.token.JwtToken;
+import com.dch.core.datastatic.GeneralStatus;
 import com.dch.core.security.jwt.model.token.JwtTokenFactory;
 import com.dch.core.security.jwt.service.SecurityDetailsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -13,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -28,9 +25,9 @@ import java.util.Map;
  * response body.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated May 20, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see org.springframework.security.web.authentication.AuthenticationSuccessHandler
+ * @since 1.0.0
  */
 public class AjaxAwareAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
@@ -38,7 +35,6 @@ public class AjaxAwareAuthenticationSuccessHandler implements AuthenticationSucc
     private ObjectMapper mapper;
     private JwtTokenFactory tokenFactory;
 
-    @Autowired
     public AjaxAwareAuthenticationSuccessHandler(SecurityDetailsService securityDetailsService, ObjectMapper mapper,
                                                  JwtTokenFactory tokenFactory) {
         this.securityDetailsService = securityDetailsService;
@@ -48,26 +44,20 @@ public class AjaxAwareAuthenticationSuccessHandler implements AuthenticationSucc
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-                                        Authentication authentication) throws IOException, ServletException {
-
+                                        Authentication authentication) throws IOException {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-        JwtToken accessToken = tokenFactory.createAccessJwtToken(userDetails);
-        JwtToken refreshToken = tokenFactory.createRefreshToken(userDetails);
-
-        Map<String, String> tokenMap = new HashMap<String, String>();
-        tokenMap.put("token", accessToken.getToken());
-        tokenMap.put("refreshToken", refreshToken.getToken());
+        Map<String, String> tokenMap = new HashMap<>();
+        tokenMap.put("token", tokenFactory.createAccessJwtToken(userDetails).getToken());
+        tokenMap.put("refreshToken", tokenFactory.createRefreshToken(userDetails).getToken());
 
         response.setStatus(HttpStatus.OK.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
-        // @formatter:off
-		mapper.writeValue(response.getWriter(), securityDetailsService.getSecurityResponseBuilder()
-				.setData(tokenMap)
-				.setGenericStatus(GenericStatus.TOKEN_CREATED)
-			.build());
-		// @formatter:on
+        mapper.writeValue(response.getWriter(), securityDetailsService.getSecurityResponseBuilder()
+                .setData(tokenMap)
+                .setGeneralStatus(GeneralStatus.TOKEN_CREATED)
+                .build());
 
         clearAuthenticationAttributes(request);
     }
@@ -78,9 +68,8 @@ public class AjaxAwareAuthenticationSuccessHandler implements AuthenticationSucc
      *
      * @param request {@link HttpServletRequest}
      */
-    protected final void clearAuthenticationAttributes(HttpServletRequest request) {
+    private void clearAuthenticationAttributes(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-
         if (session == null) {
             return;
         }

@@ -9,9 +9,9 @@ import javax.validation.ConstraintValidatorContext;
  * Check that a character sequence's (e.g. string) trimmed length is not empty.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jul 27, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see javax.validation.ConstraintValidator
+ * @since 1.0.0
  */
 public class NotEmptyValidator implements ConstraintValidator<NotEmpty, CharSequence> {
 
@@ -30,11 +30,11 @@ public class NotEmptyValidator implements ConstraintValidator<NotEmpty, CharSequ
      * <code>false</code> otherwise.
      */
     @Override
-    public boolean isValid(CharSequence value, ConstraintValidatorContext context) {
-        if (value == null || value.length() == 0)
+    public boolean isValid(CharSequence charSequence, ConstraintValidatorContext context) {
+        if (charSequence == null || charSequence.length() == 0)
             return false;
 
-        return value.toString().trim().length() > 0;
+        return charSequence.toString().trim().length() > 0;
     }
 
 }

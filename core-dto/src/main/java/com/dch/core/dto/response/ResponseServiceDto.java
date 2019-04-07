@@ -1,7 +1,6 @@
 package com.dch.core.dto.response;
 
-import com.dch.core.datastatic.GenericStatus;
-import com.dch.core.datastatic.response.GenericResponse;
+import com.dch.core.datastatic.GeneralStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -10,26 +9,25 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * response body.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Apr 23, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 @JsonInclude(Include.NON_NULL)
-public class ResponseServiceDto<T> implements GenericResponse {
+public class ResponseServiceDto<T> implements GeneralResponse {
 
-    private GenericStatus status;
+    private GeneralStatus status;
     private T message;
     private ContentListDto<T> messageList;
 
     public ResponseServiceDto() {
     }
 
-    public ResponseServiceDto(GenericStatus status, T message) {
+    public ResponseServiceDto(GeneralStatus status, T message) {
         this.status = status;
         this.message = message;
     }
 
-    public ResponseServiceDto(GenericStatus status, ContentListDto<T> messageList) {
+    public ResponseServiceDto(GeneralStatus status, ContentListDto<T> messageList) {
         this.status = status;
         this.messageList = messageList;
     }
@@ -37,14 +35,14 @@ public class ResponseServiceDto<T> implements GenericResponse {
     /**
      * @return the status
      */
-    public GenericStatus getStatus() {
+    public GeneralStatus getStatus() {
         return status;
     }
 
     /**
      * @param status the status to set
      */
-    public void setStatus(GenericStatus status) {
+    public void setStatus(GeneralStatus status) {
         this.status = status;
     }
 

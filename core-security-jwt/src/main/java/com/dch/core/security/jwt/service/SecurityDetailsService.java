@@ -1,22 +1,21 @@
 package com.dch.core.security.jwt.service;
 
-import com.dch.core.datastatic.builder.ResponseBuilderHelper;
+import com.dch.core.dto.response.builder.ResponseBuilder;
 
 /**
  * Core interface which validate servlet request data and other oauth2 filter
  * services.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jul 7, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 public interface SecurityDetailsService {
 
     /**
      * Method used to get response builder to build a generic response.
      *
-     * @return {@link ResponseBuilderHelper}
+     * @return {@link ResponseBuilder}
      */
-    ResponseBuilderHelper getSecurityResponseBuilder();
+    ResponseBuilder getSecurityResponseBuilder();
 }

@@ -9,9 +9,8 @@ import org.springframework.context.annotation.PropertySource;
  * Class that contains parameter setting of JWT configuration.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated May 20, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 @Configuration
 @PropertySource("classpath:config/security/core-jwt-config.properties")

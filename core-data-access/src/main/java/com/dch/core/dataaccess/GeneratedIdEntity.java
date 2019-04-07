@@ -9,14 +9,11 @@ import java.util.UUID;
  * Base entity with an auto generated primary key.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Apr 23, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 @MappedSuperclass
 public abstract class GeneratedIdEntity extends BaseEntity {
-
-    private static final long serialVersionUID = -2841374112138370596L;
 
     @Id
     @GeneratedValue

@@ -1,9 +1,8 @@
 package com.dch.core.security.oauth2.endpoint;
 
-import com.dch.core.datastatic.GenericStatus;
-import com.dch.core.datastatic.response.GenericResponse;
+import com.dch.core.datastatic.GeneralStatus;
+import com.dch.core.dto.response.GeneralResponse;
 import com.dch.core.security.oauth2.service.SecurityDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.provider.authentication.TokenExtractor;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
@@ -16,39 +15,35 @@ import javax.servlet.http.HttpServletRequest;
  * Controller that manage any API about revoke token endpoint.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jun 6, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 @RestController
 public class OAuth2RevokeTokenEndpoint {
 
-    @Autowired
-    private SecurityDetailsService securityDetailsService;
+    private final SecurityDetailsService securityDetailsService;
+    private final ConsumerTokenServices consumerTokenServices;
+    private final TokenExtractor tokenExtractor;
 
-    @Autowired
-    private ConsumerTokenServices consumerTokenServices;
-
-    @Autowired
-    private TokenExtractor tokenExtractor;
+    public OAuth2RevokeTokenEndpoint(SecurityDetailsService securityDetailsService,
+                                     ConsumerTokenServices consumerTokenServices, TokenExtractor tokenExtractor) {
+        this.securityDetailsService = securityDetailsService;
+        this.consumerTokenServices = consumerTokenServices;
+        this.tokenExtractor = tokenExtractor;
+    }
 
     /**
      * API that used to revoke active token.
      *
-     * @param request
-     *            {@link HttpServletRequest} HTTP Request.
-     * @return {@link GenericResponse} Response body of revoked token.
+     * @param request {@link HttpServletRequest} HTTP Request.
+     * @return {@link GeneralResponse} Response body of revoked token.
      */
     @DeleteMapping(value = "/oauth/revoke_token")
-    public GenericResponse revokeToken(HttpServletRequest request) {
+    public GeneralResponse revokeToken(HttpServletRequest request) {
         Authentication authentication = tokenExtractor.extract(request);
         consumerTokenServices.revokeToken(authentication.getPrincipal().toString());
-
-        // @formatter:off
-		return securityDetailsService
-			.getSecurityResponseBuilder()
-				.setGenericStatus(GenericStatus.TOKEN_REVOKED)
-			.build();
-		// @formatter:on
+        return securityDetailsService.getSecurityResponseBuilder()
+                .setGeneralStatus(GeneralStatus.TOKEN_REVOKED)
+                .build();
     }
 }

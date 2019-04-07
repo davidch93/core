@@ -1,6 +1,6 @@
 package com.dch.core.security.jwt;
 
-import com.dch.core.datastatic.GenericStatus;
+import com.dch.core.datastatic.GeneralStatus;
 import com.dch.core.security.jwt.config.JwtSetting;
 import com.dch.core.security.jwt.service.SecurityDetailsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,19 +11,17 @@ import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * This handler is called once the request access denied. This class implements
- * {@link AccessDeniedHandler}.
+ * This handler is called once the request access denied.
  *
  * @author David.Christianto
- * @version 1.0.0-SNAPSHOT
- * @updated May 22, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @see org.springframework.security.web.access.AccessDeniedHandler
+ * @since 1.0.0
  */
 public class RestAccessDeniedHandler implements AccessDeniedHandler {
 
@@ -42,15 +40,13 @@ public class RestAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response,
-                       AccessDeniedException accessDeniedException) throws IOException, ServletException {
-
-        LOGGER.error(String.format("[%s] %s", jwtSetting.getIdentityPrefix(), accessDeniedException.getMessage()),
-                accessDeniedException);
+                       AccessDeniedException accessDeniedException) throws IOException {
+        LOGGER.error(String.format("[%s] Access denied!", jwtSetting.getIdentityPrefix()), accessDeniedException);
 
         response.setStatus(HttpStatus.FORBIDDEN.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
         mapper.writeValue(response.getWriter(), securityDetailsService.getSecurityResponseBuilder()
-                .setGenericStatus(GenericStatus.FORBIDDEN).build());
+                .setGeneralStatus(GeneralStatus.FORBIDDEN).build());
     }
 }

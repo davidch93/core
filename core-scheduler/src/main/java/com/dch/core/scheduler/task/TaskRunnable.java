@@ -10,9 +10,8 @@ import org.springframework.context.ApplicationContext;
  * implements {@link Runnable}.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jun 17, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 public class TaskRunnable implements Runnable {
 

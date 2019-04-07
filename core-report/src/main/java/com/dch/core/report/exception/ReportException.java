@@ -5,13 +5,10 @@ package com.dch.core.report.exception;
  * errors during the report generation process.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jun 20, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 public class ReportException extends RuntimeException {
-
-    private static final long serialVersionUID = -895885280233649504L;
 
     /**
      * Construct a {@code ReportException} with a generic message.

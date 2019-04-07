@@ -4,9 +4,8 @@ package com.dch.core.datastatic;
  * List of constant for web security support.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jun 6, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 public enum WebSecuritySupport {
 
@@ -21,7 +20,7 @@ public enum WebSecuritySupport {
 
     private final String value;
 
-    private WebSecuritySupport(String value) {
+    WebSecuritySupport(String value) {
         this.value = value;
     }
 

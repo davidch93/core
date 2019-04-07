@@ -8,9 +8,8 @@ import org.springframework.context.annotation.PropertySource;
  * Class that contains parameter setting of authorization server configuration.
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Jun 16, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 @Configuration
 @PropertySource("classpath:config/security/core-oauth2-config.properties")
@@ -52,9 +51,8 @@ public class AuthorizationSetting {
      * Class that contains parameter KeyStore.
      *
      * @author David.Christianto
-     * @version 1.0.0-SNAPSHOT
-     * @updated Sep 22, 2017
-     * @since 1.0.0-SNAPSHOT
+     * @version 2.0.0
+     * @since 1.0.0
      */
     public static class KeyStoreSetting {
 

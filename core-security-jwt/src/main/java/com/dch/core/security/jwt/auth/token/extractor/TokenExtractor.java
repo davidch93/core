@@ -5,16 +5,15 @@ package com.dch.core.security.jwt.auth.token.extractor;
  * representation of JWT Token.
  *
  * @author david.christianto
- * @version 1.0.0
- * @updated May 20, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
 public interface TokenExtractor {
 
     /**
      * Method used to extract payload.
      *
-     * @param payload
+     * @param payload header.
      * @return token.
      */
     String extract(String payload);

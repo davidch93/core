@@ -7,11 +7,10 @@ package com.dch.core.datastatic;
  * 3. Security API Error Responses = SAER<br/>
  *
  * @author David.Christianto
- * @version 1.0.0
- * @updated Apr 23, 2017
- * @since 1.0.0-SNAPSHOT
+ * @version 2.0.0
+ * @since 1.0.0
  */
-public enum GenericStatus {
+public enum GeneralStatus {
 
     SUCCESS("SAR01", "SUCCESS", "msg.httpstatus.success"),
     TOKEN_CREATED("SAR02", "TOKEN_CREATED", "msg.httpstatus.tokencreated"),
@@ -24,6 +23,7 @@ public enum GenericStatus {
     METHOD_NOT_ALLOWED("CAER05", "METHOD_NOT_ALLOWED", "msg.httpstatus.methodnotallowed"),
     NOT_FOUND("CAER06", "NOT_FOUND", "msg.httpstatus.notfound"),
     UNSUPPORTED_MEDIA_TYPE("CAER07", "UNSUPPORTED_MEDIA_TYPE", "msg.httpstatus.unsupportedmediatype"),
+    NOT_ACCEPTABLE("CAER08", "NOT_ACCEPTABLE", "msg.httpstatus.notacceptable"),
 
     AUTHENTICATION_FAILED("SAER01", "AUTHENTICATION_FAILED", "msg.httpstatus.authenticationfailed"),
     AUTHENTICATION_METHOD_NOT_SUPPORTED("SAER02", "AUTHENTICATION_METHOD_NOT_SUPPORTED", "msg.httpstatus" +
@@ -46,7 +46,7 @@ public enum GenericStatus {
     private final String parameter;
     private final String value;
 
-    private GenericStatus(String code, String parameter, String value) {
+    GeneralStatus(String code, String parameter, String value) {
         this.code = code;
         this.parameter = parameter;
         this.value = value;
@@ -63,4 +63,12 @@ public enum GenericStatus {
     public String getValue() {
         return value;
     }
-}
+
+    @Override
+    public String toString() {
+        return "GeneralStatus{" +
+                "code='" + code + '\'' +
+                ", parameter='" + parameter + '\'' +
+                ", value='" + value + '\'' +
+                "} " + super.toString();
+    }}

@@ -12,13 +12,13 @@ Core libraries and dependencies for HTTP security using JSON Web Token.
        @Override
        protected List<String> requestAntPathsToPermitAll() {
            // TODO your URL to permit
-           return ...
+           return Arrays.asList("/test2", "/test1");
        }
        
        @Override
-       protected ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry configureAuthorization(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests) throws Exception {
+       protected ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry configureAuthorization(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests) {
            // TODO your custom HTTPSecurity
-           return authorizeRequests.
+           return authorizeRequests
                .antMatchers("/transaction").hasAuthority("ADMIN");
        }
    }
