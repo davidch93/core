@@ -8,5 +8,6 @@ Core libraries and dependencies for common Util.
    - `FileUtil.java`: provides function to manipulate File I/O.
    - `NumberFormatUtil.java`: provides function to manipulate format number (currency).
    - `ObjectUtil.java`: provides function to manipulate Object.
+   - `JsonUtil.java`: provide function to manipulate JSON.
 
    For more description, you can just look at Javadocs on each class.
