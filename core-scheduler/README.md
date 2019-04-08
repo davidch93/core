@@ -13,7 +13,7 @@ Core libraries and dependencies for spring scheduler configuration.
    ```
    If you want to change the scheduler configuration, then you just need to override the methods in the **SchedulerConfigurerSupport** class.
 3. Create a configuration file with path `config/scheduler/core-scheduler-config.properties` with values like the example below.
-   ```Java
+   ```properties
    core.scheduler.executor.pool-size=10
    core.scheduler.executor.thread-name-prefix=SCHEDULER-EXECUTOR
    ```

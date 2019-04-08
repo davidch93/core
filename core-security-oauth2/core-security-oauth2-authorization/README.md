@@ -12,7 +12,7 @@ Core libraries and dependencies for HTTP security using Oauth2. This library inc
        @Override
        public TokenStore tokenStore() {
            // TODO you can choose for using {@link JwtTokenStore} or {@link JdbcTokenStore} but default configuration using {@link JdbcTokenStore}
-           return ...
+           return null;
        }
    }
    ```
@@ -73,7 +73,7 @@ Core libraries and dependencies for HTTP security using Oauth2. This library inc
    }
    ```
 3. Create a configuration file with path `config/security/core-security-config.properties` with values like the example below.
-   ```Java
+   ```properties
    core.security.oauth2.authorization.key-store.file-name=/keystore/mytest.jks # If you are using JwtTokenStore
    core.security.oauth2.authorization.key-store.password=mypass                # If you are using JwtTokenStore
    core.security.oauth2.authorization.key-store.key-pair=mytest                # If you are using JwtTokenStore

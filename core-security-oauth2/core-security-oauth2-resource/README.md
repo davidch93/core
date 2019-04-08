@@ -12,8 +12,7 @@ Core libraries and dependencies for HTTP security using Oauth2. This library is 
        @Override
        protected ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry configureAuthorization(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests) throws Exception {
            // TODO your custom HTTPSecurity
-           return authorizeRequests.
-               .antMatchers("/transaction").hasAuthority("ADMIN");
+           return authorizeRequests.antMatchers("/transaction").hasAuthority("ADMIN");
        }
    }
    ```
@@ -35,16 +34,15 @@ Core libraries and dependencies for HTTP security using Oauth2. This library is 
         */
        @Bean
        public JwtAccessTokenConverter accessTokenConverter() {
-           JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-           Resource resource = new ClassPathResource("public.txt");
-           String publicKey = null;
            try {
-               publicKey = IOUtils.toString(resource.getInputStream());
+               JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+               Resource resource = new ClassPathResource("public.txt");
+               String publicKey = IOUtils.toString(resource.getInputStream());
+               converter.setVerifierKey(publicKey);
+               return converter;
            } catch (final IOException e) {
                throw new RuntimeException(e);
            }
-           converter.setVerifierKey(publicKey);
-           return converter;
        }
        
        /**
@@ -71,13 +69,12 @@ Core libraries and dependencies for HTTP security using Oauth2. This library is 
        @Override
        protected ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry configureAuthorization(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests) throws Exception {
            // TODO your custom HTTPSecurity
-           return authorizeRequests.
-               .antMatchers("/transaction").hasAuthority("ADMIN");
+           return authorizeRequests.antMatchers("/transaction").hasAuthority("ADMIN");
        }
    }
    ```
 3. Create a configuration file with path `config/security/core-security-config.properties` with values like the example below.
-   ```Java
+   ```properties
    core.security.oauth2.authorization.key-store.file-name=/keystore/mytest.jks # If you are using JwtTokenStore
    core.security.oauth2.authorization.key-store.password=mypass                # If you are using JwtTokenStore
    core.security.oauth2.authorization.key-store.key-pair=mytest                # If you are using JwtTokenStore

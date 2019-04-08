@@ -12,7 +12,7 @@ Core libraries and dependencies for spring batch configuration.
    }
    ```
 3. Create a configuration file with path `config/batch/core-batch-config.properties` with values like the example below.
-   ```Java
+   ```properties
    core.batch.chunk-size=10
    ```
 4. Extends abstract class **BaseBatchServiceImpl** and override other abstract methods.
@@ -22,22 +22,26 @@ Core libraries and dependencies for spring batch configuration.
    
       @Override
       public JobExecutionListenerSupport getListener(JobParameters jobParameters) {
-          return ...
+          //TODO Create your implementation of JobExecutionListenerSupport
+          return null;
       }
       
       @Override
       public ItemReader<?> getReader(JobParameters jobParameters) {
-          return ...
+          //TODO Create your implementation of ItemReader
+          return null;
       }
       
       @Override
       public ItemProcessor<?, ?> getProcessor(JobParameters jobParameters) {
-          return ...
+          //TODO Create your implementation of ItemProcessor
+          return null;
       }
       
       @Override
       public ItemWriter<?> getWriter(JobParameters jobParameters) {
-          return ...
+          //TODO Create your implementation of ItemWriter
+          return null;
       }
    }
    ```

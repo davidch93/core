@@ -13,7 +13,7 @@ Core libraries and dependencies for spring asynchronous configuration.
    ```
    If you want to change the asynchronous configuration, then you just need to override the methods in the **AsyncConfigurerSupport** class.
 3. Create a configuration file with path `config/async/core-async-config.properties` with values like the example below.
-   ```Java
+   ```properties
    core.async.executor.core-pool-size=1
    core.async.executor.keep-alive-seconds=60
    core.async.executor.max-pool-size=500
