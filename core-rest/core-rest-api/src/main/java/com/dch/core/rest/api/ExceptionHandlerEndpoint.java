@@ -1,8 +1,8 @@
-package com.dch.core.rest;
+package com.dch.core.rest.api;
 
 import com.dch.core.datastatic.GeneralStatus;
 import com.dch.core.dto.response.GeneralResponse;
-import com.dch.core.rest.exception.RestException;
+import com.dch.core.rest.api.exception.RestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -25,13 +25,12 @@ import java.util.stream.Collectors;
  *
  * @author david.christianto
  * @version 2.0.0
- * @see com.dch.core.rest.BaseEndpoint
+ * @see BaseEndpoint
  */
 @RestControllerAdvice
 public class ExceptionHandlerEndpoint extends BaseEndpoint {
 
     private static final Logger logger = LoggerFactory.getLogger(ExceptionHandlerEndpoint.class);
-
     private final MessageSource messageSource;
 
     public ExceptionHandlerEndpoint(MessageSource messageSource) {

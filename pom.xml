@@ -63,7 +63,12 @@
             </dependency>
             <dependency>
                 <groupId>com.dch.core</groupId>
-                <artifactId>core-rest</artifactId>
+                <artifactId>core-rest-api</artifactId>
+                <version>${core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dch.core</groupId>
+                <artifactId>core-rest-reactive</artifactId>
                 <version>${core.version}</version>
             </dependency>
             <dependency>
@@ -88,7 +93,12 @@
             </dependency>
             <dependency>
                 <groupId>com.dch.core</groupId>
-                <artifactId>core-service</artifactId>
+                <artifactId>core-service-jpa</artifactId>
+                <version>${core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dch.core</groupId>
+                <artifactId>core-service-cassandra</artifactId>
                 <version>${core.version}</version>
             </dependency>
             <dependency>

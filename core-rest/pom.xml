@@ -9,12 +9,9 @@
     </parent>
 
     <artifactId>core-rest</artifactId>
+    <packaging>pom</packaging>
     <name>Core Rest</name>
     <description>Core libraries and dependencies for common function API.</description>
-
-    <properties>
-        <swagger.version>2.9.2</swagger.version>
-    </properties>
 
     <dependencies>
         <!-- Core -->
@@ -26,27 +23,10 @@
             <groupId>com.dch.core</groupId>
             <artifactId>core-dto</artifactId>
         </dependency>
-
-        <!-- Spring -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <!-- Swagger -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${swagger.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>${swagger.version}</version>
-        </dependency>
     </dependencies>
+
+    <modules>
+        <module>core-rest-api</module>
+        <module>core-rest-reactive</module>
+    </modules>
 </project>

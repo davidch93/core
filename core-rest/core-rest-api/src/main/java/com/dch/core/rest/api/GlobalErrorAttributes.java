@@ -1,4 +1,4 @@
-package com.dch.core.rest;
+package com.dch.core.rest.api;
 
 import com.dch.core.datastatic.GeneralStatus;
 import com.dch.core.dto.response.ResponseDto;
@@ -56,7 +56,6 @@ public class GlobalErrorAttributes extends DefaultErrorAttributes {
             return getResponseStatusDto(GeneralStatus.MESSAGE_NOT_READABLE);
         else if (error instanceof UnsupportedMediaTypeStatusException)
             return getResponseStatusDto(GeneralStatus.UNSUPPORTED_MEDIA_TYPE);
-
         return getResponseStatusDto(GeneralStatus.INTERNAL_SERVER_ERROR);
     }
 

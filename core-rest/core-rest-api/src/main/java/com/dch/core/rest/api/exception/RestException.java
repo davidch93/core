@@ -1,4 +1,4 @@
-package com.dch.core.rest.exception;
+package com.dch.core.rest.api.exception;
 
 import com.dch.core.datastatic.GeneralStatus;
 
