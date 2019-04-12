@@ -11,6 +11,13 @@
         Core libraries and dependencies for spring-boot-based. This project based on Spring and Java 8.
     </description>
 
+    <developers>
+        <developer>
+            <id>david.christianto</id>
+            <name>David Christianto</name>
+        </developer>
+    </developers>
+
     <properties>
         <java.version>1.8</java.version>
         <core.version>2.0.0-SNAPSHOT</core.version>
