@@ -80,6 +80,11 @@
             </dependency>
             <dependency>
                 <groupId>com.dch.core</groupId>
+                <artifactId>core-retry</artifactId>
+                <version>${core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dch.core</groupId>
                 <artifactId>core-scheduler</artifactId>
                 <version>${core.version}</version>
             </dependency>
@@ -150,6 +155,7 @@
         <module>core-dto</module>
         <module>core-report</module>
         <module>core-rest</module>
+        <module>core-retry</module>
         <module>core-scheduler</module>
         <module>core-security-jwt</module>
         <module>core-security-oauth2</module>
