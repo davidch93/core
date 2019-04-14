@@ -1,7 +1,6 @@
 package com.dch.core.service.jpa.impl;
 
 import com.dch.core.dataaccess.TreeBaseEntity;
-import com.dch.core.service.jpa.GeneralService;
 import com.dch.core.service.jpa.GeneralTreeService;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -15,8 +14,7 @@ import java.util.*;
  * @param <ID> the primary key for that type.
  * @author David.Christianto
  * @version 2.0.0
- * @see GeneralService
- * @see GeneralTreeService
+ * @see com.dch.core.service.jpa.GeneralTreeService
  * @since 1.0.0
  */
 public abstract class GeneralTreeServiceImpl<T extends TreeBaseEntity<T>, ID extends Serializable>
