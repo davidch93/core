@@ -1,7 +1,6 @@
 package com.dch.core.retry.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 /**
@@ -10,7 +9,6 @@ import org.springframework.context.annotation.PropertySource;
  * @author David.Christianto
  * @version 2.0.0
  */
-@Configuration
 @PropertySource("classpath:config/retry/core-retry-config.properties")
 @ConfigurationProperties(prefix = "core.retry")
 public class RetrySetting {

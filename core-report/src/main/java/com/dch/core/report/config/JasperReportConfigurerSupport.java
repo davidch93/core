@@ -8,7 +8,9 @@ import net.sf.jasperreports.repo.FileRepositoryPersistenceServiceFactory;
 import net.sf.jasperreports.repo.FileRepositoryService;
 import net.sf.jasperreports.repo.PersistenceServiceFactory;
 import net.sf.jasperreports.repo.RepositoryService;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
 import javax.sql.DataSource;
 import java.util.Collections;
@@ -21,6 +23,8 @@ import java.util.Collections;
  * @version 2.0.0
  * @since 1.0.0
  */
+@ComponentScan("com.dch.core.report")
+@EnableConfigurationProperties(ReportSetting.class)
 public class JasperReportConfigurerSupport {
 
     private final DataSource dataSource;

@@ -7,7 +7,7 @@ Core libraries and dependencies for spring batch configuration.
    ```Java
    @Configuration
    @EnableBatchProcessing
-   public class SpringBatchConfig {
+   public class SpringBatchConfig extends BatchConfigurerSupport {
 
    }
    ```

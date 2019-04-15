@@ -1,7 +1,6 @@
 package com.dch.core.security.oauth2.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 /**
@@ -11,7 +10,6 @@ import org.springframework.context.annotation.PropertySource;
  * @version 2.0.0
  * @since 1.0.0
  */
-@Configuration
 @PropertySource("classpath:config/security/core-oauth2-config.properties")
 @ConfigurationProperties(prefix = "core.security.oauth2.resource")
 public class ResourceSetting {

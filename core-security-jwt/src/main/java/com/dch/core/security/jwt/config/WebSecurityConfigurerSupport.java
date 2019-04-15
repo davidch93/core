@@ -14,6 +14,7 @@ import com.dch.core.security.jwt.auth.token.extractor.TokenExtractor;
 import com.dch.core.security.jwt.model.token.JwtTokenFactory;
 import com.dch.core.security.jwt.service.SecurityDetailsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -41,6 +42,7 @@ import java.util.List;
  * @since 1.0.0
  */
 @ComponentScan("com.dch.core.security.jwt")
+@EnableConfigurationProperties(JwtSetting.class)
 public class WebSecurityConfigurerSupport extends WebSecurityConfigurerAdapter {
 
     private AuthenticationManager authenticationManager;

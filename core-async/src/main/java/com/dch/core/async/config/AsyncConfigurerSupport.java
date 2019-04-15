@@ -3,6 +3,7 @@ package com.dch.core.async.config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -18,9 +19,11 @@ import java.util.stream.Stream;
  *
  * @author David.Christianto
  * @version 2.0.0
+ * @see org.springframework.scheduling.annotation.AsyncConfigurer
  * @since 1.0.0
  */
 @ComponentScan("com.dch.core.async")
+@EnableConfigurationProperties(AsyncSetting.class)
 public class AsyncConfigurerSupport implements AsyncConfigurer {
 
     private static final Logger logger = LoggerFactory.getLogger(AsyncConfigurerSupport.class);

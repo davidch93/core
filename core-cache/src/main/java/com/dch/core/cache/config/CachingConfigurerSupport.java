@@ -2,6 +2,7 @@ package com.dch.core.cache.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurer;
@@ -19,10 +20,11 @@ import org.springframework.context.annotation.ComponentScan;
  *
  * @author David.Christianto
  * @version 2.0.0
- * @see CachingConfigurer
+ * @see org.springframework.cache.annotation.CachingConfigurer
  * @since 1.0.0
  */
 @ComponentScan("com.dch.core.cache")
+@EnableConfigurationProperties(CacheSetting.class)
 public class CachingConfigurerSupport implements CachingConfigurer {
 
     private static final Logger logger = LoggerFactory.getLogger(CachingConfigurerSupport.class);

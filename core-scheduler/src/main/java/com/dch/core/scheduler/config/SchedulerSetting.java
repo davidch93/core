@@ -1,7 +1,6 @@
 package com.dch.core.scheduler.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 /**
@@ -12,7 +11,6 @@ import org.springframework.context.annotation.PropertySource;
  * @version 2.0.0
  * @since 1.0.0
  */
-@Configuration
 @PropertySource("classpath:config/scheduler/core-scheduler-config.properties")
 @ConfigurationProperties(prefix = "core.scheduler")
 public class SchedulerSetting {

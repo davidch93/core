@@ -4,6 +4,7 @@ import com.dch.core.datastatic.WebSecuritySupport;
 import com.dch.core.security.oauth2.RestAccessDeniedHandler;
 import com.dch.core.security.oauth2.RestAuthenticationEntryPoint;
 import com.dch.core.security.oauth2.service.SecurityDetailsService;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.access.expression.SecurityExpressionHandler;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,6 +30,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
  * @since 1.0.0
  */
 @ComponentScan("com.cnx.core.security.oauth2")
+@EnableConfigurationProperties(ResourceSetting.class)
 public class ResourceServerConfigurerSupport extends ResourceServerConfigurerAdapter {
 
     protected final SecurityDetailsService securityDetailsService;

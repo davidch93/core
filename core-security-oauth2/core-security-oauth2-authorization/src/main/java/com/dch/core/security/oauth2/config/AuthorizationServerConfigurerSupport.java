@@ -3,6 +3,7 @@ package com.dch.core.security.oauth2.config;
 import com.dch.core.security.oauth2.RestAccessDeniedHandler;
 import com.dch.core.security.oauth2.RestAuthenticationEntryPoint;
 import com.dch.core.security.oauth2.service.SecurityDetailsService;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,6 +33,7 @@ import javax.sql.DataSource;
  * @since 1.0.0
  */
 @ComponentScan("com.cnx.core.security.oauth2")
+@EnableConfigurationProperties(AuthorizationSetting.class)
 public class AuthorizationServerConfigurerSupport extends AuthorizationServerConfigurerAdapter {
 
     protected final AuthenticationManager authenticationManager;
