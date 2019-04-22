@@ -29,7 +29,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
  * @see org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter
  * @since 1.0.0
  */
-@ComponentScan("com.cnx.core.security.oauth2")
+@ComponentScan("com.dch.core.security.oauth2")
 @EnableConfigurationProperties(ResourceSetting.class)
 public class ResourceServerConfigurerSupport extends ResourceServerConfigurerAdapter {
 

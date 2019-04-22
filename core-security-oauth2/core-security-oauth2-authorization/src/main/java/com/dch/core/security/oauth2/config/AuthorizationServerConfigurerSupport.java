@@ -32,7 +32,7 @@ import javax.sql.DataSource;
  * @see org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter
  * @since 1.0.0
  */
-@ComponentScan("com.cnx.core.security.oauth2")
+@ComponentScan("com.dch.core.security.oauth2")
 @EnableConfigurationProperties(AuthorizationSetting.class)
 public class AuthorizationServerConfigurerSupport extends AuthorizationServerConfigurerAdapter {
 

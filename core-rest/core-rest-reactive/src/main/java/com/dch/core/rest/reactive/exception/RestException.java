@@ -25,6 +25,15 @@ public class RestException extends RuntimeException {
     }
 
     /**
+     * Construct a {@code RestException} with generic message.
+     *
+     * @param message the message
+     */
+    public RestException(String message) {
+        super(message);
+    }
+
+    /**
      * Construct a {@code RestException} with generic status and a generic
      * message.
      *
