@@ -17,8 +17,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class CorsConfig {
 
     /**
-     * Bean of CORS Filter.
-     * <p>
+     * Bean of CORS Filter.<br>
      * The following defaults are applied if not already set:
      * <ul>
      * <li>Allow all origins, i.e. {@code "*"}.</li>
@@ -27,7 +26,6 @@ public class CorsConfig {
      * <li>Allow credentials.</li>
      * <li>Set max age to 1800 seconds (30 minutes).</li>
      * </ul>
-     * </p>
      *
      * @return {@link CorsConfigurationSource}
      */

@@ -107,7 +107,10 @@ public class ReportDetails {
         }
 
         /**
+         * Method to build report file name.
+         *
          * @param reportFileName the reportFileName to set
+         * @return {@link ReportDetailsBuilder}
          */
         public ReportDetailsBuilder setReportFileName(String reportFileName) {
             this.reportFileName = reportFileName;
@@ -115,7 +118,10 @@ public class ReportDetails {
         }
 
         /**
+         * Method to build author.
+         *
          * @param author the author to set
+         * @return {@link ReportDetailsBuilder}
          */
         public ReportDetailsBuilder setAuthor(String author) {
             this.author = author;
@@ -123,7 +129,10 @@ public class ReportDetails {
         }
 
         /**
+         * Method to build sheet name.
+         *
          * @param sheetName the sheetName to set
+         * @return {@link ReportDetailsBuilder}
          */
         public ReportDetailsBuilder setSheetName(String sheetName) {
             this.sheetName = sheetName;
@@ -131,7 +140,10 @@ public class ReportDetails {
         }
 
         /**
+         * Method to build bean collection data source.
+         *
          * @param beanCollectionDataSource the beanCollectionDataSource to set
+         * @return {@link ReportDetailsBuilder}
          */
         public ReportDetailsBuilder setBeanCollectionDataSource(JRBeanCollectionDataSource beanCollectionDataSource) {
             this.beanCollectionDataSource = beanCollectionDataSource;
@@ -139,7 +151,10 @@ public class ReportDetails {
         }
 
         /**
+         * Method to build parameters.
+         *
          * @param parameters the parameters to set
+         * @return {@link ReportDetailsBuilder}
          */
         public ReportDetailsBuilder setParameters(Map<String, Object> parameters) {
             this.parameters = parameters;

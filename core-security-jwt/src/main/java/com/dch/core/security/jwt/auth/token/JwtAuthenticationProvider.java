@@ -21,10 +21,10 @@ import java.util.stream.Stream;
 /**
  * An {@link AuthenticationProvider} implementation that will use provided
  * instance of {@link JwtToken} to perform authentication. This class has the
- * following responsibilities:<br/>
- * 1. Verify the access token's signature.<br/>
+ * following responsibilities:<br>
+ * 1. Verify the access token's signature.<br>
  * 2. Extract identity and authorization claims from Access token and use them
- * to create UserContext.<br/>
+ * to create UserContext.<br>
  * 3. If Access token is malformed, expired or simply if token is not signed
  * with the appropriate signing key Authentication exception will be thrown.
  *

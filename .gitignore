@@ -1,47 +1,19 @@
-# Directories #
-build/
-bin/
+######################
+# Maven
+######################
 target/
-libs/
-tmp/
-node_modules/
-jaxws/jaxws-client/src/main/
- 
-# OS Files #
-.DS_Store
- 
-*.class
- 
-# Package Files #
-*.jar
-*.war
-*.ear
-*.db
-rebel.xml
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
 
-######################
-# Windows
-######################
- 
-# Windows image file caches
-Thumbs.db 
- 
-# Folder config file
-Desktop.ini
- 
-######################
-# OSX
-######################
- 
-.DS_Store
-.svn
- 
-# Thumbnails
-._*
- 
-# Files that might appear on external disk
-.Spotlight-V100
-.Trashes
+# Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
+!/.mvn/wrapper/maven-wrapper.jar
+
 
 ######################
 # NetBeans
@@ -53,21 +25,26 @@ dist/
 nbdist/
 nbactions.xml
 nb-configuration.xml
- 
+
+
 ######################
 # IDEA
 ######################
-*.iml
-*.ipr
-*.iws
 .idea/
-atlassian-ide-plugin.xml
+/*.classpath
+/.classpath
+/.springBeans
+*.DS_Store
+*.iml
+/build
+/local.properties
+target/
+/*/out/
 
  
 ######################
 # Eclipse
 ######################
- 
 *.pydevproject
 .project
 .metadata
@@ -95,16 +72,3 @@ local.properties
 
 # Testing environment specific
 derby.log
-
-
-######################
-# Liberty tools
-######################
-
-.factorypath
-
-######################
-# Sonar
-######################
-
-.sonarlint/

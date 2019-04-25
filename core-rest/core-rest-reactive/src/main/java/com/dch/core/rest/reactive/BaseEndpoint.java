@@ -22,7 +22,8 @@ public abstract class BaseEndpoint {
      * Method used to Copy bean properties.
      *
      * @param source {@link Object} source data.
-     * @param clazz  {@link Class<T>} class of destination.
+     * @param clazz  {@code Class<T>} class of destination.
+     * @param <T>    Result object.
      * @return {@link T} destination object.
      */
     protected <T> T copyProperties(Object source, Class<T> clazz) {
@@ -33,8 +34,9 @@ public abstract class BaseEndpoint {
      * Method used to Copy bean properties.
      *
      * @param source         {@link Object} source data.
-     * @param clazz          {@link Class<T>} class of destination.
+     * @param clazz          {@code Class<T>} class of destination.
      * @param ignoreProperty {@link String[]} ignore parameter.
+     * @param <T>            Result object.
      * @return {@link T} destination object.
      * @throws RestException if the class or its nullary constructor is not accessible or
      *                       if this Class represents an abstract class, an interface, an

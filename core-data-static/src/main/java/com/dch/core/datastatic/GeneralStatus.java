@@ -1,10 +1,10 @@
 package com.dch.core.datastatic;
 
 /**
- * List of custom HTTP response status code in application. For more information:<br/>
- * 1. Successful API Responses = SAR<br/>
- * 2. Common API Error Responses = CAER<br/>
- * 3. Security API Error Responses = SAER<br/>
+ * List of custom HTTP response status code in application. For more information:<br>
+ * 1. Successful API Responses = SAR<br>
+ * 2. Common API Error Responses = CAER<br>
+ * 3. Security API Error Responses = SAER
  *
  * @author David.Christianto
  * @version 2.0.0

@@ -13,7 +13,7 @@ import java.util.Locale;
 
 /**
  * Defines callback methods to customize the Java-based configuration for
- * Spring MVC enabled via {@code @EnableWebMvc}. <br/>
+ * Spring MVC enabled via {@code @EnableWebMvc}. <br>
  * This implementation used for create custom {@link WebMvcConfigurer#addResourceHandlers}
  * for adding swagger resources.
  *

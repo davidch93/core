@@ -25,6 +25,9 @@ public class RawAccessJwtToken implements JwtToken {
 
     /**
      * Parses and validates JWT Token signature.
+     *
+     * @param signingKey Key.
+     * @return {@code Jws<Claims>} JWT Token.
      */
     public Jws<Claims> parseClaims(String signingKey) {
         try {

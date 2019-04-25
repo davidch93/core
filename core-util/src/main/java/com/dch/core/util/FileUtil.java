@@ -64,6 +64,7 @@ public class FileUtil {
      * Method used to get path from File.
      *
      * @param file {@link File}
+     * @return File path.
      */
     public static String getPath(File file) {
         Assert.notNull(file, "File can't be null");

@@ -20,12 +20,12 @@ import java.io.IOException;
 
 /**
  * Class that used to performs validation of provided JWT Token. This filter has
- * the following responsibilities:<br/>
+ * the following responsibilities:<br>
  * 1. Check for access token in X-Authorization header. If Access token is found
  * in the header, delegate authentication to JwtAuthenticationProvider otherwise
- * throw authentication exception.<br/>
+ * throw authentication exception.<br>
  * 2. Invokes success or failure strategies based on the outcome of
- * authentication process performed by JwtAuthenticationProvider.<br/>
+ * authentication process performed by JwtAuthenticationProvider.<br>
  *
  * @author David.Christianto
  * @version 2.0.0

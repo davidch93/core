@@ -16,24 +16,17 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * Validation annotation to validate that 2 fields have the same value. An array
  * of fields and their matching confirmation fields can be supplied.
  *
- * <p>
- * Example, compare 1 pair of fields:
- *
+ * <p> Example, compare 1 pair of fields:
  * <pre>
- * {@literal @}FieldMatch(baseField = "password", matchField = "confirmPassword", message = "The password fields must
- * match")
+ * {@literal @}FieldMatch(baseField = "password", matchField = "confirmPwd", message = "The password fields must match")
  * </pre>
- * </p>
- * <p>
- * Example, compare more than 1 pair of fields:
  *
+ * <p> Example, compare more than 1 pair of fields:
  * <pre>
  * {@literal @}FieldMatch.List({
- *   {@literal @}FieldMatch(baseField = "password", matchField = "confirmPassword", message = "The password fields
- *   must match"),
+ *   {@literal @}FieldMatch(baseField = "password", matchField = "confPwd", message = "The password fields must match"),
  *   {@literal @}FieldMatch(baseField = "email", matchField = "confirmEmail", message = "The email fields must match")})
  * </pre>
- * </p>
  *
  * @author David.Christianto
  * @version 2.0.0
