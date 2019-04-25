@@ -1,6 +1,17 @@
 # Core Project
 Core libraries and dependencies for spring-boot-based and contains model class at a higher level of abstraction. This project based on Spring and Java 8.
 
+## How to install
+We can run our goals like this for the Unix system:
+```bash
+./mvnw clean install -DskipTests
+```
+
+And the following command for Batch:
+```bash
+./mvnw.cmd clean install -DskipTests
+```
+
 ## Main Features
 1. [Core Async](https://github.com/davidch93/core/tree/master/core-async#core-async)<br/>
    Core libraries and dependencies for spring asynchronous configuration.
