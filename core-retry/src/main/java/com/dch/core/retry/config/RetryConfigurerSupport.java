@@ -62,7 +62,7 @@ public class RetryConfigurerSupport {
 
             @Override
             public <T, E extends Throwable> boolean open(RetryContext context, RetryCallback<T, E> callback) {
-                return false;
+                return true;
             }
 
             @Override
