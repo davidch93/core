@@ -27,100 +27,14 @@
     <properties>
         <java.version>1.8</java.version>
         <core.version>2.0.0-SNAPSHOT</core.version>
-        <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>com.dch.core</groupId>
-                <artifactId>core-async</artifactId>
+                <artifactId>core-bom</artifactId>
                 <version>${core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dch.core</groupId>
-                <artifactId>core-batch</artifactId>
-                <version>${core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dch.core</groupId>
-                <artifactId>core-cache</artifactId>
-                <version>${core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dch.core</groupId>
-                <artifactId>core-data-access</artifactId>
-                <version>${core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dch.core</groupId>
-                <artifactId>core-data-static</artifactId>
-                <version>${core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dch.core</groupId>
-                <artifactId>core-dto</artifactId>
-                <version>${core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dch.core</groupId>
-                <artifactId>core-report</artifactId>
-                <version>${core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dch.core</groupId>
-                <artifactId>core-rest-api</artifactId>
-                <version>${core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dch.core</groupId>
-                <artifactId>core-rest-reactive</artifactId>
-                <version>${core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dch.core</groupId>
-                <artifactId>core-retry</artifactId>
-                <version>${core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dch.core</groupId>
-                <artifactId>core-scheduler</artifactId>
-                <version>${core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dch.core</groupId>
-                <artifactId>core-security-jwt</artifactId>
-                <version>${core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dch.core</groupId>
-                <artifactId>core-security-oauth2-authorization</artifactId>
-                <version>${core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dch.core</groupId>
-                <artifactId>core-security-oauth2-resource</artifactId>
-                <version>${core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dch.core</groupId>
-                <artifactId>core-service-jpa</artifactId>
-                <version>${core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dch.core</groupId>
-                <artifactId>core-service-cassandra</artifactId>
-                <version>${core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dch.core</groupId>
-                <artifactId>core-util</artifactId>
-                <version>${core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -148,6 +62,7 @@
     <modules>
         <module>core-async</module>
         <module>core-batch</module>
+        <module>core-bom</module>
         <module>core-cache</module>
         <module>core-data-access</module>
         <module>core-data-static</module>
