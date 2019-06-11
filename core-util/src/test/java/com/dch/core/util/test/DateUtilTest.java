@@ -8,6 +8,7 @@ import org.junit.rules.ExpectedException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -22,14 +23,14 @@ import static org.junit.Assert.assertThat;
  */
 public class DateUtilTest {
 
-    private static final String DATE_FORMAT = "yyyy-MMM-dd";
+    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
     /**
      * Test method for
-     * {@link com.dch.core.util.DateUtil#formatDate(java.util.Date, java.lang.String)}.
+     * {@link com.dch.core.util.DateUtil#formatDate(Date, String)}.
      */
     @Test
     public void testFormatDate() {
@@ -40,7 +41,22 @@ public class DateUtilTest {
 
     /**
      * Test method for
-     * {@link com.dch.core.util.DateUtil#formatDate(java.util.Date, java.lang.String)}
+     * {@link com.dch.core.util.DateUtil#formatDate(Date, String, TimeZone)}.
+     */
+    @Test
+    public void testFormatDateWithTimeZone() {
+        String actualDate = DateUtil.formatDate(new Date(), DATE_FORMAT, TimeZone.getTimeZone("UTC"));
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String expectedDate = simpleDateFormat.format(new Date());
+
+        assertThat(actualDate, is(equalTo(expectedDate)));
+    }
+
+    /**
+     * Test method for
+     * {@link com.dch.core.util.DateUtil#formatDate(Date, String)}
      * with empty parameter date.
      */
     @Test
@@ -52,7 +68,7 @@ public class DateUtilTest {
 
     /**
      * Test method for
-     * {@link com.dch.core.util.DateUtil#formatDate(java.util.Date, java.lang.String)}
+     * {@link com.dch.core.util.DateUtil#formatDate(Date, String)}
      * with empty parameter format.
      */
     @Test
@@ -64,19 +80,35 @@ public class DateUtilTest {
 
     /**
      * Test method for
-     * {@link com.dch.core.util.DateUtil#parseDate(java.lang.String, java.lang.String)}.
+     * {@link com.dch.core.util.DateUtil#parseDate(String, String)}.
      */
     @Test
     public void testParseDate() throws Exception {
-        Date actualDate = DateUtil.parseDate(new SimpleDateFormat(DATE_FORMAT).format(new Date()), DATE_FORMAT);
-        Date expectedDate = new SimpleDateFormat(DATE_FORMAT)
-                .parse(new SimpleDateFormat(DATE_FORMAT).format(new Date()));
+        String date = "2019-01-01 00:00:00";
+        Date actualDate = DateUtil.parseDate(date, DATE_FORMAT);
+        Date expectedDate = new SimpleDateFormat(DATE_FORMAT).parse(date);
         assertThat(actualDate, is(equalTo(expectedDate)));
     }
 
     /**
      * Test method for
-     * {@link com.dch.core.util.DateUtil#parseDate(java.lang.String, java.lang.String)}
+     * {@link com.dch.core.util.DateUtil#parseDate(String, String, TimeZone)}.
+     */
+    @Test
+    public void testParseDateWithTimeZone() throws Exception {
+        String date = "2019-01-01 00:00:00";
+        Date actualDate = DateUtil.parseDate(date, DATE_FORMAT, TimeZone.getTimeZone("UTC"));
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
+        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date expectedDate = simpleDateFormat.parse(date);
+
+        assertThat(actualDate, is(equalTo(expectedDate)));
+    }
+
+    /**
+     * Test method for
+     * {@link com.dch.core.util.DateUtil#parseDate(String, String)}
      * with empty parameter date.
      */
     @Test
@@ -88,7 +120,7 @@ public class DateUtilTest {
 
     /**
      * Test method for
-     * {@link com.dch.core.util.DateUtil#parseDate(java.lang.String, java.lang.String)}
+     * {@link com.dch.core.util.DateUtil#parseDate(String, String)}
      * with empty parameter format.
      */
     @Test
@@ -100,7 +132,7 @@ public class DateUtilTest {
 
     /**
      * Test method for
-     * {@link com.dch.core.util.DateUtil#setBeginningOfDay(java.util.Date)}.
+     * {@link com.dch.core.util.DateUtil#setBeginningOfDay(Date)}.
      */
     @Test
     public void testSetBeginningOfDay() {
@@ -118,7 +150,25 @@ public class DateUtilTest {
 
     /**
      * Test method for
-     * {@link com.dch.core.util.DateUtil#setBeginningOfDay(java.util.Date)} with
+     * {@link com.dch.core.util.DateUtil#setBeginningOfDay(Date, TimeZone)}.
+     */
+    @Test
+    public void testSetBeginningOfDayWithTimeZone() {
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        calendar.setTime(new Date());
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        Date actualDate = DateUtil.setBeginningOfDay(new Date(), TimeZone.getTimeZone("UTC"));
+        Date expectedDate = calendar.getTime();
+        assertThat(actualDate, is(equalTo(expectedDate)));
+    }
+
+    /**
+     * Test method for
+     * {@link com.dch.core.util.DateUtil#setBeginningOfDay(Date)} with
      * empty parameter date.
      */
     @Test
@@ -140,7 +190,7 @@ public class DateUtilTest {
 
     /**
      * Test method for
-     * {@link com.dch.core.util.DateUtil#setEndingOfDay(java.util.Date)}.
+     * {@link com.dch.core.util.DateUtil#setEndingOfDay(Date)}.
      */
     @Test
     public void testSetEndingOfDay() {
@@ -158,7 +208,25 @@ public class DateUtilTest {
 
     /**
      * Test method for
-     * {@link com.dch.core.util.DateUtil#setEndingOfDay(java.util.Date)} with
+     * {@link com.dch.core.util.DateUtil#setEndingOfDay(Date, TimeZone)}.
+     */
+    @Test
+    public void testSetEndingOfDayWithTimeZone() {
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        calendar.setTime(new Date());
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+
+        Date actualDate = DateUtil.setEndingOfDay(new Date(), TimeZone.getTimeZone("UTC"));
+        Date expectedDate = calendar.getTime();
+        assertThat(actualDate, is(equalTo(expectedDate)));
+    }
+
+    /**
+     * Test method for
+     * {@link com.dch.core.util.DateUtil#setEndingOfDay(Date)} with
      * empty parameter date.
      */
     @Test
@@ -180,7 +248,7 @@ public class DateUtilTest {
 
     /**
      * Test method for
-     * {@link com.dch.core.util.DateUtil#addDate(java.util.Date, int)}.
+     * {@link com.dch.core.util.DateUtil#addDate(Date, int)}.
      */
     @Test
     public void testAddDate() {
@@ -195,7 +263,22 @@ public class DateUtilTest {
 
     /**
      * Test method for
-     * {@link com.dch.core.util.DateUtil#addDate(java.util.Date, int)} with empty
+     * {@link com.dch.core.util.DateUtil#addDate(Date, int, TimeZone)}.
+     */
+    @Test
+    public void testAddDateWithTimeZone() {
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DATE, 1);
+
+        Date actualDate = DateUtil.addDate(new Date(), 1, TimeZone.getTimeZone("UTC"));
+        Date expectedDate = calendar.getTime();
+        assertThat(actualDate, is(equalTo(expectedDate)));
+    }
+
+    /**
+     * Test method for
+     * {@link com.dch.core.util.DateUtil#addDate(Date, int)} with empty
      * parameter date.
      */
     @Test
@@ -214,7 +297,7 @@ public class DateUtilTest {
 
     /**
      * Test method for
-     * {@link com.dch.core.util.DateUtil#addHour(java.util.Date, int)}.
+     * {@link com.dch.core.util.DateUtil#addHour(Date, int)}.
      */
     @Test
     public void testAddHour() {
@@ -229,7 +312,23 @@ public class DateUtilTest {
 
     /**
      * Test method for
-     * {@link com.dch.core.util.DateUtil#addHour(java.util.Date, int)} with empty
+     * {@link com.dch.core.util.DateUtil#addHour(Date, int, TimeZone)}.
+     */
+    @Test
+    public void testAddHourWithTimeZone() {
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        calendar.setTime(date);
+        calendar.add(Calendar.HOUR, 1);
+
+        Date actualDate = DateUtil.addHour(date, 1, TimeZone.getTimeZone("UTC"));
+        Date expectedDate = calendar.getTime();
+        assertThat(actualDate, is(equalTo(expectedDate)));
+    }
+
+    /**
+     * Test method for
+     * {@link com.dch.core.util.DateUtil#addHour(Date, int)} with empty
      * parameter date.
      */
     @Test
@@ -248,7 +347,7 @@ public class DateUtilTest {
 
     /**
      * Test method for
-     * {@link com.dch.core.util.DateUtil#addMinute(java.util.Date, int)}.
+     * {@link com.dch.core.util.DateUtil#addMinute(Date, int)}.
      */
     @Test
     public void testAddMinute() {
@@ -263,7 +362,23 @@ public class DateUtilTest {
 
     /**
      * Test method for
-     * {@link com.dch.core.util.DateUtil#addMinute(java.util.Date, int)}with
+     * {@link com.dch.core.util.DateUtil#addMinute(Date, int, TimeZone)}.
+     */
+    @Test
+    public void testAddMinuteWithTimeZone() {
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        calendar.setTime(date);
+        calendar.add(Calendar.MINUTE, 1);
+
+        Date actualDate = DateUtil.addMinute(date, 1, TimeZone.getTimeZone("UTC"));
+        Date expectedDate = calendar.getTime();
+        assertThat(actualDate, is(equalTo(expectedDate)));
+    }
+
+    /**
+     * Test method for
+     * {@link com.dch.core.util.DateUtil#addMinute(Date, int)}with
      * empty parameter date.
      */
     @Test
@@ -282,7 +397,7 @@ public class DateUtilTest {
 
     /**
      * Test method for
-     * {@link com.dch.core.util.DateUtil#addSecond(java.util.Date, int)}.
+     * {@link com.dch.core.util.DateUtil#addSecond(Date, int)}.
      */
     @Test
     public void testAddSecond() {
@@ -297,7 +412,23 @@ public class DateUtilTest {
 
     /**
      * Test method for
-     * {@link com.dch.core.util.DateUtil#addSecond(java.util.Date, int)} with
+     * {@link com.dch.core.util.DateUtil#addSecond(Date, int, TimeZone)}.
+     */
+    @Test
+    public void testAddSecondWithTimeZone() {
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        calendar.setTime(date);
+        calendar.add(Calendar.SECOND, 1);
+
+        Date actualDate = DateUtil.addSecond(date, 1, TimeZone.getTimeZone("UTC"));
+        Date expectedDate = calendar.getTime();
+        assertThat(actualDate, is(equalTo(expectedDate)));
+    }
+
+    /**
+     * Test method for
+     * {@link com.dch.core.util.DateUtil#addSecond(Date, int)} with
      * empty parameter date.
      */
     @Test
