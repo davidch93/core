@@ -12,6 +12,10 @@
     <name>Core Data Access</name>
     <description>Core libraries and dependencies for all data access and represents with abstract class.</description>
 
+    <properties>
+        <guava.version>28.0-jre</guava.version>
+    </properties>
+
     <dependencies>
         <!-- Core -->
         <dependency>
@@ -29,6 +33,13 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-envers</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava-testlib</artifactId>
+            <version>${guava.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
