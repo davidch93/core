@@ -1,9 +1,13 @@
-package com.dch.core.dataaccess;
+package com.dch.core.dto;
 
 import com.google.common.collect.ImmutableList;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
@@ -80,6 +84,15 @@ public class KVTest {
     }
 
     @Test
+    public void testOrderByKey2() {
+        List<KV<Integer, String>> kvs = Arrays.asList(KV.of(2, "value 2"), KV.of(1, "value 1"), KV.of(3, "value3"));
+        kvs.sort(new KV.OrderByKey<>());
+
+        assertThat(kvs, not(equalTo(Arrays.asList(KV.of(2, "value 2"), KV.of(1, "value 1"), KV.of(3, "value3")))));
+        assertThat(kvs, equalTo(Arrays.asList(KV.of(1, "value 1"), KV.of(2, "value 2"), KV.of(3, "value3"))));
+    }
+
+    @Test
     public void testOrderByValue() {
         Comparator<KV<Integer, Integer>> orderByValue = new KV.OrderByValue<>();
         for (Integer key1 : TEST_VALUES) {
@@ -92,5 +105,14 @@ public class KVTest {
                 }
             }
         }
+    }
+
+    @Test
+    public void testOrderByValue2() {
+        List<KV<String, Integer>> kvs = Arrays.asList(KV.of("value 2", 2), KV.of("value 1", 1), KV.of("value3", 3));
+        kvs.sort(new KV.OrderByValue<>());
+
+        assertThat(kvs, not(equalTo(Arrays.asList(KV.of("value 2", 2), KV.of("value 1", 1), KV.of("value3", 3)))));
+        assertThat(kvs, equalTo(Arrays.asList(KV.of("value 1", 1), KV.of("value 2", 2), KV.of("value3", 3))));
     }
 }

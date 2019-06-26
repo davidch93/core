@@ -1,4 +1,4 @@
-package com.dch.core.dataaccess;
+package com.dch.core.dto;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -11,7 +11,7 @@ import java.util.Objects;
  * @param <K> the type of the key
  * @param <V> the type of the value
  * @author david.christianto
- * @version 0.0.1
+ * @version 2.0.0
  */
 public class KV<K, V> implements Serializable {
 
@@ -76,6 +76,8 @@ public class KV<K, V> implements Serializable {
      *
      * @param <K> the type of the key
      * @param <V> the type of the value
+     * @see java.util.Comparator
+     * @see java.io.Serializable
      */
     public static class OrderByKey<K extends Comparable<? super K>, V> implements Comparator<KV<K, V>>, Serializable {
 
@@ -98,6 +100,8 @@ public class KV<K, V> implements Serializable {
      *
      * @param <K> the type of the key
      * @param <V> the type of the value
+     * @see java.util.Comparator
+     * @see java.io.Serializable
      */
     public static class OrderByValue<K, V extends Comparable<? super V>> implements Comparator<KV<K, V>>, Serializable {
 
