@@ -28,7 +28,7 @@
         </dependency>
         <dependency>
             <groupId>com.dch.core</groupId>
-            <artifactId>core-util</artifactId>
+            <artifactId>core-common</artifactId>
         </dependency>
 
         <!-- Spring -->

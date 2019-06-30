@@ -1,8 +1,8 @@
 package com.dch.core.security.jwt.model.token;
 
+import com.dch.core.common.util.DateUtil;
 import com.dch.core.security.jwt.config.JwtSetting;
 import com.dch.core.security.jwt.model.Scopes;
-import com.dch.core.util.DateUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

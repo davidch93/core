@@ -9,6 +9,8 @@
     <artifactId>core-bom</artifactId>
     <version>2.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <name>Core BOM</name>
+    <description>Bill of Materials for Core Project.</description>
 
     <properties>
         <core.version>2.0.0-SNAPSHOT</core.version>
@@ -30,6 +32,11 @@
             <dependency>
                 <groupId>com.dch.core</groupId>
                 <artifactId>core-cache</artifactId>
+                <version>${core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dch.core</groupId>
+                <artifactId>core-common</artifactId>
                 <version>${core.version}</version>
             </dependency>
             <dependency>
@@ -95,11 +102,6 @@
             <dependency>
                 <groupId>com.dch.core</groupId>
                 <artifactId>core-service-cassandra</artifactId>
-                <version>${core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.dch.core</groupId>
-                <artifactId>core-util</artifactId>
                 <version>${core.version}</version>
             </dependency>
             <dependency>

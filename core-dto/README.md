@@ -6,6 +6,5 @@ Core libraries and dependencies for all data transfer object.
 2. You can used any of class that you need it. Main features of this libraries is:
    - `BaseDTO`: define common field that exist in every data transfer object.
    - `ResponseDTO`: that defined common response message from server.
+   - `ValidatorService`: Service to validate object used by validator constraint. Extends this interface if you want to create custom implementation validator services.
    - Any common validator using **JSR-303**.
-   - `ValidatorService`: Service used to validate object. Extends this interface if you want to create custom validator services.
-   - `KV`: An immutable key/value pair with compatibility to use collection sort.

@@ -64,6 +64,7 @@
         <module>core-batch</module>
         <module>core-bom</module>
         <module>core-cache</module>
+        <module>core-common</module>
         <module>core-data-access</module>
         <module>core-data-static</module>
         <module>core-dto</module>
@@ -74,6 +75,5 @@
         <module>core-security-jwt</module>
         <module>core-security-oauth2</module>
         <module>core-service</module>
-        <module>core-util</module>
     </modules>
 </project>

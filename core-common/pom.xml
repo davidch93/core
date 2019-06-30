@@ -8,27 +8,27 @@
         <version>2.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>core-dto</artifactId>
-    <name>Core Data Transfer Object</name>
-    <description>Core libraries and dependencies for all data transfer object.</description>
+    <artifactId>core-common</artifactId>
+    <name>Core Common</name>
+    <description>Core libraries and dependencies for common and util classes.</description>
+
+    <properties>
+        <guava.version>28.0-jre</guava.version>
+    </properties>
 
     <dependencies>
-        <!-- Core -->
-        <dependency>
-            <groupId>com.dch.core</groupId>
-            <artifactId>core-data-static</artifactId>
-        </dependency>
-
-        <!-- Jackson Core -->
+        <!-- Fasterxml Jackson -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
 
-        <!-- Validation API -->
+        <!-- Guava Test -->
         <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava-testlib</artifactId>
+            <version>${guava.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
