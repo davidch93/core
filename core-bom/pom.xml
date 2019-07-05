@@ -14,11 +14,13 @@
 
     <properties>
         <core.version>2.0.0-SNAPSHOT</core.version>
+        <spring-boot.version>2.1.6.RELEASE</spring-boot.version>
         <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!-- Core Modules -->
             <dependency>
                 <groupId>com.dch.core</groupId>
                 <artifactId>core-async</artifactId>
@@ -103,6 +105,15 @@
                 <groupId>com.dch.core</groupId>
                 <artifactId>core-service-cassandra</artifactId>
                 <version>${core.version}</version>
+            </dependency>
+
+            <!-- Spring Framework -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
