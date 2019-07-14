@@ -12,10 +12,6 @@
     <name>Core Common</name>
     <description>Core libraries and dependencies for common and util classes.</description>
 
-    <properties>
-        <guava.version>28.0-jre</guava.version>
-    </properties>
-
     <dependencies>
         <!-- Fasterxml Jackson -->
         <dependency>
@@ -23,11 +19,38 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
 
-        <!-- Guava Test -->
+        <!-- JSR -->
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava-testlib</artifactId>
-            <version>${guava.version}</version>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+
+
+        <!-- Test Dependencies -->
+
+        <!-- Guava -->
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>guava</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JSR Api & RI -->
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

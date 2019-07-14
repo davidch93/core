@@ -17,6 +17,11 @@
             <name>David Christianto</name>
             <email>david.christianto1@gmail.com</email>
         </developer>
+        <developer>
+            <id>smsidki</id>
+            <name>Sayid Muhammad Sidqi</name>
+            <email>sichy_helsinky@yahoo.com</email>
+        </developer>
     </developers>
 
     <properties>
