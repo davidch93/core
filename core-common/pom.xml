@@ -25,9 +25,7 @@
             <artifactId>validation-api</artifactId>
         </dependency>
 
-
         <!-- Test Dependencies -->
-
         <!-- Guava -->
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>

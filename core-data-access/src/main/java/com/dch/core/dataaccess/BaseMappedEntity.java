@@ -1,0 +1,58 @@
+package com.dch.core.dataaccess;
+
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.Column;
+import javax.persistence.EntityListeners;
+import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
+import java.util.Date;
+
+/**
+ * Class that defined common field that mapped in <code>@ManyToMany</code> model.
+ *
+ * @author David.Christianto
+ * @version 2.0.0
+ */
+@MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
+public abstract class BaseMappedEntity implements Serializable {
+
+    @Column(name = "created_by", updatable = false)
+    @CreatedBy
+    protected String createdBy;
+
+    @Column(name = "created_date", nullable = false, updatable = false)
+    @CreatedDate
+    protected Date createdDate;
+
+    /**
+     * @return the createdBy
+     */
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    /**
+     * @param createdBy the createdBy to set
+     */
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    /**
+     * @return the createdDate
+     */
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    /**
+     * @param createdDate the createdDate to set
+     */
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+}

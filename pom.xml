@@ -25,10 +25,10 @@
     </developers>
 
     <properties>
-        <java.version>1.8</java.version>
-        <core.version>2.0.0-SNAPSHOT</core.version>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <core.version>2.0.0-SNAPSHOT</core.version>
     </properties>
 
     <dependencyManagement>

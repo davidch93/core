@@ -10,7 +10,7 @@ Core libraries and dependencies for all data access and represents with abstract
    ```Java
    @Configuration
    @EnableJpaAuditing
-   @EntityScan(basePackages = {"com.dch.core.dataaccess.audit.envers" ,"your entitiy base package"})
+   @EntityScan(basePackages = {"com.dch.core.dataaccess.audit.envers" ,"your entity base package"})
    public class SpringAsyncConfig extends AsyncConfigurerSupport {
 
    }

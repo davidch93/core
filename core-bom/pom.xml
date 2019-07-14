@@ -2,7 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.dch.core</groupId>
@@ -11,6 +10,19 @@
     <packaging>pom</packaging>
     <name>Core BOM</name>
     <description>Bill of Materials for Core Project.</description>
+
+    <developers>
+        <developer>
+            <id>davidch93</id>
+            <name>David Christianto</name>
+            <email>david.christianto1@gmail.com</email>
+        </developer>
+        <developer>
+            <id>smsidki</id>
+            <name>Sayid Muhammad Sidqi</name>
+            <email>sichy_helsinky@yahoo.com</email>
+        </developer>
+    </developers>
 
     <properties>
         <core.version>2.0.0-SNAPSHOT</core.version>
@@ -124,5 +136,4 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
 </project>
