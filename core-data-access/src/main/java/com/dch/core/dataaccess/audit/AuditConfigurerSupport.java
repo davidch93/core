@@ -2,6 +2,7 @@ package com.dch.core.dataaccess.audit;
 
 import com.dch.core.dataaccess.audit.service.AuditService;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.AuditorAware;
 
 import java.util.Optional;
@@ -14,6 +15,7 @@ import java.util.Optional;
  * @version 2.0.0
  * @since 1.0.0
  */
+@ComponentScan("com.dch.core.dataaccess.audit")
 public abstract class AuditConfigurerSupport {
 
     private final AuditService auditService;

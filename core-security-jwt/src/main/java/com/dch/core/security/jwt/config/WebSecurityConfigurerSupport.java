@@ -11,7 +11,7 @@ import com.dch.core.security.jwt.auth.token.JwtAuthenticationProvider;
 import com.dch.core.security.jwt.auth.token.JwtTokenAuthenticationProcessingFilter;
 import com.dch.core.security.jwt.auth.token.SkipPathRequestMatcher;
 import com.dch.core.security.jwt.auth.token.extractor.TokenExtractor;
-import com.dch.core.security.jwt.model.token.JwtTokenFactory;
+import com.dch.core.security.jwt.auth.token.factory.TokenFactory;
 import com.dch.core.security.jwt.service.SecurityDetailsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -49,23 +49,23 @@ public class WebSecurityConfigurerSupport extends WebSecurityConfigurerAdapter {
     private AjaxAuthenticationProvider ajaxAuthenticationProvider;
     private JwtAuthenticationProvider jwtAuthenticationProvider;
     private JwtSetting jwtSetting;
-    private JwtTokenFactory tokenFactory;
     private SecurityDetailsService securityDetailsService;
     private TokenExtractor jwtTokenExtractor;
+    private TokenFactory jwtTokenFactory;
     private ObjectMapper objectMapper;
 
     public WebSecurityConfigurerSupport(AuthenticationManager authenticationManager,
                                         AjaxAuthenticationProvider ajaxAuthenticationProvider,
                                         JwtAuthenticationProvider jwtAuthenticationProvider, JwtSetting jwtSetting,
-                                        JwtTokenFactory tokenFactory, SecurityDetailsService securityDetailsService,
-                                        TokenExtractor jwtTokenExtractor, ObjectMapper objectMapper) {
+                                        SecurityDetailsService securityDetailsService, TokenExtractor jwtTokenExtractor,
+                                        TokenFactory jwtTokenFactory, ObjectMapper objectMapper) {
         this.authenticationManager = authenticationManager;
         this.ajaxAuthenticationProvider = ajaxAuthenticationProvider;
         this.jwtAuthenticationProvider = jwtAuthenticationProvider;
         this.jwtSetting = jwtSetting;
-        this.tokenFactory = tokenFactory;
         this.securityDetailsService = securityDetailsService;
         this.jwtTokenExtractor = jwtTokenExtractor;
+        this.jwtTokenFactory = jwtTokenFactory;
         this.objectMapper = objectMapper;
     }
 
@@ -77,8 +77,9 @@ public class WebSecurityConfigurerSupport extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
-        auth.authenticationProvider(ajaxAuthenticationProvider);
-        auth.authenticationProvider(jwtAuthenticationProvider);
+        auth
+                .authenticationProvider(ajaxAuthenticationProvider)
+                .authenticationProvider(jwtAuthenticationProvider);
     }
 
     @Override
@@ -106,7 +107,7 @@ public class WebSecurityConfigurerSupport extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Method used to build login processing filter.
+     * Method to build login processing filter.
      *
      * @return {@link AjaxLoginProcessingFilter}
      */
@@ -119,7 +120,7 @@ public class WebSecurityConfigurerSupport extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Method used to build JWT Token authentication processing filter.
+     * Method to build JWT Token authentication processing filter.
      *
      * @return {@link JwtTokenAuthenticationProcessingFilter}
      */
@@ -134,7 +135,7 @@ public class WebSecurityConfigurerSupport extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Method used to get default authentication entry point.
+     * Method to get default authentication entry point.
      *
      * @return {@link RestAuthenticationEntryPoint}
      */
@@ -143,7 +144,7 @@ public class WebSecurityConfigurerSupport extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Method used to get default access denied handler.
+     * Method to get default access denied handler.
      *
      * @return {@link RestAccessDeniedHandler}
      */
@@ -152,16 +153,16 @@ public class WebSecurityConfigurerSupport extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Method used to get default authentication success handler.
+     * Method to get default authentication success handler.
      *
      * @return {@link AjaxAwareAuthenticationSuccessHandler}
      */
     protected AuthenticationSuccessHandler authenticationSuccessHandler() {
-        return new AjaxAwareAuthenticationSuccessHandler(securityDetailsService, objectMapper, tokenFactory);
+        return new AjaxAwareAuthenticationSuccessHandler(securityDetailsService, objectMapper, jwtTokenFactory);
     }
 
     /**
-     * Method used to get default authentication failure handler.
+     * Method to get default authentication failure handler.
      *
      * @return {@link AjaxAwareAuthenticationFailureHandler}
      */
@@ -180,8 +181,7 @@ public class WebSecurityConfigurerSupport extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Method used to add custom authorization configurations. By default do
-     * nothing.
+     * Method to add custom authorization configurations. By default do nothing.
      *
      * @param authorizeRequests {@link ExpressionInterceptUrlRegistry}
      * @return Custom {@link ExpressionInterceptUrlRegistry}

@@ -1,7 +1,7 @@
 package com.dch.core.security.jwt.auth.ajax;
 
 import com.dch.core.datastatic.GeneralStatus;
-import com.dch.core.security.jwt.model.token.JwtTokenFactory;
+import com.dch.core.security.jwt.auth.token.factory.TokenFactory;
 import com.dch.core.security.jwt.service.SecurityDetailsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
@@ -33,10 +33,10 @@ public class AjaxAwareAuthenticationSuccessHandler implements AuthenticationSucc
 
     private SecurityDetailsService securityDetailsService;
     private ObjectMapper mapper;
-    private JwtTokenFactory tokenFactory;
+    private TokenFactory tokenFactory;
 
     public AjaxAwareAuthenticationSuccessHandler(SecurityDetailsService securityDetailsService, ObjectMapper mapper,
-                                                 JwtTokenFactory tokenFactory) {
+                                                 TokenFactory tokenFactory) {
         this.securityDetailsService = securityDetailsService;
         this.mapper = mapper;
         this.tokenFactory = tokenFactory;

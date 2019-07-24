@@ -25,7 +25,7 @@ import java.util.Date;
 public abstract class BaseEntity implements Serializable {
 
     @Audited
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "status", length = 15)
     protected DataStatus status;
 

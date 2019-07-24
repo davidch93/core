@@ -1,8 +1,10 @@
-package com.dch.core.security.jwt.model.token;
+package com.dch.core.security.jwt.auth.token.factory;
 
 import com.dch.core.common.util.DateUtil;
 import com.dch.core.security.jwt.config.JwtSetting;
 import com.dch.core.security.jwt.model.Scopes;
+import com.dch.core.security.jwt.model.token.AccessJwtToken;
+import com.dch.core.security.jwt.model.token.JwtToken;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -23,8 +25,8 @@ import java.util.stream.Collectors;
  * @version 2.0.0
  * @since 1.0.0
  */
-@Component
-public class JwtTokenFactory {
+@Component("jwtTokenFactory")
+public class JwtTokenFactory implements TokenFactory {
 
     private final JwtSetting settings;
 
@@ -32,13 +34,8 @@ public class JwtTokenFactory {
         this.settings = settings;
     }
 
-    /**
-     * Factory method for issuing new JWT Tokens.
-     *
-     * @param userDetails {@link UserDetails}
-     * @return {@link AccessJwtToken}
-     */
-    public AccessJwtToken createAccessJwtToken(UserDetails userDetails) {
+    @Override
+    public JwtToken createAccessJwtToken(UserDetails userDetails) {
         Assert.hasLength(userDetails.getUsername(), "Cannot create JWT Token without username!");
         Assert.notEmpty(userDetails.getAuthorities(), "User doesn't have any privileges!");
 
@@ -58,12 +55,7 @@ public class JwtTokenFactory {
         return new AccessJwtToken(token, claims);
     }
 
-    /**
-     * Method used to create refresh token.
-     *
-     * @param userDetails {@link UserDetails}
-     * @return {@link JwtToken}
-     */
+    @Override
     public JwtToken createRefreshToken(UserDetails userDetails) {
         Assert.hasLength(userDetails.getUsername(), "Cannot create JWT Token without username!");
 

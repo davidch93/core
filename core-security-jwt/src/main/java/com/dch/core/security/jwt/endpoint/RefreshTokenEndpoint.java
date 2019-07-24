@@ -4,10 +4,10 @@ import com.dch.core.datastatic.GeneralStatus;
 import com.dch.core.datastatic.WebSecuritySupport;
 import com.dch.core.dto.response.GeneralResponse;
 import com.dch.core.security.jwt.auth.token.extractor.TokenExtractor;
+import com.dch.core.security.jwt.auth.token.factory.TokenFactory;
 import com.dch.core.security.jwt.auth.token.verifier.TokenVerifier;
 import com.dch.core.security.jwt.config.JwtSetting;
 import com.dch.core.security.jwt.exception.InvalidJwtTokenException;
-import com.dch.core.security.jwt.model.token.JwtTokenFactory;
 import com.dch.core.security.jwt.model.token.RawAccessJwtToken;
 import com.dch.core.security.jwt.model.token.RefreshToken;
 import com.dch.core.security.jwt.service.SecurityDetailsService;
@@ -30,22 +30,22 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 public class RefreshTokenEndpoint {
 
-    private final JwtTokenFactory tokenFactory;
     private final JwtSetting jwtSetting;
     private final UserDetailsService userDetailsService;
     private final SecurityDetailsService securityDetailsService;
-    private final TokenVerifier bloomFilterTokenVerifier;
     private final TokenExtractor jwtTokenExtractor;
+    private final TokenFactory jwtTokenFactory;
+    private final TokenVerifier bloomFilterTokenVerifier;
 
-    public RefreshTokenEndpoint(JwtTokenFactory tokenFactory, JwtSetting jwtSetting,
-                                UserDetailsService userDetailsService, SecurityDetailsService securityDetailsService,
-                                TokenVerifier bloomFilterTokenVerifier, TokenExtractor jwtTokenExtractor) {
-        this.tokenFactory = tokenFactory;
+    public RefreshTokenEndpoint(JwtSetting jwtSetting, UserDetailsService userDetailsService,
+                                SecurityDetailsService securityDetailsService, TokenExtractor jwtTokenExtractor,
+                                TokenFactory jwtTokenFactory, TokenVerifier bloomFilterTokenVerifier) {
         this.jwtSetting = jwtSetting;
         this.userDetailsService = userDetailsService;
         this.securityDetailsService = securityDetailsService;
-        this.bloomFilterTokenVerifier = bloomFilterTokenVerifier;
         this.jwtTokenExtractor = jwtTokenExtractor;
+        this.jwtTokenFactory = jwtTokenFactory;
+        this.bloomFilterTokenVerifier = bloomFilterTokenVerifier;
     }
 
     /**
@@ -74,7 +74,7 @@ public class RefreshTokenEndpoint {
             throw new InsufficientAuthenticationException("User has no roles assigned");
 
         return securityDetailsService.getSecurityResponseBuilder()
-                .setData(tokenFactory.createAccessJwtToken(userDetails))
+                .setData(jwtTokenFactory.createAccessJwtToken(userDetails))
                 .setGeneralStatus(GeneralStatus.TOKEN_CREATED)
                 .build();
     }
