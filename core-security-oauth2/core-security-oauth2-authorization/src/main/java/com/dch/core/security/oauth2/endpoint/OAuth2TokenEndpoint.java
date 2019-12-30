@@ -34,12 +34,11 @@ public class OAuth2TokenEndpoint {
     }
 
     /**
-     * API that used to get access token by oauth2 authentication parameters.
-     * Using RequestMethod.GET
+     * API to get access token by oauth2 authentication parameters.
      *
-     * @param principal  {@link Principal} Authentication principal.
-     * @param parameters {@link Map} Request parameters.
-     * @return {@link GeneralResponse} Response body of token.
+     * @param principal  the {@link Principal authentication principal}.
+     * @param parameters the {@link Map request parameters}.
+     * @return the {@link GeneralResponse response body} of token.
      * @throws HttpRequestMethodNotSupportedException If error occurred while creating token.
      */
     @GetMapping(value = "/oauth/token")
@@ -53,12 +52,11 @@ public class OAuth2TokenEndpoint {
     }
 
     /**
-     * API that used to get access token by oauth2 authentication parameters.
-     * Using RequestMethod.POST
+     * API to get access token by oauth2 authentication parameters.
      *
-     * @param principal  {@link Principal} Authentication principal.
-     * @param parameters {@link Map} Request parameters.
-     * @return {@link GeneralResponse} Response body of token.
+     * @param principal  the {@link Principal authentication principal}.
+     * @param parameters the {@link Map request parameters}.
+     * @return the {@link GeneralResponse response body} of token.
      * @throws HttpRequestMethodNotSupportedException If error occurred while creating token.
      */
     @PostMapping(value = "/oauth/token")

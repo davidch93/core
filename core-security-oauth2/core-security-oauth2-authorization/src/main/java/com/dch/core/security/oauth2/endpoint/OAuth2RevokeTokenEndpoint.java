@@ -33,10 +33,10 @@ public class OAuth2RevokeTokenEndpoint {
     }
 
     /**
-     * API that used to revoke active token.
+     * API to revoke active token.
      *
-     * @param request {@link HttpServletRequest} HTTP Request.
-     * @return {@link GeneralResponse} Response body of revoked token.
+     * @param request the {@link HttpServletRequest} HTTP Request.
+     * @return the {@link GeneralResponse response body} of revoked token.
      */
     @DeleteMapping(value = "/oauth/revoke_token")
     public GeneralResponse revokeToken(HttpServletRequest request) {

@@ -53,9 +53,9 @@ public class RetryConfigurerSupport {
     }
 
     /**
-     * Method used to get default retry listener.
+     * Get default retry listener.
      *
-     * @return {@link RetryListener}
+     * @return the {@link RetryListener}
      */
     protected RetryListener retryListener() {
         return new RetryListener() {

@@ -29,6 +29,11 @@ public class AsyncConfigurerSupport implements AsyncConfigurer {
     private static final Logger logger = LoggerFactory.getLogger(AsyncConfigurerSupport.class);
     private final AsyncSetting asyncSetting;
 
+    /**
+     * Construct a {@code AsyncConfigurerSupport} with a specified setting.
+     *
+     * @param asyncSetting the async setting
+     */
     public AsyncConfigurerSupport(AsyncSetting asyncSetting) {
         this.asyncSetting = asyncSetting;
     }

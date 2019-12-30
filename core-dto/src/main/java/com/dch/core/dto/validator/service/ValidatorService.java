@@ -11,9 +11,9 @@ package com.dch.core.dto.validator.service;
 public interface ValidatorService {
 
     /**
-     * Method used to check if code already exist or not.
+     * Check whether code already exist or not.
      *
-     * @param code {@link String} Code.
+     * @param code the code.
      * @return {@link boolean} true if exist and vice versa.
      */
     boolean isValidCode(String code);

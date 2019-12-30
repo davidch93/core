@@ -30,10 +30,10 @@ public class OAuth2CheckTokenEndpoint {
     }
 
     /**
-     * API that used to check validity token.
+     * API to check validity token.
      *
-     * @param value {@link String} Bearer token.
-     * @return {@link GeneralResponse} Response body of checked token.
+     * @param value the bearer token.
+     * @return the {@link GeneralResponse response body} of checked token.
      */
     @GetMapping(value = "/oauth/check_token")
     public GeneralResponse checkToken(@RequestParam("token") String value) {

@@ -1,7 +1,6 @@
 package com.dch.core.retry.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
 
 /**
  * Class property source that contains parameter setting of Retry configuration.
@@ -9,7 +8,6 @@ import org.springframework.context.annotation.PropertySource;
  * @author David.Christianto
  * @version 2.0.0
  */
-@PropertySource("classpath:config/retry/core-retry-config.properties")
 @ConfigurationProperties(prefix = "core.retry")
 public class RetrySetting {
 
@@ -18,42 +16,54 @@ public class RetrySetting {
     private int maxAttempts = 10;
 
     /**
-     * @return the identityPrefix
+     * Get identity prefix.
+     *
+     * @return the identity prefix
      */
     public String getIdentityPrefix() {
         return identityPrefix;
     }
 
     /**
-     * @param identityPrefix the identityPrefix to set
+     * Set identity prefix.
+     *
+     * @param identityPrefix the identity prefix
      */
     public void setIdentityPrefix(String identityPrefix) {
         this.identityPrefix = identityPrefix;
     }
 
     /**
-     * @return the backOfPeriod
+     * Get back of period.
+     *
+     * @return the back of period
      */
     public long getBackOfPeriod() {
         return backOfPeriod;
     }
 
     /**
-     * @param backOfPeriod the backOfPeriod to set
+     * Set back of period.
+     *
+     * @param backOfPeriod the back of period
      */
     public void setBackOfPeriod(long backOfPeriod) {
         this.backOfPeriod = backOfPeriod;
     }
 
     /**
-     * @return the maxAttempts
+     * Get max attempts.
+     *
+     * @return the max attempts
      */
     public int getMaxAttempts() {
         return maxAttempts;
     }
 
     /**
-     * @param maxAttempts the maxAttempts to set
+     * Set max attempts.
+     *
+     * @param maxAttempts the max attempts
      */
     public void setMaxAttempts(int maxAttempts) {
         this.maxAttempts = maxAttempts;

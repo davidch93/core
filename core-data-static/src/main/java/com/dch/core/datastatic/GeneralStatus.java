@@ -24,6 +24,7 @@ public enum GeneralStatus {
     NOT_FOUND("CAER06", "NOT_FOUND", "msg.httpstatus.notfound"),
     UNSUPPORTED_MEDIA_TYPE("CAER07", "UNSUPPORTED_MEDIA_TYPE", "msg.httpstatus.unsupportedmediatype"),
     NOT_ACCEPTABLE("CAER08", "NOT_ACCEPTABLE", "msg.httpstatus.notacceptable"),
+    DATA_NOT_EXIST("CAER09", "DATA_NOT_EXIST", "msg.httpstatus.data.notexist"),
 
     AUTHENTICATION_FAILED("SAER01", "AUTHENTICATION_FAILED", "msg.httpstatus.authenticationfailed"),
     AUTHENTICATION_METHOD_NOT_SUPPORTED("SAER02", "AUTHENTICATION_METHOD_NOT_SUPPORTED", "msg.httpstatus" +

@@ -101,11 +101,11 @@ public abstract class JasperReportServiceImpl implements JasperReportService {
     }
 
     /**
-     * Method used to export report to desired format.
+     * Export report to desired format.
      *
-     * @param reportType    {@link ReportType} such as CSV, DOCX, HTML, ODT, PDF, RTF, XLSX
-     * @param reportDetails {@link ReportDetails}
-     * @param jasperPrint   {@link JasperPrint}
+     * @param reportType    the {@link ReportType} such as CSV, DOCX, HTML, ODT, PDF, RTF, XLSX
+     * @param reportDetails the {@link ReportDetails}
+     * @param jasperPrint   the {@link JasperPrint}
      * @throws JRException If error occurred while exporting report.
      */
     private void exportReport(ReportType reportType, ReportDetails reportDetails, JasperPrint jasperPrint)
@@ -138,12 +138,12 @@ public abstract class JasperReportServiceImpl implements JasperReportService {
     }
 
     /**
-     * Method used to export stream report to desired format.
+     * Export stream report to desired format.
      *
-     * @param reportType    {@link ReportType} such as CSV, DOCX, HTML, ODT, PDF, RTF, XLSX
-     * @param reportDetails {@link ReportDetails}
-     * @param jasperPrint   {@link JasperPrint}
-     * @return {@link ByteArrayOutputStream} Output stream.
+     * @param reportType    the {@link ReportType} such as CSV, DOCX, HTML, ODT, PDF, RTF, XLSX
+     * @param reportDetails the {@link ReportDetails}
+     * @param jasperPrint   the {@link JasperPrint}
+     * @return the {@link ByteArrayOutputStream Output stream}.
      * @throws JRException If error occurred while exporting stream report.
      */
     private ByteArrayOutputStream exportStreamReport(ReportType reportType, ReportDetails reportDetails,

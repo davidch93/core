@@ -33,10 +33,10 @@ public class JasperReportExportProvider {
     }
 
     /**
-     * Method used to export JasperReport to CSV format.
+     * Export JasperReport to CSV format.
      *
-     * @param jasperPrint {@link JasperPrint}
-     * @param fileName    {@code String} Output filename.
+     * @param jasperPrint the {@link JasperPrint}
+     * @param fileName    the output filename.
      * @throws JRException If error occurred while exporting report to CSV.
      */
     public void exportToCsv(JasperPrint jasperPrint, String fileName) throws JRException {
@@ -47,10 +47,10 @@ public class JasperReportExportProvider {
     }
 
     /**
-     * Method used to export JasperReport to CSV format with OutputStream.
+     * Export JasperReport to CSV format with OutputStream.
      *
-     * @param jasperPrint {@link JasperPrint}
-     * @return {@link ByteArrayOutputStream} Output stream.
+     * @param jasperPrint the {@link JasperPrint}
+     * @return the {@link ByteArrayOutputStream output stream}.
      * @throws JRException If error occurred while exporting report to CSV.
      */
     public ByteArrayOutputStream exportToCsv(JasperPrint jasperPrint) throws JRException {
@@ -63,10 +63,10 @@ public class JasperReportExportProvider {
     }
 
     /**
-     * Method used to export JasperReport to DOCX format.
+     * Export JasperReport to DOCX format.
      *
-     * @param jasperPrint {@link JasperPrint}
-     * @param fileName    {@code String} Output filename.
+     * @param jasperPrint the {@link JasperPrint}
+     * @param fileName    the output filename.
      * @throws JRException If error occurred while exporting report to Docx.
      */
     public void exportToDocx(JasperPrint jasperPrint, String fileName) throws JRException {
@@ -77,10 +77,10 @@ public class JasperReportExportProvider {
     }
 
     /**
-     * Method used to export JasperReport to DOCX format with OutputStream.
+     * Export JasperReport to DOCX format with OutputStream.
      *
-     * @param jasperPrint {@link JasperPrint}
-     * @return {@link ByteArrayOutputStream} Output stream.
+     * @param jasperPrint the {@link JasperPrint}
+     * @return the {@link ByteArrayOutputStream output stream}.
      * @throws JRException If error occurred while exporting report to Docx.
      */
     public ByteArrayOutputStream exportToDocx(JasperPrint jasperPrint) throws JRException {
@@ -93,10 +93,10 @@ public class JasperReportExportProvider {
     }
 
     /**
-     * Method used to export JasperReport to HTML format.
+     * Export JasperReport to HTML format.
      *
-     * @param jasperPrint {@link JasperPrint}
-     * @param fileName    {@code String} Output filename.
+     * @param jasperPrint the {@link JasperPrint}
+     * @param fileName    the output filename.
      * @throws JRException If error occurred while exporting report to HTML.
      */
     public void exportToHtml(JasperPrint jasperPrint, String fileName) throws JRException {
@@ -107,10 +107,10 @@ public class JasperReportExportProvider {
     }
 
     /**
-     * Method used to export JasperReport to HTML format with OutputStream.
+     * Export JasperReport to HTML format with OutputStream.
      *
-     * @param jasperPrint {@link JasperPrint}
-     * @return {@link ByteArrayOutputStream} Output stream.
+     * @param jasperPrint the {@link JasperPrint}
+     * @return the {@link ByteArrayOutputStream output stream}.
      * @throws JRException If error occurred while exporting report to HTML.
      */
     public ByteArrayOutputStream exportToHtml(JasperPrint jasperPrint) throws JRException {
@@ -123,10 +123,10 @@ public class JasperReportExportProvider {
     }
 
     /**
-     * Method used to export JasperReport to ODT format.
+     * Export JasperReport to ODT format.
      *
-     * @param jasperPrint {@link JasperPrint}
-     * @param fileName    {@code String} Output filename.
+     * @param jasperPrint the {@link JasperPrint}
+     * @param fileName    the output filename.
      * @throws JRException If error occurred while exporting report to ODT.
      */
     public void exportToOdt(JasperPrint jasperPrint, String fileName) throws JRException {
@@ -137,10 +137,10 @@ public class JasperReportExportProvider {
     }
 
     /**
-     * Method used to export JasperReport to ODT format with OutputStream.
+     * Export JasperReport to ODT format with OutputStream.
      *
-     * @param jasperPrint {@link JasperPrint}
-     * @return {@link ByteArrayOutputStream} Output stream.
+     * @param jasperPrint the {@link JasperPrint}
+     * @return the {@link ByteArrayOutputStream output stream}.
      * @throws JRException If error occurred while exporting report to ODT.
      */
     public ByteArrayOutputStream exportToOdt(JasperPrint jasperPrint) throws JRException {
@@ -153,11 +153,11 @@ public class JasperReportExportProvider {
     }
 
     /**
-     * Method used to export JasperReport to PDF format.
+     * Export JasperReport to PDF format.
      *
-     * @param jasperPrint {@link JasperPrint}
-     * @param fileName    {@code String} Output filename.
-     * @param author      {@code String} Author name.
+     * @param jasperPrint the {@link JasperPrint}
+     * @param fileName    the output filename.
+     * @param author      the author name.
      * @throws JRException If error occurred while exporting report to PDF.
      */
     public void exportToPdf(JasperPrint jasperPrint, String fileName, String author) throws JRException {
@@ -179,11 +179,11 @@ public class JasperReportExportProvider {
     }
 
     /**
-     * Method used to export JasperReport to PDF format with OutputStream.
+     * Export JasperReport to PDF format with OutputStream.
      *
-     * @param jasperPrint {@link JasperPrint}
-     * @param author      {@code String} Author name.
-     * @return {@link ByteArrayOutputStream} Output stream.
+     * @param jasperPrint the {@link JasperPrint}
+     * @param author      the author name.
+     * @return the {@link ByteArrayOutputStream output stream}.
      * @throws JRException If error occurred while exporting report to PDF.
      */
     public ByteArrayOutputStream exportToPdf(JasperPrint jasperPrint, String author) throws JRException {
@@ -207,10 +207,10 @@ public class JasperReportExportProvider {
     }
 
     /**
-     * Method used to export JasperReport to RTF format.
+     * Export JasperReport to RTF format.
      *
-     * @param jasperPrint {@link JasperPrint}
-     * @param fileName    {@code String} Output filename.
+     * @param jasperPrint the {@link JasperPrint}
+     * @param fileName    the output filename.
      * @throws JRException If error occurred while exporting report to RTF.
      */
     public void exportToRtf(JasperPrint jasperPrint, String fileName) throws JRException {
@@ -221,10 +221,10 @@ public class JasperReportExportProvider {
     }
 
     /**
-     * Method used to export JasperReport to RTF format with OutputStream.
+     * Export JasperReport to RTF format with OutputStream.
      *
-     * @param jasperPrint {@link JasperPrint}
-     * @return {@link ByteArrayOutputStream} Output stream.
+     * @param jasperPrint the {@link JasperPrint}
+     * @return the {@link ByteArrayOutputStream output stream}.
      * @throws JRException If error occurred while exporting report to RTF.
      */
     public ByteArrayOutputStream exportToRtf(JasperPrint jasperPrint) throws JRException {
@@ -237,11 +237,11 @@ public class JasperReportExportProvider {
     }
 
     /**
-     * Method used to export JasperReport to XLSX format.
+     * Export JasperReport to XLSX format.
      *
-     * @param jasperPrint {@link JasperPrint}
-     * @param fileName    {@code String} Output filename.
-     * @param sheetName   {@code String} Sheet name.
+     * @param jasperPrint the {@link JasperPrint}
+     * @param fileName    the output filename.
+     * @param sheetName   the sheet name.
      * @throws JRException If error occurred while exporting report to XLSX.
      */
     public void exportToXlsx(JasperPrint jasperPrint, String fileName, String sheetName) throws JRException {
@@ -256,11 +256,11 @@ public class JasperReportExportProvider {
     }
 
     /**
-     * Method used to export JasperReport to XLSX format with OutputStream.
+     * Export JasperReport to XLSX format with OutputStream.
      *
-     * @param jasperPrint {@link JasperPrint}
-     * @param sheetName   {@code String} Sheet name.
-     * @return {@link ByteArrayOutputStream} Output stream.
+     * @param jasperPrint the {@link JasperPrint}
+     * @param sheetName   the sheet name.
+     * @return the {@link ByteArrayOutputStream output stream}.
      * @throws JRException If error occurred while exporting report to XLSX.
      */
     public ByteArrayOutputStream exportToXlsx(JasperPrint jasperPrint, String sheetName) throws JRException {

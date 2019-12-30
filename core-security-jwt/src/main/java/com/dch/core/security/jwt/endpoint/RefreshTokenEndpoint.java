@@ -49,10 +49,10 @@ public class RefreshTokenEndpoint {
     }
 
     /**
-     * API that used to get new access token by refresh token.
+     * API to get new access token by refresh token.
      *
-     * @param request {@link HttpServletRequest} HTTP Request.
-     * @return {@link GeneralResponse} Response body of token.
+     * @param request the {@link HttpServletRequest} HTTP Request.
+     * @return the {@link GeneralResponse response body} of token.
      */
     @GetMapping(value = "/auth/token")
     public GeneralResponse refreshToken(HttpServletRequest request) {

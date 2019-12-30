@@ -6,9 +6,7 @@ import org.springframework.web.reactive.config.WebFluxConfigurer;
 
 /**
  * Defines callback methods to customize the Java-based configuration for
- * Spring MVC enabled via {@code @EnableWebFlux}.<br>
- * This implementation used for create custom {@link WebFluxConfigurer#addResourceHandlers}
- * for adding swagger resources.
+ * Spring MVC enabled via {@code @EnableWebFlux}.
  *
  * @author david.christianto
  * @version 2.0.0
@@ -17,11 +15,4 @@ import org.springframework.web.reactive.config.WebFluxConfigurer;
 @ComponentScan("com.cdh.core.rest.reactive")
 public class WebFluxConfigurerSupport implements WebFluxConfigurer {
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/swagger-ui.html**")
-                .addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
-    }
 }

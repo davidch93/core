@@ -20,6 +20,8 @@ public abstract class GeneratedIdMappedEntity extends BaseMappedEntity {
     protected UUID id;
 
     /**
+     * Get id.
+     *
      * @return the id
      */
     public UUID getId() {
@@ -27,7 +29,9 @@ public abstract class GeneratedIdMappedEntity extends BaseMappedEntity {
     }
 
     /**
-     * @param id the id to set
+     * Set id.
+     *
+     * @param id the id
      */
     public void setId(UUID id) {
         this.id = id;

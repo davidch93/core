@@ -57,20 +57,19 @@ public class WebSecurityConfigurerSupport extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Method used to get default authentication entry point.
+     * Get default authentication entry point.
      *
-     * @return {@link RestAuthenticationEntryPoint}
+     * @return the {@link RestAuthenticationEntryPoint}
      */
     protected AuthenticationEntryPoint authenticationEntryPoint() {
         return new RestAuthenticationEntryPoint(securityDetailsService);
     }
 
     /**
-     * Method used to add custom authorization configurations. By default do
-     * nothing.
+     * Add custom authorization configurations. By default do nothing.
      *
-     * @param authorizeRequests {@link ExpressionInterceptUrlRegistry}
-     * @return Custom {@link ExpressionInterceptUrlRegistry}
+     * @param authorizeRequests the {@link ExpressionInterceptUrlRegistry}
+     * @return the custom {@link ExpressionInterceptUrlRegistry}
      */
     protected ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry configureAuthorization(
             ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests) {

@@ -6,8 +6,8 @@ import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.server.MethodNotAllowedException;
 import org.springframework.web.server.NotAcceptableStatusException;
 import org.springframework.web.server.ServerWebInputException;
 import org.springframework.web.server.UnsupportedMediaTypeStatusException;
@@ -47,9 +47,9 @@ public class GlobalErrorAttributes extends DefaultErrorAttributes {
      */
     private ResponseDto.ResponseStatusDto getResponseStatus(WebRequest webRequest) {
         Throwable error = super.getError(webRequest);
-        if (error instanceof MethodNotAllowedException)
+        if (error instanceof HttpRequestMethodNotSupportedException)
             return getResponseStatusDto(GeneralStatus.METHOD_NOT_ALLOWED,
-                    ((MethodNotAllowedException) error).getHttpMethod());
+                    ((HttpRequestMethodNotSupportedException) error).getMethod());
         else if (error instanceof NotAcceptableStatusException)
             return getResponseStatusDto(GeneralStatus.NOT_ACCEPTABLE);
         else if (error instanceof ServerWebInputException)

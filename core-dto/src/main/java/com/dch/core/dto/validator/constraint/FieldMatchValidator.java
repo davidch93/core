@@ -40,11 +40,11 @@ public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Obje
     }
 
     /**
-     * Method used to get field value from Object using field name.
+     * Get field value from Object using field name.
      *
-     * @param object    {@link Object} Base object.
-     * @param fieldName {@link String} Field name.
-     * @return {@link Object} Field.
+     * @param object    the base object.
+     * @param fieldName the field name.
+     * @return the field.
      * @throws Exception if there are error during reflect object.
      */
     private Object getFieldValue(Object object, String fieldName) throws Exception {

@@ -10,9 +10,9 @@ package com.dch.core.dataaccess.audit.service;
 public interface AuditService {
 
     /**
-     * Method used to get current auditor.
+     * Get current auditor.
      *
-     * @return Current active user.
+     * @return the current active user.
      */
     String getCurrentAuditor();
 }

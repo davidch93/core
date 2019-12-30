@@ -2,7 +2,7 @@ package com.dch.core.service.jpa.impl;
 
 import com.dch.core.dataaccess.BaseEntity;
 import com.dch.core.datastatic.DataStatus;
-import com.dch.core.service.jpa.GeneralService;
+import com.dch.core.service.jpa.GenericService;
 import com.dch.core.service.jpa.exception.ServiceException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -19,15 +19,15 @@ import java.util.Optional;
  * @param <ID> the primary key for that type.
  * @author david.christianto
  * @version 2.0.0
- * @see com.dch.core.service.jpa.GeneralService
+ * @see GenericService
  * @since 1.0.0
  */
-public abstract class GeneralServiceImpl<T extends BaseEntity, ID extends Serializable>
-        implements GeneralService<T, ID> {
+public abstract class GenericServiceImpl<T extends BaseEntity, ID extends Serializable>
+        implements GenericService<T, ID> {
 
     private final JpaRepository<T, ID> repository;
 
-    protected GeneralServiceImpl(JpaRepository<T, ID> repository) {
+    protected GenericServiceImpl(JpaRepository<T, ID> repository) {
         this.repository = repository;
     }
 

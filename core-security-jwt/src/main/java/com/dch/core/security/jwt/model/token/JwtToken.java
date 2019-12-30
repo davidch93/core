@@ -10,9 +10,9 @@ package com.dch.core.security.jwt.model.token;
 public interface JwtToken {
 
     /**
-     * Method used to get token.
+     * Get token.
      *
-     * @return Token.
+     * @return the token.
      */
     String getToken();
 }

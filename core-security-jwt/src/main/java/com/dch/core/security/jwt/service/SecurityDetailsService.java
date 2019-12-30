@@ -13,9 +13,9 @@ import com.dch.core.dto.response.builder.ResponseBuilder;
 public interface SecurityDetailsService {
 
     /**
-     * Method used to get response builder to build a generic response.
+     * Get response builder to build a generic response.
      *
-     * @return {@link ResponseBuilder}
+     * @return the {@link ResponseBuilder}
      */
     ResponseBuilder getSecurityResponseBuilder();
 }

@@ -16,39 +16,37 @@ import java.io.ByteArrayOutputStream;
 public interface JasperReportService {
 
     /**
-     * Method used to create JasperReport using Data Source connection.
+     * Create JasperReport using Data Source connection.
      *
-     * @param reportType    {@link ReportType} such as CSV, DOCX, HTML, ODT, PDF, RTF, XLSX.
-     * @param reportDetails {@link ReportDetails}
+     * @param reportType    the {@link ReportType} such as CSV, DOCX, HTML, ODT, PDF, RTF, XLSX.
+     * @param reportDetails the {@link ReportDetails}
      */
     void createReportWithDataSourceConnection(ReportType reportType, ReportDetails reportDetails);
 
     /**
-     * Method used to create JasperReport using JasperReport Bean Collection
-     * Data Source.
+     * Create JasperReport using JasperReport Bean Collection Data Source.
      *
-     * @param reportType    {@link ReportType} such as CSV, DOCX, HTML, ODT, PDF, RTF, XLSX.
-     * @param reportDetails {@link ReportDetails}
+     * @param reportType    the {@link ReportType} such as CSV, DOCX, HTML, ODT, PDF, RTF, XLSX.
+     * @param reportDetails the {@link ReportDetails}
      */
     void createReportWithJRBeanCollectionDataSource(ReportType reportType, ReportDetails reportDetails);
 
     /**
-     * Method used to create stream JasperReport using Data Source connection.
+     * Create stream JasperReport using Data Source connection.
      *
-     * @param reportType    {@link ReportType} such as CSV, DOCX, HTML, ODT, PDF, RTF, XLSX.
-     * @param reportDetails {@link ReportDetails}
-     * @return {@link ByteArrayOutputStream} Output stream.
+     * @param reportType    the {@link ReportType} such as CSV, DOCX, HTML, ODT, PDF, RTF, XLSX.
+     * @param reportDetails the {@link ReportDetails}
+     * @return the {@link ByteArrayOutputStream Output stream}.
      */
     ByteArrayOutputStream createStreamReportWithDataSourceConnection(ReportType reportType,
                                                                      ReportDetails reportDetails);
 
     /**
-     * Method used to create stream JasperReport using JasperReport Bean
-     * Collection Data Source.
+     * Create stream JasperReport using JasperReport Bean Collection Data Source.
      *
-     * @param reportType    {@link ReportType} such as CSV, DOCX, HTML, ODT, PDF, RTF, XLSX.
-     * @param reportDetails {@link ReportDetails}
-     * @return {@link ByteArrayOutputStream} Output stream.
+     * @param reportType    the {@link ReportType} such as CSV, DOCX, HTML, ODT, PDF, RTF, XLSX.
+     * @param reportDetails the {@link ReportDetails}
+     * @return the {@link ByteArrayOutputStream Output stream}.
      */
     ByteArrayOutputStream createStreamReportWithJRBeanCollectionDataSource(ReportType reportType,
                                                                            ReportDetails reportDetails);

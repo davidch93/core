@@ -32,20 +32,26 @@ public class ReportDetails {
     }
 
     /**
-     * @return the reportFileName
+     * Get report file name.
+     *
+     * @return the report file name
      */
     public String getReportFileName() {
         return reportFileName;
     }
 
     /**
-     * @return the outputFileName
+     * Get output file name.
+     *
+     * @return the output file name
      */
     public String getOutputFileName() {
         return outputFileName;
     }
 
     /**
+     * Get author.
+     *
      * @return the author
      */
     public String getAuthor() {
@@ -53,20 +59,26 @@ public class ReportDetails {
     }
 
     /**
-     * @return the sheetName
+     * Get sheet name.
+     *
+     * @return the sheet name
      */
     public String getSheetName() {
         return sheetName;
     }
 
     /**
-     * @return the beanCollectionDataSource
+     * Get bean collection data source.
+     *
+     * @return the bean collection data source
      */
     public JRBeanCollectionDataSource getBeanCollectionDataSource() {
         return beanCollectionDataSource;
     }
 
     /**
+     * Get parameters.
+     *
      * @return the parameters
      */
     public Map<String, Object> getParameters() {
@@ -74,22 +86,22 @@ public class ReportDetails {
     }
 
     /**
-     * Method used to get report details builder.
+     * Get report details builder.
      *
-     * @param reportFileName Jasper report file name.
-     * @param outputFileName Output report file name.
-     * @return {@link ReportDetailsBuilder}
+     * @param reportFileName the Jasper report file name.
+     * @param outputFileName the output report file name.
+     * @return the {@link ReportDetailsBuilder}
      */
     public static ReportDetailsBuilder getReportDetailsBuilder(String reportFileName, String outputFileName) {
         return new ReportDetailsBuilder(reportFileName, outputFileName);
     }
 
     /**
-     * Class builder used to create {@link ReportDetails}. This class implements
-     * {@link GeneralBuilder}.
+     * Class builder used to create {@link ReportDetails}.
      *
      * @author David.Christianto
      * @version 2.0.0
+     * @see com.dch.core.datastatic.builder.GeneralBuilder
      * @since 1.0.0
      */
     public static class ReportDetailsBuilder implements GeneralBuilder<ReportDetails> {
@@ -110,7 +122,7 @@ public class ReportDetails {
          * Method to build report file name.
          *
          * @param reportFileName the reportFileName to set
-         * @return {@link ReportDetailsBuilder}
+         * @return the {@link ReportDetailsBuilder}
          */
         public ReportDetailsBuilder setReportFileName(String reportFileName) {
             this.reportFileName = reportFileName;
@@ -121,7 +133,7 @@ public class ReportDetails {
          * Method to build author.
          *
          * @param author the author to set
-         * @return {@link ReportDetailsBuilder}
+         * @return the {@link ReportDetailsBuilder}
          */
         public ReportDetailsBuilder setAuthor(String author) {
             this.author = author;
@@ -132,7 +144,7 @@ public class ReportDetails {
          * Method to build sheet name.
          *
          * @param sheetName the sheetName to set
-         * @return {@link ReportDetailsBuilder}
+         * @return the {@link ReportDetailsBuilder}
          */
         public ReportDetailsBuilder setSheetName(String sheetName) {
             this.sheetName = sheetName;
@@ -143,7 +155,7 @@ public class ReportDetails {
          * Method to build bean collection data source.
          *
          * @param beanCollectionDataSource the beanCollectionDataSource to set
-         * @return {@link ReportDetailsBuilder}
+         * @return the {@link ReportDetailsBuilder}
          */
         public ReportDetailsBuilder setBeanCollectionDataSource(JRBeanCollectionDataSource beanCollectionDataSource) {
             this.beanCollectionDataSource = beanCollectionDataSource;
@@ -154,7 +166,7 @@ public class ReportDetails {
          * Method to build parameters.
          *
          * @param parameters the parameters to set
-         * @return {@link ReportDetailsBuilder}
+         * @return the {@link ReportDetailsBuilder}
          */
         public ReportDetailsBuilder setParameters(Map<String, Object> parameters) {
             this.parameters = parameters;
@@ -164,7 +176,7 @@ public class ReportDetails {
         /**
          * Method used to build report parameter.
          *
-         * @return {@link ReportDetails}
+         * @return the {@link ReportDetails}
          */
         @Override
         public ReportDetails build() {

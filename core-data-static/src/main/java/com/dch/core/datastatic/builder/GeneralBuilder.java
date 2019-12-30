@@ -11,9 +11,9 @@ package com.dch.core.datastatic.builder;
 public interface GeneralBuilder<T> {
 
     /**
-     * Method used to build an object.
+     * Build an object.
      *
-     * @return Object class.
+     * @return the specific object.
      */
     T build();
 }

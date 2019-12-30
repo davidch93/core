@@ -1,7 +1,6 @@
 package com.dch.core.security.oauth2.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
 
 /**
  * Class that contains parameter of authorization server.
@@ -10,7 +9,6 @@ import org.springframework.context.annotation.PropertySource;
  * @version 2.0.0
  * @since 1.0.0
  */
-@PropertySource("classpath:config/security/core-oauth2-config.properties")
 @ConfigurationProperties(prefix = "core.security.oauth2.resource")
 public class ResourceSetting {
 
@@ -23,98 +21,126 @@ public class ResourceSetting {
     private String tokenName;
 
     /**
-     * @return the checkTokenEndpointUrl
+     * Get check token endpoint url.
+     *
+     * @return the check token endpoint url
      */
     public String getCheckTokenEndpointUrl() {
         return checkTokenEndpointUrl;
     }
 
     /**
-     * @param checkTokenEndpointUrl the checkTokenEndpointUrl to set
+     * Set check token endpoint url.
+     *
+     * @param checkTokenEndpointUrl the check token endpoint url
      */
     public void setCheckTokenEndpointUrl(String checkTokenEndpointUrl) {
         this.checkTokenEndpointUrl = checkTokenEndpointUrl;
     }
 
     /**
-     * @return the clientId
+     * Get client id.
+     *
+     * @return the client id
      */
     public String getClientId() {
         return clientId;
     }
 
     /**
-     * @param clientId the clientId to set
+     * Set client id.
+     *
+     * @param clientId the client id
      */
     public void setClientId(String clientId) {
         this.clientId = clientId;
     }
 
     /**
-     * @return the clientSecret
+     * Get client secret.
+     *
+     * @return the client secret
      */
     public String getClientSecret() {
         return clientSecret;
     }
 
     /**
-     * @param clientSecret the clientSecret to set
+     * Set client secret.
+     *
+     * @param clientSecret the client secret
      */
     public void setClientSecret(String clientSecret) {
         this.clientSecret = clientSecret;
     }
 
     /**
-     * @return the identityPrefix
+     * Get identity prefix.
+     *
+     * @return the identity prefix
      */
     public String getIdentityPrefix() {
         return identityPrefix;
     }
 
     /**
-     * @param identityPrefix the identityPrefix to set
+     * Set identity prefix.
+     *
+     * @param identityPrefix the identity prefix
      */
     public void setIdentityPrefix(String identityPrefix) {
         this.identityPrefix = identityPrefix;
     }
 
     /**
-     * @return the keyOfData
+     * Get key of data.
+     *
+     * @return the key of data
      */
     public String getKeyOfData() {
         return keyOfData;
     }
 
     /**
-     * @param keyOfData the keyOfData to set
+     * Set key of data.
+     *
+     * @param keyOfData the key of data
      */
     public void setKeyOfData(String keyOfData) {
         this.keyOfData = keyOfData;
     }
 
     /**
-     * @return the resourceId
+     * Get resource id.
+     *
+     * @return the resource id
      */
     public String getResourceId() {
         return resourceId;
     }
 
     /**
-     * @param resourceId the resourceId to set
+     * Set resource id.
+     *
+     * @param resourceId the resource id
      */
     public void setResourceId(String resourceId) {
         this.resourceId = resourceId;
     }
 
     /**
-     * @return the tokenName
+     * Get token name.
+     *
+     * @return the token name
      */
     public String getTokenName() {
         return tokenName;
     }
 
     /**
-     * @param tokenName the tokenName to set
+     * Set token name.
+     *
+     * @param tokenName the token name
      */
     public void setTokenName(String tokenName) {
         this.tokenName = tokenName;

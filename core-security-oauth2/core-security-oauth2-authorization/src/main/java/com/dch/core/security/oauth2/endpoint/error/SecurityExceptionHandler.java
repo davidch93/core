@@ -38,10 +38,10 @@ public class SecurityExceptionHandler {
     }
 
     /**
-     * Method to handle HTTP request method not supported exception.
+     * API to handle HTTP request method not supported exception.
      *
-     * @param ex {@link HttpRequestMethodNotSupportedException}
-     * @return {@link GeneralResponse} Response body of method not supported.
+     * @param ex the {@link HttpRequestMethodNotSupportedException}
+     * @return the {@link GeneralResponse response body} of method not supported.
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<GeneralResponse> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
@@ -53,10 +53,10 @@ public class SecurityExceptionHandler {
     }
 
     /**
-     * Method to handle Oauth2 exception.
+     * API to handle Oauth2 exception.
      *
-     * @param ex {@link OAuth2Exception}
-     * @return {@link GeneralResponse} Response body of oauth2 exception.
+     * @param ex the {@link OAuth2Exception}
+     * @return the {@link GeneralResponse response body} of oauth2 exception.
      */
     @ExceptionHandler(OAuth2Exception.class)
     public ResponseEntity<GeneralResponse> handleOauth2Exception(OAuth2Exception ex) {

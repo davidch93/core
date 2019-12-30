@@ -19,21 +19,21 @@ import org.springframework.batch.item.ItemWriter;
 public interface BaseBatchService {
 
     /**
-     * Method used to execute batch service.
+     * Execute batch service.
      *
-     * @param jobName       {@code String} Job name.
-     * @param stepName      {@code String} Step name.
-     * @param jobParameters {@link JobParameters} Parameters.
+     * @param jobName       the job name.
+     * @param stepName      the step name.
+     * @param jobParameters the {@link JobParameters job parameters}.
      */
     void execute(String jobName, String stepName, JobParameters jobParameters);
 
     /**
      * This is the main module, which consist of the business logic to be run.
      *
-     * @param jobName       {@code String} Job name.
-     * @param stepName      {@code String} Step name.
-     * @param jobParameters {@link JobParameters} Parameters.
-     * @return {@link Job}
+     * @param jobName       the job name.
+     * @param stepName      the step name.
+     * @param jobParameters the {@link JobParameters job parameters}.
+     * @return the {@link Job main job}
      */
     Job getJob(String jobName, String stepName, JobParameters jobParameters);
 
@@ -41,17 +41,17 @@ public interface BaseBatchService {
      * Steps are nothing but an execution flow of the job. A complex job can be divided into several steps or chunks,
      * which can be run one after another or ran depending on the result of the previous steps.
      *
-     * @param stepName      {@code String} Step name.
-     * @param jobParameters {@link JobParameters} Parameters.
-     * @return {@link Step}
+     * @param stepName      the step name.
+     * @param jobParameters the {@link JobParameters job parameters}.
+     * @return the {@link Step specific step}
      */
     Step getStep(String stepName, JobParameters jobParameters);
 
     /**
-     * Method used to get default {@code JobExecutionListenerSupport}.
+     * Get default {@code JobExecutionListenerSupport}.
      *
-     * @param jobParameters {@link JobParameters} Parameters.
-     * @return {@link JobExecutionListenerSupport}
+     * @param jobParameters the {@link JobParameters job parameters}.
+     * @return the {@link JobExecutionListenerSupport}
      */
     default JobExecutionListenerSupport getListener(JobParameters jobParameters) {
         return new JobExecutionListenerSupport();
@@ -61,8 +61,8 @@ public interface BaseBatchService {
      * This interface is used to perform bulk-reading of data, e.g. reading several lines of data from an Excel file
      * when a job starts.
      *
-     * @param jobParameters {@link JobParameters} Parameters.
-     * @return {@link ItemReader}
+     * @param jobParameters the {@link JobParameters job parameters}.
+     * @return the {@link ItemReader item reader}
      */
     default ItemReader<? super Object> getReader(JobParameters jobParameters) {
         return null;
@@ -72,8 +72,8 @@ public interface BaseBatchService {
      * When the data is read using {@code ItemReader}, {@code ItemProcessor} can be used to perform the processing of
      * data, depending on the business logic.
      *
-     * @param jobParameters {@link JobParameters} Parameters.
-     * @return {@link ItemProcessor}
+     * @param jobParameters the {@link JobParameters job parameters}.
+     * @return the {@link ItemProcessor item processor}
      */
     default ItemProcessor<? super Object, ?> getProcessor(JobParameters jobParameters) {
         return null;
@@ -82,8 +82,8 @@ public interface BaseBatchService {
     /**
      * This interface is used to write bulk data — either to a database or any other file disks.
      *
-     * @param jobParameters {@link JobParameters} Parameters.
-     * @return {@link ItemWriter}
+     * @param jobParameters the {@link JobParameters job parameters}.
+     * @return the {@link ItemWriter item writer}
      */
     default ItemWriter<? super Object> getWriter(JobParameters jobParameters) {
         return null;

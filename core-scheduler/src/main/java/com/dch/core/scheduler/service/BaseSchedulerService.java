@@ -17,58 +17,58 @@ import java.util.List;
 public interface BaseSchedulerService {
 
     /**
-     * Method used to schedule job.
+     * Schedule a job.
      *
-     * @param schedulerItem {@link SchedulerItem}
+     * @param schedulerItem the {@link SchedulerItem}
      */
     void schedule(SchedulerItem<?> schedulerItem);
 
     /**
-     * Method used to schedule all jobs.
+     * Schedule all jobs.
      *
-     * @param schedulerItems {@link List} of {@link SchedulerItem}
+     * @param schedulerItems list of {@link SchedulerItem}
      */
     void scheduleAll(List<SchedulerItem<?>> schedulerItems);
 
     /**
-     * Method used to stop schedule by ID.
+     * Stop schedule by ID.
      *
-     * @param schedulerId {@link Integer} Scheduler ID.
+     * @param schedulerId the Scheduler ID.
      */
     void stopSchedule(Integer schedulerId);
 
     /**
-     * Method used to stop all schedules.
+     * Stop all schedules.
      */
     void stopAllSchedules();
 
     /**
-     * Method used to execute before start schedule.
+     * Execute before start schedule.
      *
-     * @param schedulerItem {@link SchedulerItem}
+     * @param schedulerItem the {@link SchedulerItem}
      */
     void beforeSchedule(SchedulerItem<?> schedulerItem);
 
     /**
-     * Method used to execute after schedule.
+     * Execute after schedule.
      *
-     * @param schedulerItem {@link SchedulerItem}
+     * @param schedulerItem the {@link SchedulerItem}
      */
     void afterSchedule(SchedulerItem<?> schedulerItem);
 
     /**
-     * Method used to execute after schedule with error message.
+     * Execute after schedule with error message.
      *
-     * @param schedulerItem {@link SchedulerItem}
-     * @param errorMessage  {@link String}
+     * @param schedulerItem the {@link SchedulerItem}
+     * @param errorMessage  the error message.
      */
     void afterSchedule(SchedulerItem<?> schedulerItem, String errorMessage);
 
     /**
-     * Method used to get trigger by scheduler item.
+     * Get trigger by scheduler item.
      *
-     * @param schedulerItem {@link SchedulerItem}
-     * @return {@link Trigger}
+     * @param schedulerItem the {@link SchedulerItem}
+     * @return the {@link Trigger}
      */
     Trigger getTrigger(SchedulerItem<?> schedulerItem);
 }

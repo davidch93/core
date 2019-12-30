@@ -1,22 +1,19 @@
-package com.dch.core.service.jpa;
-
-import com.dch.core.dataaccess.BaseEntity;
+package com.dch.core.service.cassandra;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
 /**
- * General Manager that talks to GeneralDao to CRUD POJOs. Extend this interface
+ * Generic Manager that talks to GenericDao to CRUD POJOs. Extend this interface
  * if you want typesafe (no casting necessary) managers for your domain objects.
  *
- * @param <T>  entity.
- * @param <ID> the primary key for that type.
+ * @param <T>  the type of entity.
+ * @param <ID> the type of primary key.
  * @author david.christianto
- * @version 2.0.0
- * @since 1.0.0
+ * @version 0.0.2
  */
-public interface GeneralService<T extends BaseEntity, ID extends Serializable> {
+public interface GenericService<T, ID extends Serializable> {
 
     /**
      * Generic method to save an object.
@@ -43,7 +40,7 @@ public interface GeneralService<T extends BaseEntity, ID extends Serializable> {
     boolean exists(ID id);
 
     /**
-     * General method to get an object based on class and identifier. An
+     * Generic method to get an object based on class and identifier. An
      * ObjectRetrievalFailureException Runtime Exception is thrown if nothing is
      * found.
      *
@@ -53,7 +50,7 @@ public interface GeneralService<T extends BaseEntity, ID extends Serializable> {
     Optional<T> get(ID id);
 
     /**
-     * General method used to get all objects of a particular type. This is the
+     * Generic method used to get all objects of a particular type. This is the
      * same as lookup up all rows in a table.
      *
      * @return List of populated objects
@@ -61,30 +58,16 @@ public interface GeneralService<T extends BaseEntity, ID extends Serializable> {
     List<T> getAll();
 
     /**
-     * General method to delete an object based on class and id
+     * Generic method to delete an object based on class and id
      *
      * @param id the identifier (primary key) of the object to delete
      */
     void delete(ID id);
 
     /**
-     * General method to delete an object
+     * Generic method to delete an object
      *
      * @param entity the object to delete
      */
     void delete(T entity);
-
-    /**
-     * General method to remove an object based on class and id
-     *
-     * @param id the identifier (primary key) of the object to remove
-     */
-    void remove(ID id);
-
-    /**
-     * General method to remove an object
-     *
-     * @param entity the object to remove
-     */
-    void remove(T entity);
 }

@@ -33,10 +33,10 @@ public class JasperReportFillProvider {
     }
 
     /**
-     * Method used to compile JasperReport.
+     * Compile JasperReport.
      *
-     * @param fileName {@code String} JasperReport filename.
-     * @return {@link JasperReport}
+     * @param fileName the JasperReport filename.
+     * @return the {@link JasperReport}
      * @throws JRException If error occurred while compiling report.
      * @throws IOException If error occurred while creating input stream.
      */
@@ -50,11 +50,11 @@ public class JasperReportFillProvider {
     }
 
     /**
-     * Method used to fill report with data source connection.
+     * Fill report with data source connection.
      *
-     * @param jasperReport {@link JasperReport}
-     * @param parameters   {@link Map} Report parameters.
-     * @return {@link JasperPrint}
+     * @param jasperReport the {@link JasperReport}
+     * @param parameters   the {@link Map} of report parameters.
+     * @return the {@link JasperPrint}
      * @throws JRException  If error occurred while creating Jasper report.
      * @throws SQLException If error occurred while connecting to data source.
      */
@@ -64,12 +64,12 @@ public class JasperReportFillProvider {
     }
 
     /**
-     * Method used to fill report with bean collection.
+     * Fill report with bean collection.
      *
-     * @param jasperReport             {@link JasperReport}
-     * @param parameters               {@link Map} Report parameters.
-     * @param beanCollectionDataSource {@link JRBeanCollectionDataSource}
-     * @return {@link JasperPrint}
+     * @param jasperReport             the {@link JasperReport}
+     * @param parameters               the {@link Map} of report parameters.
+     * @param beanCollectionDataSource the {@link JRBeanCollectionDataSource}
+     * @return the {@link JasperPrint}
      * @throws JRException If error occurred while creating Jasper report.
      */
     private JasperPrint fillReportJRBeanCollection(JasperReport jasperReport, Map<String, Object> parameters,
@@ -78,12 +78,12 @@ public class JasperReportFillProvider {
     }
 
     /**
-     * Method used to prepare JasperReport with data source connection. This
-     * method call compile report and fill report data source connection.
+     * Prepare JasperReport with data source connection.
+     * This method call compile report and fill report data source connection.
      *
-     * @param reportFileName {@code String} JasperReport filename.
-     * @param parameters     {@link Map} Report parameters.
-     * @return {@link JasperPrint}
+     * @param reportFileName the JasperReport filename.
+     * @param parameters     the {@link Map} of report parameters.
+     * @return the {@link JasperPrint}
      * @throws JRException  If error occurred while creating Jasper report.
      * @throws SQLException If error occurred while connecting to data source.
      * @throws IOException  If error occurred while creating input stream.
@@ -94,12 +94,11 @@ public class JasperReportFillProvider {
     }
 
     /**
-     * Method used to prepare JasperReport with bean collection. This method
-     * call compile report and fill report bean collection.
+     * Prepare JasperReport with bean collection. This method call compile report and fill report bean collection.
      *
-     * @param reportFileName           {@code String} JasperReport filename.
-     * @param parameters               {@link Map} Report parameters.
-     * @param beanCollectionDataSource {@link JRBeanCollectionDataSource}
+     * @param reportFileName           the JasperReport filename.
+     * @param parameters               the {@link Map} of report parameters.
+     * @param beanCollectionDataSource the {@link JRBeanCollectionDataSource}
      * @return {@link JasperPrint}
      * @throws JRException If error occurred while creating Jasper report.
      * @throws IOException If error occurred while creating input stream.

@@ -1,7 +1,6 @@
 package com.dch.core.batch.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
 
 /**
  * Class that contains parameter setting of Batch configuration.
@@ -10,7 +9,6 @@ import org.springframework.context.annotation.PropertySource;
  * @version 2.0.0
  * @since 1.0.0
  */
-@PropertySource("classpath:config/batch/core-batch-config.properties")
 @ConfigurationProperties(prefix = "core.batch")
 public class BatchSetting {
 
@@ -18,28 +16,36 @@ public class BatchSetting {
     private String identityPrefix = "BATCH";
 
     /**
-     * @return the chunkSize
+     * Get chunk size.
+     *
+     * @return the chunk size
      */
     public int getChunkSize() {
         return chunkSize;
     }
 
     /**
-     * @param chunkSize the chunkSize to set
+     * Set chunk size.
+     *
+     * @param chunkSize the chunk size
      */
     public void setChunkSize(int chunkSize) {
         this.chunkSize = chunkSize;
     }
 
     /**
-     * @return the identityPrefix
+     * Get identity prefix.
+     *
+     * @return the identity prefix
      */
     public String getIdentityPrefix() {
         return identityPrefix;
     }
 
     /**
-     * @param identityPrefix the identityPrefix to set
+     * Set identity prefix.
+     *
+     * @param identityPrefix the identity prefix
      */
     public void setIdentityPrefix(String identityPrefix) {
         this.identityPrefix = identityPrefix;

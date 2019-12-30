@@ -61,49 +61,63 @@ public class GeneralRemoteTokenServices implements ResourceServerTokenServices {
     }
 
     /**
-     * @param checkTokenEndpointUrl the checkTokenEndpointUrl to set
+     * Set check token endpoint url.
+     *
+     * @param checkTokenEndpointUrl the check token endpoint url
      */
     public void setCheckTokenEndpointUrl(String checkTokenEndpointUrl) {
         this.checkTokenEndpointUrl = checkTokenEndpointUrl;
     }
 
     /**
-     * @param clientId the clientId to set
+     * Set client id.
+     *
+     * @param clientId the client id
      */
     public void setClientId(String clientId) {
         this.clientId = clientId;
     }
 
     /**
-     * @param clientSecret the clientSecret to set
+     * Set client secret.
+     *
+     * @param clientSecret the client secret
      */
     public void setClientSecret(String clientSecret) {
         this.clientSecret = clientSecret;
     }
 
     /**
-     * @param tokenName the tokenName to set
+     * Set token name.
+     *
+     * @param tokenName the token name
      */
     public void setTokenName(String tokenName) {
         this.tokenName = tokenName;
     }
 
     /**
-     * @param identityPrefix the identityPrefix to set
+     * Set identity prefix.
+     *
+     * @param identityPrefix the identity prefix
      */
     public void setIdentityPrefix(String identityPrefix) {
         this.identityPrefix = identityPrefix;
     }
 
     /**
-     * @param tokenConverter the tokenConverter to set
+     * Set token converter.
+     *
+     * @param tokenConverter the token converter
      */
     public void setTokenConverter(AccessTokenConverter tokenConverter) {
         this.tokenConverter = tokenConverter;
     }
 
     /**
-     * @param restTemplate the restTemplate to set
+     * Set rest template.
+     *
+     * @param restTemplate the rest template
      */
     public void setRestTemplate(RestOperations restTemplate) {
         this.restTemplate = restTemplate;
@@ -138,12 +152,11 @@ public class GeneralRemoteTokenServices implements ResourceServerTokenServices {
     }
 
     /**
-     * Method used to get authorization header using client ID and secret.
-     * Encoded by Base64 encoder.
+     * Get authorization header using client ID and secret. Encoded by Base64 encoder.
      *
-     * @param clientId     {@code String} Client ID
-     * @param clientSecret {@code String} Client Secret
-     * @return {@link String} Authorization: Basic (Base64 clientId:secret)
+     * @param clientId     the client ID
+     * @param clientSecret the client Secret
+     * @return Authorization: Basic (Base64 clientId:secret)
      */
     protected String getAuthorizationHeader(String clientId, String clientSecret) {
         if (clientId == null || clientSecret == null) {
@@ -156,12 +169,12 @@ public class GeneralRemoteTokenServices implements ResourceServerTokenServices {
     }
 
     /**
-     * Method used to check token endpoint to Authorization Server.
+     * Check token endpoint to Authorization Server.
      *
-     * @param path     {@link String} Check token endpoint URL.
-     * @param formData {@link MultiValueMap} Parameters.
-     * @param headers  {@link HttpHeaders} HTTP Header.
-     * @return {@link Map} Response body.
+     * @param path     the check token endpoint URL.
+     * @param formData the {@link MultiValueMap parameters}.
+     * @param headers  the {@link HttpHeaders} HTTP Header.
+     * @return the {@link Map response body}.
      */
     @SuppressWarnings("unchecked")
     protected Map<String, Object> postForMap(String path, MultiValueMap<String, String> formData, HttpHeaders headers) {

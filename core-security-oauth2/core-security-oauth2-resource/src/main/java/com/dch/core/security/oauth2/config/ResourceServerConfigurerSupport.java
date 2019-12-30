@@ -69,38 +69,37 @@ public class ResourceServerConfigurerSupport extends ResourceServerConfigurerAda
     }
 
     /**
-     * Method used to get default authentication entry point.
+     * Get default authentication entry point.
      *
-     * @return {@link RestAuthenticationEntryPoint}
+     * @return the {@link RestAuthenticationEntryPoint}
      */
     protected AuthenticationEntryPoint authenticationEntryPoint() {
         return new RestAuthenticationEntryPoint(securityDetailsService);
     }
 
     /**
-     * Method used to get default access denied handler.
+     * Get default access denied handler.
      *
-     * @return {@link RestAccessDeniedHandler}
+     * @return the  {@link RestAccessDeniedHandler}
      */
     protected AccessDeniedHandler accessDeniedHandler() {
         return new RestAccessDeniedHandler(securityDetailsService);
     }
 
     /**
-     * Method used to generate expression handler.
+     * Generate expression handler.
      *
-     * @return {@link OAuth2WebSecurityExpressionHandler}
+     * @return the {@link OAuth2WebSecurityExpressionHandler}
      */
     protected SecurityExpressionHandler<FilterInvocation> expressionHandler() {
         return new OAuth2WebSecurityExpressionHandler();
     }
 
     /**
-     * Method used to add custom authorization configurations. By default do
-     * nothing.
+     * Add custom authorization configurations. By default do nothing.
      *
-     * @param authorizeRequests {@link ExpressionInterceptUrlRegistry}
-     * @return Custom {@link ExpressionInterceptUrlRegistry}
+     * @param authorizeRequests the {@link ExpressionInterceptUrlRegistry}
+     * @return the custom {@link ExpressionInterceptUrlRegistry}
      */
     protected ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry configureAuthorization(
             ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests) {

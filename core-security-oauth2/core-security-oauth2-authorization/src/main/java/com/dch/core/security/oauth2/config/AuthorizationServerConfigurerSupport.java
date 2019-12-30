@@ -97,27 +97,27 @@ public class AuthorizationServerConfigurerSupport extends AuthorizationServerCon
     }
 
     /**
-     * Method used to get default authentication entry point.
+     * Get default authentication entry point.
      *
-     * @return {@link RestAuthenticationEntryPoint}
+     * @return the {@link RestAuthenticationEntryPoint}
      */
     protected AuthenticationEntryPoint authenticationEntryPoint() {
         return new RestAuthenticationEntryPoint(securityDetailsService);
     }
 
     /**
-     * Method used to get default access denied handler.
+     * Get default access denied handler.
      *
-     * @return {@link RestAccessDeniedHandler}
+     * @return the {@link RestAccessDeniedHandler}
      */
     protected AccessDeniedHandler accessDeniedHandler() {
         return new RestAccessDeniedHandler(securityDetailsService);
     }
 
     /**
-     * Method used to get custom token using token enhancer.
+     * Get custom token using token enhancer.
      *
-     * @return {@link TokenEnhancerChain}
+     * @return the {@link TokenEnhancerChain}
      */
     protected TokenEnhancerChain tokenEnhancerChain() {
         return new TokenEnhancerChain();

@@ -23,10 +23,20 @@ public final class AccessJwtToken implements JwtToken {
         this.claims = claims;
     }
 
+    /**
+     * Get token.
+     *
+     * @return the token
+     */
     public String getToken() {
         return this.rawToken;
     }
 
+    /**
+     * Get claims.
+     *
+     * @return the claims
+     */
     public Claims getClaims() {
         return claims;
     }

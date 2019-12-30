@@ -20,10 +20,10 @@ public class NotEmptyValidator implements ConstraintValidator<NotEmpty, CharSequ
     }
 
     /**
-     * Checks that the trimmed string is not empty.
+     * Checks whether the trimmed string is not empty.
      *
-     * @param charSequence The character sequence to validate.
-     * @param context      context in which the constraint is evaluated.
+     * @param charSequence the character sequence to validate.
+     * @param context      the context in which the constraint is evaluated.
      * @return Returns <code>true</code> if the string is <code>null</code> or
      * the length of <code>charSequence</code> between the specified
      * <code>min</code> and <code>max</code> values (inclusive),

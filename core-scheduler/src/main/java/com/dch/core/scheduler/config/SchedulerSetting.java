@@ -19,20 +19,26 @@ public class SchedulerSetting {
     private SchedulerExecutorSetting executor;
 
     /**
-     * @return the identityPrefix
+     * Get identity prefix.
+     *
+     * @return the identity prefix
      */
     public String getIdentityPrefix() {
         return identityPrefix;
     }
 
     /**
-     * @param identityPrefix the identityPrefix to set
+     * Set identity prefix.
+     *
+     * @param identityPrefix the identity prefix
      */
     public void setIdentityPrefix(String identityPrefix) {
         this.identityPrefix = identityPrefix;
     }
 
     /**
+     * Get executor.
+     *
      * @return the executor
      */
     public SchedulerExecutorSetting getExecutor() {
@@ -40,7 +46,9 @@ public class SchedulerSetting {
     }
 
     /**
-     * @param executor the executor to set
+     * Set executor.
+     *
+     * @param executor the executor
      */
     public void setExecutor(SchedulerExecutorSetting executor) {
         this.executor = executor;
@@ -59,28 +67,36 @@ public class SchedulerSetting {
         private String threadNamePrefix;
 
         /**
-         * @return the poolSize
+         * Get pool size.
+         *
+         * @return the pool size
          */
         public int getPoolSize() {
             return poolSize;
         }
 
         /**
-         * @param poolSize the poolSize to set
+         * Set pool size.
+         *
+         * @param poolSize the pool size
          */
         public void setPoolSize(int poolSize) {
             this.poolSize = poolSize;
         }
 
         /**
-         * @return the threadNamePrefix
+         * Get thread name prefix.
+         *
+         * @return the thread name prefix
          */
         public String getThreadNamePrefix() {
             return threadNamePrefix;
         }
 
         /**
-         * @param threadNamePrefix the threadNamePrefix to set
+         * Set thread name prefix.
+         *
+         * @param threadNamePrefix the thread name prefix
          */
         public void setThreadNamePrefix(String threadNamePrefix) {
             this.threadNamePrefix = threadNamePrefix;

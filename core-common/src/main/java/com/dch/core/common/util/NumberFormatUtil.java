@@ -26,11 +26,10 @@ public class NumberFormatUtil {
     public static final String DECIMAL_FORMAT_NO_COMMA = "############0.00";
 
     /**
-     * Method used to format BigDecimal data type to String. Using format type
-     * #,###,###,###,##0.00
+     * Format BigDecimal data type to String. Using format type #,###,###,###,##0.00
      *
-     * @param number {@link BigDecimal}
-     * @return {@link String} #,###,###,###,##0.00
+     * @param number the {@link BigDecimal}
+     * @return the number in format #,###,###,###,##0.00
      */
     public static String formatAmount(BigDecimal number) {
         Assert.notNull(number, "Number can't be null");
@@ -40,11 +39,10 @@ public class NumberFormatUtil {
     }
 
     /**
-     * Method used to format BigDecimal data type to String without comma. Using
-     * format type ############0.00
+     * Format BigDecimal data type to String without comma. Using format type ############0.00
      *
-     * @param number {@link BigDecimal}
-     * @return {@code String}
+     * @param number the {@link BigDecimal}
+     * @return the number in format ############0.00
      */
     public static String formatAmountNoComma(BigDecimal number) {
         Assert.notNull(number, "Number can't be null");
@@ -54,11 +52,10 @@ public class NumberFormatUtil {
     }
 
     /**
-     * Method used to format double data type to String. Using format type
-     * #,###,###,###,##0.00
+     * Format double data type to String. Using format type #,###,###,###,##0.00
      *
-     * @param number {@link double}
-     * @return {@code String}
+     * @param number the {@code double}
+     * @return the number in format #,###,###,###,##0.00
      */
     public static String formatAmount(double number) {
         DecimalFormat formatter = new DecimalFormat(DECIMAL_FORMAT);
@@ -66,11 +63,10 @@ public class NumberFormatUtil {
     }
 
     /**
-     * Method used to format double data type to String without comma. using
-     * format type ############0.00
+     * Format double data type to String without comma. Using format type ############0.00
      *
-     * @param number {@link double}
-     * @return {@code String}
+     * @param number the {@code double}
+     * @return the number in format ############0.00
      */
     public static String formatAmountNoComma(double number) {
         DecimalFormat formatter = new DecimalFormat(DECIMAL_FORMAT_NO_COMMA);
@@ -78,10 +74,10 @@ public class NumberFormatUtil {
     }
 
     /**
-     * Method used to format String data type to Long.
+     * Format String data type to Long.
      *
-     * @param value {@link String}
-     * @return {@code Long}
+     * @param value the string value.
+     * @return the long value.
      */
     public static Long parseToLong(String value) {
         Assert.hasLength(value, "Value can't be null");
@@ -90,10 +86,10 @@ public class NumberFormatUtil {
     }
 
     /**
-     * Method used to format String data type to Integer.
+     * Format String data type to Integer.
      *
-     * @param value {@link String}
-     * @return {@code Integer}
+     * @param value the string value.
+     * @return the integer value.
      */
     public static Integer parseToInteger(String value) {
         Assert.hasLength(value, "Value can't be null");

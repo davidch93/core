@@ -16,20 +16,26 @@ public class SchedulerItem<T> {
     private String serviceName;
 
     /**
-     * @return the schedulerId
+     * Get scheduler id.
+     *
+     * @return the scheduler id
      */
     public Integer getSchedulerId() {
         return schedulerId;
     }
 
     /**
-     * @param schedulerId the schedulerId to set
+     * Set scheduler id.
+     *
+     * @param schedulerId the scheduler id
      */
     public void setSchedulerId(Integer schedulerId) {
         this.schedulerId = schedulerId;
     }
 
     /**
+     * Get item.
+     *
      * @return the item
      */
     public T getItem() {
@@ -37,28 +43,29 @@ public class SchedulerItem<T> {
     }
 
     /**
-     * @param item the item to set
+     * Set item.
+     *
+     * @param item the item
      */
     public void setItem(T item) {
         this.item = item;
     }
 
     /**
-     * @return the serviceName
+     * Get service name.
+     *
+     * @return the service name
      */
     public String getServiceName() {
         return serviceName;
     }
 
     /**
-     * @param serviceName the serviceName to set
+     * Set service name.
+     *
+     * @param serviceName the service name
      */
     public void setServiceName(String serviceName) {
         this.serviceName = serviceName;
-    }
-
-    @Override
-    public String toString() {
-        return "SchedulerItem [schedulerId=" + schedulerId + ", item=" + item + ", serviceName=" + serviceName + "]";
     }
 }

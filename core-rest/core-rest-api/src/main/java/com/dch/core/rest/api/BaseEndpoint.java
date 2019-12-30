@@ -64,9 +64,10 @@ public abstract class BaseEndpoint {
     /**
      * Method used to get response builder to build a generic response.
      *
+     * @param clazz the type of object data.
      * @return {@link ResponseBuilder}
      */
-    protected ResponseBuilder getResponseBuilder() {
-        return new ResponseBuilder(messageSource);
+    protected <T> ResponseBuilder<T> getResponseBuilder(Class<T> clazz) {
+        return new ResponseBuilder<>(messageSource);
     }
 }

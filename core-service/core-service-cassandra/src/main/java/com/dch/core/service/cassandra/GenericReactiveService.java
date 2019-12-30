@@ -6,15 +6,15 @@ import reactor.core.publisher.Mono;
 import java.io.Serializable;
 
 /**
- * General Manager that talks to GeneralDao to CRUD POJOs. Extend this interface
+ * Generic Manager that talks to GenericReactiveDao to CRUD POJOs. Extend this interface
  * if you want typesafe (no casting necessary) managers for your domain objects.
  *
- * @param <T>  entity.
- * @param <ID> the primary key for that type.
+ * @param <T>  the type of entity.
+ * @param <ID> the type of primary key.
  * @author david.christianto
  * @version 2.0.0
  */
-public interface GeneralService<T, ID extends Serializable> {
+public interface GenericReactiveService<T, ID extends Serializable> {
 
     /**
      * Generic method to save an object.
@@ -41,7 +41,7 @@ public interface GeneralService<T, ID extends Serializable> {
     Mono<Boolean> exists(ID id);
 
     /**
-     * General method to get an object based on class and identifier. An
+     * Generic method to get an object based on class and identifier. An
      * ObjectRetrievalFailureException Runtime Exception is thrown if nothing is
      * found.
      *
@@ -51,7 +51,7 @@ public interface GeneralService<T, ID extends Serializable> {
     Mono<T> get(ID id);
 
     /**
-     * General method used to get all objects of a particular type. This is the
+     * Generic method used to get all objects of a particular type. This is the
      * same as lookup up all rows in a table.
      *
      * @return {@link Flux} List of populated objects
@@ -59,7 +59,7 @@ public interface GeneralService<T, ID extends Serializable> {
     Flux<T> getAll();
 
     /**
-     * General method to delete an object based on class and id
+     * Generic method to delete an object based on class and id
      *
      * @param id the identifier (primary key) of the object to delete
      * @return {@link Mono} void.
@@ -67,7 +67,7 @@ public interface GeneralService<T, ID extends Serializable> {
     Mono<Void> delete(ID id);
 
     /**
-     * General method to delete an object
+     * Generic method to delete an object
      *
      * @param entity the object to delete
      * @return {@link Mono} void.

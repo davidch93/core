@@ -1,7 +1,6 @@
 package com.dch.core.security.oauth2.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
 
 /**
  * Class that contains parameter setting of authorization server configuration.
@@ -10,7 +9,6 @@ import org.springframework.context.annotation.PropertySource;
  * @version 2.0.0
  * @since 1.0.0
  */
-@PropertySource("classpath:config/security/core-oauth2-config.properties")
 @ConfigurationProperties(prefix = "core.security.oauth2.authorization")
 public class AuthorizationSetting {
 
@@ -18,28 +16,36 @@ public class AuthorizationSetting {
     private KeyStoreSetting keyStore;
 
     /**
-     * @return the identityPrefix
+     * Get identity prefix.
+     *
+     * @return the identity prefix
      */
     public String getIdentityPrefix() {
         return identityPrefix;
     }
 
     /**
-     * @param identityPrefix the identityPrefix to set
+     * Set identity prefix.
+     *
+     * @param identityPrefix the identity prefix
      */
     public void setIdentityPrefix(String identityPrefix) {
         this.identityPrefix = identityPrefix;
     }
 
     /**
-     * @return the keyStore
+     * Get key store.
+     *
+     * @return the key store
      */
     public KeyStoreSetting getKeyStore() {
         return keyStore;
     }
 
     /**
-     * @param keyStore the keyStore to set
+     * Set key store.
+     *
+     * @param keyStore the key store
      */
     public void setKeyStore(KeyStoreSetting keyStore) {
         this.keyStore = keyStore;
@@ -59,20 +65,26 @@ public class AuthorizationSetting {
         private String keyPair;
 
         /**
-         * @return the fileName
+         * Get file name.
+         *
+         * @return the file name
          */
         public String getFileName() {
             return fileName;
         }
 
         /**
-         * @param fileName the fileName to set
+         * Set file name.
+         *
+         * @param fileName the file name
          */
         public void setFileName(String fileName) {
             this.fileName = fileName;
         }
 
         /**
+         * Get password.
+         *
          * @return the password
          */
         public String getPassword() {
@@ -80,21 +92,27 @@ public class AuthorizationSetting {
         }
 
         /**
-         * @param password the password to set
+         * Set password.
+         *
+         * @param password the password
          */
         public void setPassword(String password) {
             this.password = password;
         }
 
         /**
-         * @return the keyPair
+         * Get key pair.
+         *
+         * @return the key pair
          */
         public String getKeyPair() {
             return keyPair;
         }
 
         /**
-         * @param keyPair the keyPair to set
+         * Set key pair.
+         *
+         * @param keyPair the key pair
          */
         public void setKeyPair(String keyPair) {
             this.keyPair = keyPair;

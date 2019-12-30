@@ -18,10 +18,10 @@ import java.lang.reflect.Field;
 public class ObjectUtil {
 
     /**
-     * Method used to convert file to array of bytes.
+     * Convert file to array of bytes.
      *
-     * @param file {@link File}
-     * @return byte[] array of bytes.
+     * @param file the {@link File}
+     * @return the byte[] array of bytes.
      */
     public static byte[] convertFileToBytes(File file) {
         Assert.notNull(file, "File can't be null");
@@ -37,10 +37,10 @@ public class ObjectUtil {
     }
 
     /**
-     * Method used to convert array of bytes to file.
+     * Convert array of bytes to file.
      *
-     * @param bFile       byte file
-     * @param destination {@code String} Destination path of file.
+     * @param bFile       the byte file
+     * @param destination the destination path of file.
      */
     public static void convertBytesToFile(byte[] bFile, String destination) {
         Assert.notNull(bFile, "Array of bytes can't be null");
@@ -54,10 +54,10 @@ public class ObjectUtil {
     }
 
     /**
-     * Method used to convert array of bytes to file.
+     * Convert array of bytes to file.
      *
-     * @param bFile byte file
-     * @param file  {@link File} new destination file.
+     * @param bFile the byte file.
+     * @param file  the {@link File new destination file}.
      */
     public static void convertBytesToFile(byte[] bFile, File file) {
         Assert.notNull(bFile, "Array of bytes can't be null");
@@ -71,11 +71,11 @@ public class ObjectUtil {
     }
 
     /**
-     * Method used to get field value from Object using field name.
+     * Get field value from Object using field name.
      *
-     * @param object    {@link Object} Base object.
-     * @param fieldName {@link String} Field name.
-     * @return {@link Object} Field.
+     * @param object    the object.
+     * @param fieldName the field name.
+     * @return the field.
      */
     public static Object getFieldValue(Object object, String fieldName) {
         try {

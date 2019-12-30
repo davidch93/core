@@ -66,7 +66,7 @@ public class AjaxAwareAuthenticationSuccessHandler implements AuthenticationSucc
      * Removes temporary authentication-related data which may have been stored
      * in the session during the authentication process.
      *
-     * @param request {@link HttpServletRequest}
+     * @param request the {@link HttpServletRequest}
      */
     private void clearAuthenticationAttributes(HttpServletRequest request) {
         HttpSession session = request.getSession(false);

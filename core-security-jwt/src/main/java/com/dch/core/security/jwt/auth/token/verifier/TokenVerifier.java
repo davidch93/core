@@ -10,10 +10,10 @@ package com.dch.core.security.jwt.auth.token.verifier;
 public interface TokenVerifier {
 
     /**
-     * Method used to check for revoked tokens.
+     * Check for revoked tokens.
      *
-     * @param jti JWT ID.
-     * @return true if token revoked and vice versa.
+     * @param jti the JWT ID.
+     * @return {@code true} if token revoked and vice versa.
      */
     boolean verify(String jti);
 }

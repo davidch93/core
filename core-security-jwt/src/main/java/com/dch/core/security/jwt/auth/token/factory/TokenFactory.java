@@ -14,16 +14,16 @@ public interface TokenFactory {
     /**
      * Factory method for issuing new JWT Tokens.
      *
-     * @param userDetails {@link UserDetails} Authenticated user details.
-     * @return {@link JwtToken}
+     * @param userDetails the {@link UserDetails authenticated user details}.
+     * @return the {@link JwtToken}
      */
     JwtToken createAccessJwtToken(UserDetails userDetails);
 
     /**
-     * Method to create refresh token.
+     * Create refresh token.
      *
-     * @param userDetails {@link UserDetails} Authenticated user details.
-     * @return {@link JwtToken}
+     * @param userDetails the {@link UserDetails authenticated user details}.
+     * @return the {@link JwtToken}
      */
     JwtToken createRefreshToken(UserDetails userDetails);
 }

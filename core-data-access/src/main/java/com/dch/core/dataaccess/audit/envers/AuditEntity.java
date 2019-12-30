@@ -23,28 +23,36 @@ public class AuditEntity extends DefaultRevisionEntity {
     private String entityName;
 
     /**
-     * @return the auditedBy
+     * Get audited by.
+     *
+     * @return the audited by
      */
     public String getAuditedBy() {
         return auditedBy;
     }
 
     /**
-     * @param auditedBy the auditedBy to set
+     * Set audited by.
+     *
+     * @param auditedBy the audited by
      */
     public void setAuditedBy(String auditedBy) {
         this.auditedBy = auditedBy;
     }
 
     /**
-     * @return the entityName
+     * Get entity name.
+     *
+     * @return the entity name
      */
     public String getEntityName() {
         return entityName;
     }
 
     /**
-     * @param entityName the entityName to set
+     * Set entity name.
+     *
+     * @param entityName the entity name
      */
     public void setEntityName(String entityName) {
         this.entityName = entityName;

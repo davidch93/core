@@ -41,70 +41,90 @@ public class JwtSetting {
     private String tokenSigningKey;
 
     /**
-     * @return the refreshTokenExpTime
+     * Get refresh token exp time.
+     *
+     * @return the refresh token exp time
      */
     public Integer getRefreshTokenExpTime() {
         return refreshTokenExpTime;
     }
 
     /**
-     * @param refreshTokenExpTime the refreshTokenExpTime to set
+     * Set refresh token exp time.
+     *
+     * @param refreshTokenExpTime the refresh token exp time
      */
     public void setRefreshTokenExpTime(Integer refreshTokenExpTime) {
         this.refreshTokenExpTime = refreshTokenExpTime;
     }
 
     /**
-     * @return the tokenExpirationTime
+     * Get token expiration time.
+     *
+     * @return the token expiration time
      */
     public Integer getTokenExpirationTime() {
         return tokenExpirationTime;
     }
 
     /**
-     * @param tokenExpirationTime the tokenExpirationTime to set
+     * Set token expiration time.
+     *
+     * @param tokenExpirationTime the token expiration time
      */
     public void setTokenExpirationTime(Integer tokenExpirationTime) {
         this.tokenExpirationTime = tokenExpirationTime;
     }
 
     /**
-     * @return the identityPrefix
+     * Get identity prefix.
+     *
+     * @return the identity prefix
      */
     public String getIdentityPrefix() {
         return identityPrefix;
     }
 
     /**
-     * @param identityPrefix the identityPrefix to set
+     * Set identity prefix.
+     *
+     * @param identityPrefix the identity prefix
      */
     public void setIdentityPrefix(String identityPrefix) {
         this.identityPrefix = identityPrefix;
     }
 
     /**
-     * @return the tokenIssuer
+     * Get token issuer.
+     *
+     * @return the token issuer
      */
     public String getTokenIssuer() {
         return tokenIssuer;
     }
 
     /**
-     * @param tokenIssuer the tokenIssuer to set
+     * Set token issuer.
+     *
+     * @param tokenIssuer the token issuer
      */
     public void setTokenIssuer(String tokenIssuer) {
         this.tokenIssuer = tokenIssuer;
     }
 
     /**
-     * @return the tokenSigningKey
+     * Get token signing key.
+     *
+     * @return the token signing key
      */
     public String getTokenSigningKey() {
         return tokenSigningKey;
     }
 
     /**
-     * @param tokenSigningKey the tokenSigningKey to set
+     * Set token signing key.
+     *
+     * @param tokenSigningKey the token signing key
      */
     public void setTokenSigningKey(String tokenSigningKey) {
         this.tokenSigningKey = tokenSigningKey;

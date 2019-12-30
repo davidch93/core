@@ -22,8 +22,7 @@ public class InvalidJwtTokenException extends AuthenticationServiceException {
     }
 
     /**
-     * Construct a {@code InvalidJwtTokenException} with a generic message and a
-     * cause.
+     * Construct a {@code InvalidJwtTokenException} with a generic message and a cause.
      *
      * @param message the message
      * @param cause   the cause of the exception

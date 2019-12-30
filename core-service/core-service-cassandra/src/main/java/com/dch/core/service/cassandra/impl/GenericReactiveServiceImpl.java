@@ -1,6 +1,6 @@
 package com.dch.core.service.cassandra.impl;
 
-import com.dch.core.service.cassandra.GeneralService;
+import com.dch.core.service.cassandra.GenericReactiveService;
 import org.springframework.data.cassandra.repository.ReactiveCassandraRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -16,13 +16,13 @@ import java.io.Serializable;
  * @param <ID> the primary key for that type.
  * @author david.christianto
  * @version 2.0.0
- * @see com.dch.core.service.cassandra.GeneralService
+ * @see GenericReactiveService
  */
-public class GeneralServiceImpl<T, ID extends Serializable> implements GeneralService<T, ID> {
+public class GenericReactiveServiceImpl<T, ID extends Serializable> implements GenericReactiveService<T, ID> {
 
     private final ReactiveCassandraRepository<T, ID> cassandraRepository;
 
-    public GeneralServiceImpl(ReactiveCassandraRepository<T, ID> cassandraRepository) {
+    public GenericReactiveServiceImpl(ReactiveCassandraRepository<T, ID> cassandraRepository) {
         this.cassandraRepository = cassandraRepository;
     }
 

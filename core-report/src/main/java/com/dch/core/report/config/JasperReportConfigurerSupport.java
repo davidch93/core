@@ -46,7 +46,7 @@ public class JasperReportConfigurerSupport {
     }
 
     /**
-     * Ban of Jasper Report Export Provider.
+     * Bean of Jasper Report Export Provider.
      *
      * @return {@link JasperReportExportProvider}
      */

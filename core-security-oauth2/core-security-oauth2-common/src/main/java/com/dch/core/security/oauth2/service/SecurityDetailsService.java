@@ -17,27 +17,26 @@ import javax.servlet.http.HttpServletRequest;
 public interface SecurityDetailsService {
 
     /**
-     * Method used to validate request.
+     * Validate the given HTTP request.
      *
-     * @param request {@link HttpServletRequest} HTTP Request.
+     * @param request the {@link HttpServletRequest} HTTP Request.
      * @return {@code true} if request is valid and vice versa.
      * @throws AuthenticationException if there are errors during validate request.
      */
     boolean validateRequest(HttpServletRequest request);
 
     /**
-     * Method used to get response builder to build a generic response.
+     * Get response builder to build a generic response.
      *
-     * @return {@link ResponseBuilder}
+     * @return the {@link ResponseBuilder}
      */
     ResponseBuilder getSecurityResponseBuilder();
 
     /**
-     * Method used to get response builder using OAuth2Exception to build a
-     * generic response.
+     * Get response builder using OAuth2Exception to build a generic response.
      *
-     * @param oAuth2Exception {@link OAuth2Exception}
-     * @return {@link ResponseBuilder}
+     * @param oAuth2Exception the {@link OAuth2Exception}
+     * @return the {@link ResponseBuilder}
      */
     ResponseBuilder getSecurityResponseBuilder(OAuth2Exception oAuth2Exception);
 }

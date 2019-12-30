@@ -17,6 +17,8 @@ public abstract class OrderedEntity extends BaseEntity {
     protected Long order;
 
     /**
+     * Gets order.
+     *
      * @return the order
      */
     public Long getOrder() {
@@ -24,7 +26,9 @@ public abstract class OrderedEntity extends BaseEntity {
     }
 
     /**
-     * @param order the order to set
+     * Sets order.
+     *
+     * @param order the order
      */
     public void setOrder(Long order) {
         this.order = order;

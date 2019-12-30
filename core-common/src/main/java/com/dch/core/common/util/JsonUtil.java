@@ -22,28 +22,28 @@ public class JsonUtil {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     /**
-     * Method used to create empty {@link JsonNode}.
+     * Create empty {@link JsonNode}.
      *
-     * @return Empty {@link JsonNode}.
+     * @return the empty {@link JsonNode}.
      */
     public static ObjectNode createEmptyObjectNode() {
         return objectMapper.createObjectNode();
     }
 
     /**
-     * Method used to create empty {@link ArrayNode}.
+     * Create empty {@link ArrayNode}.
      *
-     * @return Empty {@link ArrayNode}.
+     * @return the empty {@link ArrayNode}.
      */
     public static ArrayNode createEmptyArrayNode() {
         return objectMapper.createArrayNode();
     }
 
     /**
-     * Method used to convert byte arrays to {@link JsonNode}.
+     * Convert byte arrays to {@link JsonNode}.
      *
-     * @param data Byte arrays of data.
-     * @return {@link JsonNode}
+     * @param data the byte arrays of data.
+     * @return the {@link JsonNode}
      */
     public static JsonNode toJsonNode(byte[] data) {
         Assert.notNull(data, "Bytes array can't be null!");
@@ -56,10 +56,10 @@ public class JsonUtil {
     }
 
     /**
-     * Method used to convert json string to {@link JsonNode}.
+     * Convert json string to {@link JsonNode}.
      *
-     * @param data Json string.
-     * @return {@link JsonNode}
+     * @param data the JSON string.
+     * @return the {@link JsonNode}
      */
     public static JsonNode toJsonNode(String data) {
         Assert.hasLength(data, "String data can't be empty!");
@@ -72,10 +72,10 @@ public class JsonUtil {
     }
 
     /**
-     * Method used to convert object data to {@link JsonNode}.
+     * Convert object data to {@link JsonNode}.
      *
-     * @param data Object data.
-     * @return {@link JsonNode}
+     * @param data the object data.
+     * @return the {@link JsonNode}
      */
     public static JsonNode toJsonNode(Object data) {
         Assert.notNull(data, "Object data can't be null!");
@@ -90,8 +90,8 @@ public class JsonUtil {
      * So the right {@link JsonNode} must be hold the latest data.
      * </p>
      *
-     * @param left  JSON string.
-     * @param right JSON string.
+     * @param left  a JSON string.
+     * @param right a JSON string.
      * @return a merged {@link JsonNode}.
      */
     public static JsonNode merge(String left, String right) {

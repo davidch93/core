@@ -18,10 +18,10 @@ import java.util.TimeZone;
 public class DateUtil {
 
     /**
-     * Method used to format date into string.
+     * Format the given date into string.
      *
-     * @param date   {@link Date} input date.
-     * @param format {@code String} date in format string ("dd-MM-yyyy" or "HH:mm" or others).
+     * @param date   the {@link Date input date}.
+     * @param format the format date in string ("dd-MM-yyyy" or "HH:mm" or others).
      * @return {@link String} date in string.
      */
     public static String formatDate(Date date, String format) {
@@ -29,11 +29,11 @@ public class DateUtil {
     }
 
     /**
-     * Method used to format date into string.
+     * Format the given date into string.
      *
-     * @param date     {@link Date} date.
-     * @param format   {@link String} date in format string ("dd-MM-yyyy" or "HH : mm" or others).
-     * @param timeZone {@link TimeZone} Timezone.
+     * @param date     the {@link Date input date}.
+     * @param format   the format date in string ("dd-MM-yyyy" or "HH:mm" or others).
+     * @param timeZone the {@link TimeZone}.
      * @return {@link String} date in string.
      */
     public static String formatDate(Date date, String format, TimeZone timeZone) {
@@ -47,23 +47,23 @@ public class DateUtil {
     }
 
     /**
-     * Method used to parse date in string into date.
+     * Parse the given string date into date.
      *
-     * @param dateString {@code String} date in string.
-     * @param format     {@code String} date in format string ("dd-MM-yyyy" or "HH:mm" or others).
-     * @return {@link Date} parsed date.
+     * @param dateString the string date.
+     * @param format     the format date in string ("dd-MM-yyyy" or "HH:mm" or others).
+     * @return the {@link Date parsed date}.
      */
     public static Date parseDate(String dateString, String format) {
         return parseDate(dateString, format, TimeZone.getDefault());
     }
 
     /**
-     * Method used to parse date in string into date.
+     * Parse the given string date into date.
      *
-     * @param dateString {@link String} date in string.
-     * @param format     {@link String} date in format string ("dd-MM-yyyy" or "HH : mm" or others).
-     * @param timeZone   {@link TimeZone} Timezone.
-     * @return {@link Date} date.
+     * @param dateString the string date.
+     * @param format     the format date in string ("dd-MM-yyyy" or "HH:mm" or others).
+     * @param timeZone   the {@link TimeZone}.
+     * @return the {@link Date parsed date}.
      */
     public static Date parseDate(String dateString, String format, TimeZone timeZone) {
         Assert.hasLength(dateString, "Parameter date can't be empty");
@@ -80,23 +80,21 @@ public class DateUtil {
     }
 
     /**
-     * Method used to set beginning of day. Method to truncate time detail Sat
-     * Apr 22 19:22:23 WIB 2017 to Sat Apr 22 00:00:00 WIB 2017.
+     * Set beginning of day. Truncate time detail Sat Apr 22 19:22:23 WIB 2017 to Sat Apr 22 00:00:00 WIB 2017.
      *
-     * @param date {@link Date} input date.
-     * @return {@link Date} Sat Apr 22 00:00:00 WIB 2017
+     * @param date the {@link Date input date}.
+     * @return the beginning of {@link Date} Eg. Sat Apr 22 00:00:00 WIB 2017
      */
     public static Date setBeginningOfDay(Date date) {
         return setBeginningOfDay(date, TimeZone.getDefault());
     }
 
     /**
-     * Method used to set beginning of day. Method to truncate time detail Sat
-     * Apr 22 19:22:23 WIB 2017 to Sat Apr 22 00:00:00 WIB 2017.
+     * Set beginning of day. Truncate time detail Sat Apr 22 19:22:23 WIB 2017 to Sat Apr 22 00:00:00 WIB 2017.
      *
-     * @param date     {@link Date}
-     * @param timeZone {@link TimeZone} Timezone.
-     * @return {@link Date} Sat Apr 22 00:00:00 WIB 2017
+     * @param date     the {@link Date input date}
+     * @param timeZone the {@link TimeZone}.
+     * @return the beginning of {@link Date} Eg. Sat Apr 22 00:00:00 WIB 2017
      */
     public static Date setBeginningOfDay(Date date, TimeZone timeZone) {
         Assert.notNull(date, "Parameter date can't be null");
@@ -112,23 +110,21 @@ public class DateUtil {
     }
 
     /**
-     * Method used to set ending of day. Method to truncate time detail Sat Apr
-     * 22 19:22:23 WIB 2017 to Sat Apr 22 23:59:59 WIB 2017.
+     * Set ending of day. Truncate time detail Sat Apr 22 19:22:23 WIB 2017 to Sat Apr 22 23:59:59 WIB 2017.
      *
-     * @param date {@link Date} input date.
-     * @return {@link Date} Sat Apr 22 23:59:59 WIB 2017
+     * @param date the {@link Date input date}.
+     * @return the ending of {@link Date} Eg. Sat Apr 22 23:59:59 WIB 2017
      */
     public static Date setEndingOfDay(Date date) {
         return setEndingOfDay(date, TimeZone.getDefault());
     }
 
     /**
-     * Method used to set ending of day. Method to truncate time detail Sat Apr
-     * 22 19:22:23 WIB 2017 to Sat Apr 22 23:59:59 WIB 2017.
+     * Set ending of day. Truncate time detail Sat Apr 22 19:22:23 WIB 2017 to Sat Apr 22 23:59:59 WIB 2017.
      *
-     * @param date     {@link Date}
-     * @param timeZone {@link TimeZone} Timezone.
-     * @return {@link Date} Sat Apr 22 23:59:59 WIB 2017
+     * @param date     the {@link Date input date}
+     * @param timeZone the {@link TimeZone}.
+     * @return the ending of {@link Date} Eg. Sat Apr 22 23:59:59 WIB 2017
      */
     public static Date setEndingOfDay(Date date, TimeZone timeZone) {
         Assert.notNull(date, "Parameter date can't be null");
@@ -144,23 +140,23 @@ public class DateUtil {
     }
 
     /**
-     * Method used to add Date with int value.
+     * Add the given date with int value.
      *
-     * @param date      {@link Date} input date.
-     * @param numOfDays {@code int} number of days.
-     * @return {@link Date} after added number of days.
+     * @param date      the {@link Date input date}.
+     * @param numOfDays the number of days.
+     * @return the {@link Date} after added number of days.
      */
     public static Date addDate(Date date, int numOfDays) {
         return addDate(date, numOfDays, TimeZone.getDefault());
     }
 
     /**
-     * Method used to add Date with int value.
+     * Add the given date with int value.
      *
-     * @param date      {@link Date}
-     * @param numOfDays number of days.
-     * @param timeZone  {@link TimeZone} Timezone.
-     * @return {@link Date} after added number of days.
+     * @param date      the {@link Date input date}
+     * @param numOfDays the number of days.
+     * @param timeZone  the {@link TimeZone}.
+     * @return the {@link Date} after added number of days.
      */
     public static Date addDate(Date date, int numOfDays, TimeZone timeZone) {
         Assert.notNull(date, "Parameter date can't be null");
@@ -173,23 +169,23 @@ public class DateUtil {
     }
 
     /**
-     * Method used to add Hour with int value.
+     * Add the given hour with int value.
      *
-     * @param date       {@link Date}
-     * @param numOfHours number of hours.
-     * @return {@link Date} after added number of hours.
+     * @param date       the {@link Date input date}
+     * @param numOfHours the number of hours.
+     * @return the {@link Date} after added number of hours.
      */
     public static Date addHour(Date date, int numOfHours) {
         return addHour(date, numOfHours, TimeZone.getDefault());
     }
 
     /**
-     * Method used to add Hour with int value.
+     * Add the given hour with int value.
      *
-     * @param date       {@link Date}
-     * @param numOfHours number of hours.
-     * @param timeZone   {@link TimeZone} Timezone.
-     * @return {@link Date} after added number of hours.
+     * @param date       the {@link Date input date}
+     * @param numOfHours the number of hours.
+     * @param timeZone   the {@link TimeZone}.
+     * @return the {@link Date} after added number of hours.
      */
     public static Date addHour(Date date, int numOfHours, TimeZone timeZone) {
         Assert.notNull(date, "Parameter date can't be null");
@@ -202,23 +198,23 @@ public class DateUtil {
     }
 
     /**
-     * Method used to add Minute with int value.
+     * Add the given minute with int value.
      *
-     * @param date         {@link Date}
-     * @param numOfMinutes number of minutes.
-     * @return {@link Date} after added number of minutes.
+     * @param date         the {@link Date input date}
+     * @param numOfMinutes the number of minutes.
+     * @return the {@link Date} after added number of minutes.
      */
     public static Date addMinute(Date date, int numOfMinutes) {
         return addMinute(date, numOfMinutes, TimeZone.getDefault());
     }
 
     /**
-     * Method used to add Minute with int value.
+     * Add the given minute with int value.
      *
-     * @param date         {@link Date}
-     * @param numOfMinutes number of minutes.
-     * @param timeZone     {@link TimeZone} Timezone.
-     * @return {@link Date} after added number of minutes.
+     * @param date         the {@link Date input date}
+     * @param numOfMinutes the number of minutes.
+     * @param timeZone     the {@link TimeZone}.
+     * @return the {@link Date} after added number of minutes.
      */
     public static Date addMinute(Date date, int numOfMinutes, TimeZone timeZone) {
         Assert.notNull(date, "Parameter date can't be null");
@@ -231,23 +227,23 @@ public class DateUtil {
     }
 
     /**
-     * Method used to add Second with int value.
+     * Add the given second with int value.
      *
-     * @param date         {@link Date}
-     * @param numOfSeconds number of seconds.
-     * @return {@link Date} after added number of seconds.
+     * @param date         the {@link Date input date}
+     * @param numOfSeconds the number of seconds.
+     * @return the {@link Date} after added number of seconds.
      */
     public static Date addSecond(Date date, int numOfSeconds) {
         return addSecond(date, numOfSeconds, TimeZone.getDefault());
     }
 
     /**
-     * Method used to add Second with int value.
+     * Add the given second with int value.
      *
-     * @param date         {@link Date}
-     * @param numOfSeconds number of seconds.
-     * @param timeZone     {@link TimeZone} Timezone.
-     * @return {@link Date} after added number of seconds.
+     * @param date         the {@link Date input date}
+     * @param numOfSeconds the number of seconds.
+     * @param timeZone     the {@link TimeZone}.
+     * @return the {@link Date} after added number of seconds.
      */
     public static Date addSecond(Date date, int numOfSeconds, TimeZone timeZone) {
         Assert.notNull(date, "Parameter date can't be null");

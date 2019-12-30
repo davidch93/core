@@ -13,16 +13,17 @@ import java.util.Date;
  * Class builder used to create {@link GeneralResponse} to provide information
  * about general HTTP response.
  *
+ * @param <T> the type of object data.
  * @author David.Christianto
  * @version 2.0.0
  * @see com.dch.core.datastatic.builder.GeneralBuilder
  * @since 1.0.0
  */
-public class ResponseBuilder implements GeneralBuilder<GeneralResponse> {
+public class ResponseBuilder<T> implements GeneralBuilder<GeneralResponse> {
 
     private final MessageSource messageSource;
     private Date timestamp;
-    private Object data;
+    private T data;
     private GeneralStatus generalStatus;
     private Object[] args;
 
@@ -34,9 +35,9 @@ public class ResponseBuilder implements GeneralBuilder<GeneralResponse> {
      * Method used to build timestamp.
      *
      * @param timestamp the timestamp to set
-     * @return {@link ResponseBuilder} Builder helper.
+     * @return the {@link ResponseBuilder builder helper}.
      */
-    public ResponseBuilder setTimestamp(Date timestamp) {
+    public ResponseBuilder<T> setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
         return this;
     }
@@ -44,10 +45,10 @@ public class ResponseBuilder implements GeneralBuilder<GeneralResponse> {
     /**
      * Method used to build data.
      *
-     * @param data {@code Object} Content of data.
-     * @return {@link ResponseBuilder} Builder helper.
+     * @param data the content of data.
+     * @return the {@link ResponseBuilder builder helper}.
      */
-    public ResponseBuilder setData(Object data) {
+    public ResponseBuilder<T> setData(T data) {
         this.data = data;
         return this;
     }
@@ -55,10 +56,10 @@ public class ResponseBuilder implements GeneralBuilder<GeneralResponse> {
     /**
      * Method used to build generic status.
      *
-     * @param generalStatus {@link GeneralStatus}
-     * @return {@link ResponseBuilder} Builder helper.
+     * @param generalStatus the {@link GeneralStatus}
+     * @return the {@link ResponseBuilder builder helper}.
      */
-    public ResponseBuilder setGeneralStatus(GeneralStatus generalStatus) {
+    public ResponseBuilder<T> setGeneralStatus(GeneralStatus generalStatus) {
         this.generalStatus = generalStatus;
         return this;
     }
@@ -66,17 +67,17 @@ public class ResponseBuilder implements GeneralBuilder<GeneralResponse> {
     /**
      * Method used to build arguments.
      *
-     * @param args {@code Object[]} Additional information.
-     * @return {@link ResponseBuilder} Builder helper.
+     * @param args the additional information.
+     * @return the {@link ResponseBuilder builder helper}.
      */
-    public ResponseBuilder setArgs(Object[] args) {
+    public ResponseBuilder<T> setArgs(Object[] args) {
         this.args = args;
         return this;
     }
 
     @Override
-    public GeneralResponse build() {
-        return new ResponseDto(timestamp == null ? new Date() : timestamp, data, new ResponseDto.ResponseStatusDto(
+    public ResponseDto<T> build() {
+        return new ResponseDto<>(timestamp == null ? new Date() : timestamp, data, new ResponseDto.ResponseStatusDto(
                 generalStatus.getCode(), generalStatus.getParameter(),
                 messageSource.getMessage(generalStatus.getValue(), args, LocaleContextHolder.getLocale())));
     }

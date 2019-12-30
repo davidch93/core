@@ -11,10 +11,10 @@ package com.dch.core.security.jwt.auth.token.extractor;
 public interface TokenExtractor {
 
     /**
-     * Method used to extract payload.
+     * Extract the given payload.
      *
-     * @param payload header.
-     * @return token.
+     * @param payload the header.
+     * @return the token.
      */
     String extract(String payload);
 }

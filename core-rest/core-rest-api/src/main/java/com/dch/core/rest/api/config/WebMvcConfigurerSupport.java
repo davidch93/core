@@ -13,9 +13,7 @@ import java.util.Locale;
 
 /**
  * Defines callback methods to customize the Java-based configuration for
- * Spring MVC enabled via {@code @EnableWebMvc}. <br>
- * This implementation used for create custom {@link WebMvcConfigurer#addResourceHandlers}
- * for adding swagger resources.
+ * Spring MVC enabled via {@code @EnableWebMvc}.
  *
  * @author david.christianto
  * @version 2.0.0
@@ -41,13 +39,5 @@ public class WebMvcConfigurerSupport implements WebMvcConfigurer {
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
         localeChangeInterceptor.setParamName("lang");
         registry.addInterceptor(localeChangeInterceptor);
-    }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("swagger-ui.html")
-                .addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 }

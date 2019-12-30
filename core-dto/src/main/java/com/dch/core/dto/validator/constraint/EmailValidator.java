@@ -74,9 +74,9 @@ public class EmailValidator implements ConstraintValidator<Email, CharSequence> 
     }
 
     /**
-     * Method used to match local part email.
+     * Match local part email.
      *
-     * @param localPart Email parts
+     * @param localPart the email parts
      * @return {@link boolean} true if local part matched and vice versa.
      */
     private boolean matchLocalPart(String localPart) {
@@ -88,9 +88,9 @@ public class EmailValidator implements ConstraintValidator<Email, CharSequence> 
     }
 
     /**
-     * Method used to match domain email.
+     * Match domain email.
      *
-     * @param domain Email domain
+     * @param domain the email domain
      * @return {@link boolean} true if domain matched and vice versa.
      */
     private boolean matchDomain(String domain) {

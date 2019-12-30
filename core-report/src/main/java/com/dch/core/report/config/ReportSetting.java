@@ -1,7 +1,6 @@
 package com.dch.core.report.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
 
 /**
  * Class that contains parameter setting of Report configuration.
@@ -10,7 +9,6 @@ import org.springframework.context.annotation.PropertySource;
  * @version 2.0.0
  * @since 1.0.0
  */
-@PropertySource("classpath:config/report/core-report-config.properties")
 @ConfigurationProperties(prefix = "core.report")
 public class ReportSetting {
 
@@ -20,56 +18,72 @@ public class ReportSetting {
     private String reportPath;
 
     /**
-     * @return the identityPrefix
+     * Get identity prefix.
+     *
+     * @return the identity prefix
      */
     public String getIdentityPrefix() {
         return identityPrefix;
     }
 
     /**
-     * @param identityPrefix the identityPrefix to set
+     * Set identity prefix.
+     *
+     * @param identityPrefix the identity prefix
      */
     public void setIdentityPrefix(String identityPrefix) {
         this.identityPrefix = identityPrefix;
     }
 
     /**
-     * @return the compilePath
+     * Get compile path.
+     *
+     * @return the compile path
      */
     public String getCompilePath() {
         return compilePath;
     }
 
     /**
-     * @param compilePath the compilePath to set
+     * Set compile path.
+     *
+     * @param compilePath the compile path
      */
     public void setCompilePath(String compilePath) {
         this.compilePath = compilePath;
     }
 
     /**
-     * @return the outputPath
+     * Get output path.
+     *
+     * @return the output path
      */
     public String getOutputPath() {
         return outputPath;
     }
 
     /**
-     * @param outputPath the outputPath to set
+     * Set output path.
+     *
+     * @param outputPath the output path
      */
     public void setOutputPath(String outputPath) {
         this.outputPath = outputPath;
     }
 
     /**
-     * @return the reportPath
+     * Get report path.
+     *
+     * @return the report path
      */
     public String getReportPath() {
         return reportPath;
     }
 
     /**
-     * @param reportPath the reportPath to set
+     * Set report path.
+     *
+     * @param reportPath the report path
      */
     public void setReportPath(String reportPath) {
         this.reportPath = reportPath;

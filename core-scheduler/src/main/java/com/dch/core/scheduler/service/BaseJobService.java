@@ -13,16 +13,16 @@ import com.dch.core.scheduler.item.SchedulerItem;
 public interface BaseJobService {
 
     /**
-     * Method used to do the job scheduler.
+     * Do the job scheduler.
      *
-     * @param schedulerItem {@link SchedulerItem}
+     * @param schedulerItem the {@link SchedulerItem}
      */
     void doJob(SchedulerItem<?> schedulerItem);
 
     /**
-     * Method used to running the job.
+     * Run the job.
      *
-     * @param schedulerItem {@link SchedulerItem}
+     * @param schedulerItem the {@link SchedulerItem}
      * @throws Exception If error occurred while run the job.
      */
     void run(SchedulerItem<?> schedulerItem) throws Exception;

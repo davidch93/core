@@ -32,10 +32,10 @@ public class EnumValueValidator implements ConstraintValidator<EnumValue, String
     }
 
     /**
-     * Method used to check if value for validation exist in enum class.
+     * Check whether value for validation exist in enum class.
      *
-     * @param enumValues {@link Object}[] List of value in enum class.
-     * @param value      {@link String} Value for validation.
+     * @param enumValues List of value in enum class.
+     * @param value      the value for validation.
      * @return {@link boolean} true if value exist in enum class and vice versa.
      */
     private boolean checkEnumValues(Object[] enumValues, String value) {

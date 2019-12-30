@@ -13,15 +13,28 @@ import com.dch.core.datastatic.GeneralStatus;
 public class RestException extends RuntimeException {
 
     private GeneralStatus generalStatus;
+    private Object[] args;
 
     /**
      * Construct a {@code RestException} with generic status.
      *
-     * @param generalStatus {@link GeneralStatus}
+     * @param generalStatus the {@link GeneralStatus}
      */
     public RestException(GeneralStatus generalStatus) {
         super();
         this.generalStatus = generalStatus;
+    }
+
+    /**
+     * Construct a {@code RestException} with generic status and arguments.
+     *
+     * @param generalStatus the {@link GeneralStatus}
+     * @param args          the arguments
+     */
+    public RestException(GeneralStatus generalStatus, Object[] args) {
+        super();
+        this.generalStatus = generalStatus;
+        this.args = args;
     }
 
     /**
@@ -75,5 +88,14 @@ public class RestException extends RuntimeException {
      */
     public GeneralStatus getGeneralStatus() {
         return generalStatus;
+    }
+
+    /**
+     * Get the arguments.
+     *
+     * @return the arguments
+     */
+    public Object[] getArgs() {
+        return args;
     }
 }

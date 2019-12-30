@@ -16,9 +16,9 @@ import java.nio.file.*;
 public class FileUtil {
 
     /**
-     * Method used to check file is available or not in path
+     * Check whether file is available or not in path
      *
-     * @param filePath {@code String} file path.
+     * @param filePath the file path.
      * @return {@code boolean} true if file is available and vice versa.
      */
     public static boolean isAvailable(String filePath) {
@@ -29,9 +29,9 @@ public class FileUtil {
     }
 
     /**
-     * Method used to check file is read only or not.
+     * Check whether file is read only or not.
      *
-     * @param filePath {@code String} file path.
+     * @param filePath the file path.
      * @return {@code boolean} true if file is read only and vice versa.
      */
     public static boolean isReadOnly(String filePath) {
@@ -42,10 +42,10 @@ public class FileUtil {
     }
 
     /**
-     * Method used to copy file from sourcePath to destinationPath.
+     * Copy file from sourcePath to destinationPath.
      *
-     * @param sourcePath      {@link String} source path.
-     * @param destinationPath {@link String} destination path.
+     * @param sourcePath      the source path.
+     * @param destinationPath the destination path.
      */
     public static void copyFile(String sourcePath, String destinationPath) {
         Assert.hasLength(sourcePath, "Source path can't be empty");
@@ -61,10 +61,10 @@ public class FileUtil {
     }
 
     /**
-     * Method used to get path from File.
+     * Get path from File.
      *
-     * @param file {@link File}
-     * @return File path.
+     * @param file the {@link File}
+     * @return the file path.
      */
     public static String getPath(File file) {
         Assert.notNull(file, "File can't be null");
@@ -73,10 +73,10 @@ public class FileUtil {
     }
 
     /**
-     * Method used to get file from string path.
+     * Get file from string path.
      *
-     * @param filePath {@code String} file path.
-     * @return {@link File}
+     * @param filePath the file path.
+     * @return the {@link File}
      */
     public static File pathToFile(String filePath) {
         Assert.hasLength(filePath, "File path can't be empty");
@@ -86,10 +86,10 @@ public class FileUtil {
     }
 
     /**
-     * Method used to get absolute file path from File.
+     * Get absolute file path from File.
      *
-     * @param file {@link File}
-     * @return {@code String} absolute path.
+     * @param file the {@link File}
+     * @return the absolute path.
      */
     public static String getAbsolutePath(File file) {
         Assert.notNull(file, "File can't be null");
@@ -98,10 +98,10 @@ public class FileUtil {
     }
 
     /**
-     * Method used to get canonical file path from File.
+     * Get canonical file path from File.
      *
-     * @param file {@link File}
-     * @return {@code String} canonical path.
+     * @param file the {@link File}
+     * @return the canonical path.
      */
     public static String getCanonicalPath(File file) {
         Assert.notNull(file, "File can't be null");
@@ -114,10 +114,10 @@ public class FileUtil {
     }
 
     /**
-     * Method used to get file name from a file.
+     * Get file name from a file.
      *
-     * @param file {@link File}
-     * @return {@code String} file name.
+     * @param file the {@link File}
+     * @return the file name.
      */
     public static String getFileName(File file) {
         Assert.notNull(file, "File can't be null");
@@ -126,9 +126,9 @@ public class FileUtil {
     }
 
     /**
-     * Method used to delete a file.
+     * Delete a file.
      *
-     * @param filePath {@code String} file path.
+     * @param filePath the file path.
      */
     public static void deleteFile(String filePath) {
         Assert.hasLength(filePath, "File path can't be empty");

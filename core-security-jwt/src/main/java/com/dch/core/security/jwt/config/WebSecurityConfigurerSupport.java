@@ -107,9 +107,9 @@ public class WebSecurityConfigurerSupport extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Method to build login processing filter.
+     * Build login processing filter.
      *
-     * @return {@link AjaxLoginProcessingFilter}
+     * @return the {@link AjaxLoginProcessingFilter}
      */
     protected AjaxLoginProcessingFilter buildAjaxLoginProcessingFilter() {
         AjaxLoginProcessingFilter filter = new AjaxLoginProcessingFilter(
@@ -120,9 +120,9 @@ public class WebSecurityConfigurerSupport extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Method to build JWT Token authentication processing filter.
+     * Build JWT Token authentication processing filter.
      *
-     * @return {@link JwtTokenAuthenticationProcessingFilter}
+     * @return the {@link JwtTokenAuthenticationProcessingFilter}
      */
     protected JwtTokenAuthenticationProcessingFilter buildJwtTokenAuthenticationProcessingFilter() {
         List<String> pathsToSkip = requestAntPathsToPermitAll();
@@ -135,36 +135,36 @@ public class WebSecurityConfigurerSupport extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Method to get default authentication entry point.
+     * Get default authentication entry point.
      *
-     * @return {@link RestAuthenticationEntryPoint}
+     * @return the {@link RestAuthenticationEntryPoint}
      */
     protected AuthenticationEntryPoint authenticationEntryPoint() {
         return new RestAuthenticationEntryPoint(securityDetailsService, objectMapper, jwtSetting);
     }
 
     /**
-     * Method to get default access denied handler.
+     * Get default access denied handler.
      *
-     * @return {@link RestAccessDeniedHandler}
+     * @return the {@link RestAccessDeniedHandler}
      */
     protected AccessDeniedHandler accessDeniedHandler() {
         return new RestAccessDeniedHandler(securityDetailsService, objectMapper, jwtSetting);
     }
 
     /**
-     * Method to get default authentication success handler.
+     * Get default authentication success handler.
      *
-     * @return {@link AjaxAwareAuthenticationSuccessHandler}
+     * @return the {@link AjaxAwareAuthenticationSuccessHandler}
      */
     protected AuthenticationSuccessHandler authenticationSuccessHandler() {
         return new AjaxAwareAuthenticationSuccessHandler(securityDetailsService, objectMapper, jwtTokenFactory);
     }
 
     /**
-     * Method to get default authentication failure handler.
+     * Get default authentication failure handler.
      *
-     * @return {@link AjaxAwareAuthenticationFailureHandler}
+     * @return the {@link AjaxAwareAuthenticationFailureHandler}
      */
     protected AuthenticationFailureHandler authenticationFailureHandler() {
         return new AjaxAwareAuthenticationFailureHandler(securityDetailsService, objectMapper, jwtSetting);
@@ -173,7 +173,7 @@ public class WebSecurityConfigurerSupport extends WebSecurityConfigurerAdapter {
     /**
      * Request paths to be given permitAll() access.
      *
-     * @return {@link List}&lt;{@link String}&gt; Array of ant paths.
+     * @return an array of ant paths.
      */
     protected List<String> requestAntPathsToPermitAll() {
         return Arrays.asList(WebSecuritySupport.JWT_BASED_LOGIN_ENTRY_POINT.getValue(),
@@ -181,10 +181,10 @@ public class WebSecurityConfigurerSupport extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Method to add custom authorization configurations. By default do nothing.
+     * Add custom authorization configurations. By default do nothing.
      *
-     * @param authorizeRequests {@link ExpressionInterceptUrlRegistry}
-     * @return Custom {@link ExpressionInterceptUrlRegistry}
+     * @param authorizeRequests the {@link ExpressionInterceptUrlRegistry}
+     * @return the custom {@link ExpressionInterceptUrlRegistry}
      */
     protected ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry configureAuthorization(
             ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authorizeRequests) {

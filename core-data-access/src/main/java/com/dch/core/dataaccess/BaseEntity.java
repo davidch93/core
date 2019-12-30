@@ -46,6 +46,8 @@ public abstract class BaseEntity implements Serializable {
     protected Date modifiedDate;
 
     /**
+     * Get status.
+     *
      * @return the status
      */
     public DataStatus getStatus() {
@@ -53,63 +55,81 @@ public abstract class BaseEntity implements Serializable {
     }
 
     /**
-     * @param status the status to set
+     * Set status.
+     *
+     * @param status the status
      */
     public void setStatus(DataStatus status) {
         this.status = status;
     }
 
     /**
-     * @return the createdBy
+     * Get created by.
+     *
+     * @return the created by
      */
     public String getCreatedBy() {
         return createdBy;
     }
 
     /**
-     * @param createdBy the createdBy to set
+     * Set created by.
+     *
+     * @param createdBy the created by
      */
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
     /**
-     * @return the createdDate
+     * Get created date.
+     *
+     * @return the created date
      */
     public Date getCreatedDate() {
         return createdDate;
     }
 
     /**
-     * @param createdDate the createdDate to set
+     * Set created date.
+     *
+     * @param createdDate the created date
      */
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 
     /**
-     * @return the modifiedBy
+     * Get modified by.
+     *
+     * @return the modified by
      */
     public String getModifiedBy() {
         return modifiedBy;
     }
 
     /**
-     * @param modifiedBy the modifiedBy to set
+     * Set modified by.
+     *
+     * @param modifiedBy the modified by
      */
     public void setModifiedBy(String modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
 
     /**
-     * @return the modifiedDate
+     * Get modified date.
+     *
+     * @return the modified date
      */
     public Date getModifiedDate() {
         return modifiedDate;
     }
 
     /**
-     * @param modifiedDate the modifiedDate to set
+     * Set modified date.
+     *
+     * @param modifiedDate the modified date
      */
     public void setModifiedDate(Date modifiedDate) {
         this.modifiedDate = modifiedDate;

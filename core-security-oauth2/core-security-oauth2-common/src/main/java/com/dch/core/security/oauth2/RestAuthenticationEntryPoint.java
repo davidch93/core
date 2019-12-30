@@ -69,10 +69,10 @@ public class RestAuthenticationEntryPoint extends AbstractOAuth2SecurityExceptio
     }
 
     /**
-     * Method used to extract type prefix header.
+     * Extract type prefix header.
      *
-     * @param header {@link String}
-     * @return Type prefix.
+     * @param header the header type
+     * @return the type prefix.
      */
     private String extractTypePrefix(String header) {
         String existing = header;
@@ -83,10 +83,20 @@ public class RestAuthenticationEntryPoint extends AbstractOAuth2SecurityExceptio
         return existing;
     }
 
+    /**
+     * Set realm name.
+     *
+     * @param realmName the realm name
+     */
     public void setRealmName(String realmName) {
         this.realmName = realmName;
     }
 
+    /**
+     * Set type name.
+     *
+     * @param typeName the type name
+     */
     public void setTypeName(String typeName) {
         this.typeName = typeName;
     }

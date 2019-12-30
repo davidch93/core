@@ -22,9 +22,11 @@ public abstract class TreeBaseEntity<T> extends BaseEntity implements Comparable
     protected T parent;
 
     @Transient
-    protected Set<T> childrens;
+    protected Set<T> children;
 
     /**
+     * Get level.
+     *
      * @return the level
      */
     public Integer getLevel() {
@@ -32,13 +34,17 @@ public abstract class TreeBaseEntity<T> extends BaseEntity implements Comparable
     }
 
     /**
-     * @param level the level to set
+     * Set level.
+     *
+     * @param level the level
      */
     public void setLevel(Integer level) {
         this.level = level;
     }
 
     /**
+     * Get parent.
+     *
      * @return the parent
      */
     public T getParent() {
@@ -46,30 +52,36 @@ public abstract class TreeBaseEntity<T> extends BaseEntity implements Comparable
     }
 
     /**
-     * @param parent the parent to set
+     * Set parent.
+     *
+     * @param parent the parent
      */
     public void setParent(T parent) {
         this.parent = parent;
     }
 
     /**
-     * @return the childrens
-     */
-    public Set<T> getChildrens() {
-        return childrens;
-    }
-
-    /**
-     * @param childrens the childrens to set
-     */
-    public void setChildrens(Set<T> childrens) {
-        this.childrens = childrens;
-    }
-
-    /**
-     * Method used to get unique id.
+     * Get children.
      *
-     * @return {@link Long} Unique ID.
+     * @return the children
+     */
+    public Set<T> getChildren() {
+        return children;
+    }
+
+    /**
+     * Set children.
+     *
+     * @param children the children
+     */
+    public void setChildren(Set<T> children) {
+        this.children = children;
+    }
+
+    /**
+     * Get id.
+     *
+     * @return the id
      */
     public abstract Long getId();
 }

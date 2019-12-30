@@ -25,10 +25,9 @@ public class JwtExpiredTokenException extends AuthenticationException {
     }
 
     /**
-     * Construct a {@code JwtExpiredTokenException} with token, a generic
-     * message and a cause.
+     * Construct a {@code JwtExpiredTokenException} with token, a generic message and a cause.
      *
-     * @param token   {@link JwtToken} token
+     * @param token   the {@link JwtToken}
      * @param message the message
      * @param cause   the cause of the exception
      */
@@ -38,9 +37,9 @@ public class JwtExpiredTokenException extends AuthenticationException {
     }
 
     /**
-     * Method used to get JWT token.
+     * Get JWT token.
      *
-     * @return {@link String} Token.
+     * @return the token.
      */
     public String token() {
         return token.getToken();

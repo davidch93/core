@@ -42,9 +42,9 @@ public class SchedulerConfigurerSupport {
     }
 
     /**
-     * Method used to get scheduler error handler.
+     * Get scheduler error handler.
      *
-     * @return {@link ErrorHandler}
+     * @return the {@link ErrorHandler}
      */
     private ErrorHandler schedulerErrorHandler() {
         return throwable -> logger.error(String.format("[%s] Error occurred while executing scheduler job!",

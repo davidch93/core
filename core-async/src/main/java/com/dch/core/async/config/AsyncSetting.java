@@ -1,17 +1,14 @@
 package com.dch.core.async.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
 
 /**
- * Class property source that contains parameter setting of Asynchronous and
- * Executor configuration.
+ * Property source class that contain parameters setting of Asynchronous and Executor configuration.
  *
  * @author David.Christianto
  * @version 2.0.0
  * @since 1.0.0
  */
-@PropertySource("classpath:config/async/core-async-config.properties")
 @ConfigurationProperties(prefix = "core.async")
 public class AsyncSetting {
 
@@ -19,20 +16,26 @@ public class AsyncSetting {
     private AsyncExecutorSetting executor;
 
     /**
-     * @return the identityPrefix
+     * Get identity prefix.
+     *
+     * @return the identity prefix
      */
     public String getIdentityPrefix() {
         return identityPrefix;
     }
 
     /**
-     * @param identityPrefix the identityPrefix to set
+     * Set identity prefix.
+     *
+     * @param identityPrefix the identity prefix
      */
     public void setIdentityPrefix(String identityPrefix) {
         this.identityPrefix = identityPrefix;
     }
 
     /**
+     * Get executor.
+     *
      * @return the executor
      */
     public AsyncExecutorSetting getExecutor() {
@@ -40,14 +43,16 @@ public class AsyncSetting {
     }
 
     /**
-     * @param executor the executor to set
+     * Set executor.
+     *
+     * @param executor the executor
      */
     public void setExecutor(AsyncExecutorSetting executor) {
         this.executor = executor;
     }
 
     /**
-     * Class that contains parameter setting of Asynchronous Executor configuration.
+     * Contains parameter setting of Asynchronous Executor configuration.
      *
      * @author David.Christianto
      * @version 2.0.0
@@ -62,70 +67,90 @@ public class AsyncSetting {
         private String threadNamePrefix;
 
         /**
-         * @return the corePoolSize
+         * Get core pool size.
+         *
+         * @return the core pool size
          */
         public int getCorePoolSize() {
             return corePoolSize;
         }
 
         /**
-         * @param corePoolSize the corePoolSize to set
+         * Set core pool size.
+         *
+         * @param corePoolSize the core pool size
          */
         public void setCorePoolSize(int corePoolSize) {
             this.corePoolSize = corePoolSize;
         }
 
         /**
-         * @return the keepAliveSeconds
+         * Get keep alive seconds.
+         *
+         * @return the keep alive seconds
          */
         public int getKeepAliveSeconds() {
             return keepAliveSeconds;
         }
 
         /**
-         * @param keepAliveSeconds the keepAliveSeconds to set
+         * Set keep alive seconds.
+         *
+         * @param keepAliveSeconds the keep alive seconds
          */
         public void setKeepAliveSeconds(int keepAliveSeconds) {
             this.keepAliveSeconds = keepAliveSeconds;
         }
 
         /**
-         * @return the maxPoolSize
+         * Get max pool size.
+         *
+         * @return the max pool size
          */
         public int getMaxPoolSize() {
             return maxPoolSize;
         }
 
         /**
-         * @param maxPoolSize the maxPoolSize to set
+         * Set max pool size.
+         *
+         * @param maxPoolSize the max pool size
          */
         public void setMaxPoolSize(int maxPoolSize) {
             this.maxPoolSize = maxPoolSize;
         }
 
         /**
-         * @return the queueCapacity
+         * Get queue capacity.
+         *
+         * @return the queue capacity
          */
         public int getQueueCapacity() {
             return queueCapacity;
         }
 
         /**
-         * @param queueCapacity the queueCapacity to set
+         * Set queue capacity.
+         *
+         * @param queueCapacity the queue capacity
          */
         public void setQueueCapacity(int queueCapacity) {
             this.queueCapacity = queueCapacity;
         }
 
         /**
-         * @return the threadNamePrefix
+         * Get thread name prefix.
+         *
+         * @return the thread name prefix
          */
         public String getThreadNamePrefix() {
             return threadNamePrefix;
         }
 
         /**
-         * @param threadNamePrefix the threadNamePrefix to set
+         * Set thread name prefix.
+         *
+         * @param threadNamePrefix the thread name prefix
          */
         public void setThreadNamePrefix(String threadNamePrefix) {
             this.threadNamePrefix = threadNamePrefix;

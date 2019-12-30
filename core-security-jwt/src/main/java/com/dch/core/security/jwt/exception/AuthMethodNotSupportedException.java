@@ -13,8 +13,7 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 public class AuthMethodNotSupportedException extends AuthenticationServiceException {
 
     /**
-     * Construct a {@code AuthMethodNotSupportedException} with a generic
-     * message.
+     * Construct a {@code AuthMethodNotSupportedException} with a generic message.
      *
      * @param message the message
      */
@@ -23,8 +22,7 @@ public class AuthMethodNotSupportedException extends AuthenticationServiceExcept
     }
 
     /**
-     * Construct a {@code AuthMethodNotSupportedException} with a generic
-     * message and a cause.
+     * Construct a {@code AuthMethodNotSupportedException} with a generic message and a cause.
      *
      * @param message the message
      * @param cause   the cause of the exception

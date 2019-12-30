@@ -1,8 +1,11 @@
 package com.dch.core.rest.api;
 
 import com.dch.core.datastatic.GeneralStatus;
-import com.dch.core.dto.response.GeneralResponse;
+import com.dch.core.dto.response.ResponseDto;
 import com.dch.core.rest.api.exception.RestException;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -14,11 +17,12 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**
  * Class that defined exception handler for all endpoints.
@@ -40,14 +44,16 @@ public class ExceptionHandlerEndpoint extends BaseEndpoint {
     /**
      * Method to handle HTTP message not readable exception.
      *
-     * @param ex {@link HttpMessageNotReadableException}
-     * @return {@link GeneralResponse} Response body of message not readable.
+     * @param ex the {@link HttpMessageNotReadableException}
+     * @return {@link ResponseDto Response body} of message not readable.
      */
+    @ApiResponse(responseCode = "400", description = "HTTP message not readable because of malformed JSON request",
+            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ResponseDto.class)))
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public GeneralResponse handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+    public ResponseDto<Void> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
         logger.error("HTTP message error! " + GeneralStatus.MESSAGE_NOT_READABLE, ex);
-        return getResponseBuilder()
+        return getResponseBuilder(Void.class)
                 .setGeneralStatus(GeneralStatus.MESSAGE_NOT_READABLE)
                 .build();
     }
@@ -55,12 +61,14 @@ public class ExceptionHandlerEndpoint extends BaseEndpoint {
     /**
      * Method to handle response method argument not valid exception.
      *
-     * @param ex {@link MethodArgumentNotValidException}
-     * @return {@link GeneralResponse} Response body of validation error.
+     * @param ex the {@link MethodArgumentNotValidException}
+     * @return {@link ResponseDto Response body} of validation error.
      */
+    @ApiResponse(responseCode = "400", description = "Method argument not valid because of failed to validate JSON request",
+            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ResponseDto.class)))
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public GeneralResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+    public ResponseDto<Map> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         logger.error("HTTP message error! " + GeneralStatus.ARGUMENT_NOT_VALID, ex);
 
         Map<String, String> errorsMap = ex.getBindingResult().getAllErrors().stream()
@@ -69,53 +77,43 @@ public class ExceptionHandlerEndpoint extends BaseEndpoint {
                                 objectError.getArguments(), LocaleContextHolder.getLocale()),
                         (objectError1, objectError2) -> objectError2));
 
-        return getResponseBuilder()
+        return getResponseBuilder(Map.class)
                 .setData(errorsMap)
                 .setGeneralStatus(GeneralStatus.ARGUMENT_NOT_VALID)
                 .build();
     }
 
     /**
-     * Method to handle HTTP not found exception.
-     *
-     * @param ex {@link NoHandlerFoundException}
-     * @return {@link GeneralResponse} Response body of not found exception.
-     */
-    @ExceptionHandler(NoHandlerFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public GeneralResponse handleNoHandlerFoundException(NoHandlerFoundException ex) {
-        logger.error("HTTP message error! " + GeneralStatus.NOT_FOUND, ex);
-        return getResponseBuilder()
-                .setGeneralStatus(GeneralStatus.NOT_FOUND)
-                .build();
-    }
-
-    /**
      * Method to handle rest exception.
      *
-     * @param ex {@link RestException}
-     * @return {@link GeneralResponse} Response body of internal server error.
+     * @param ex the {@link RestException}
+     * @return {@link ResponseDto Response body} of internal server error.
      */
+    @ApiResponse(responseCode = "400", description = "The server encountered a client side error",
+            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ResponseDto.class)))
     @ExceptionHandler(RestException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public GeneralResponse handleRuntimeException(RestException ex) {
+    public ResponseDto<Void> handleRuntimeException(RestException ex) {
         logger.error("HTTP message error! " + ex.getGeneralStatus(), ex);
-        return getResponseBuilder()
+        return getResponseBuilder(Void.class)
                 .setGeneralStatus(ex.getGeneralStatus())
+                .setArgs(ex.getArgs())
                 .build();
     }
 
     /**
      * Method to handle runtime exception.
      *
-     * @param ex {@link RuntimeException}
-     * @return {@link GeneralResponse} Response body of internal server error.
+     * @param ex the {@link RuntimeException}
+     * @return {@link ResponseDto Response body} of internal server error.
      */
+    @ApiResponse(responseCode = "500", description = "The server encountered an internal error",
+            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ResponseDto.class)))
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public GeneralResponse handleRuntimeException(RuntimeException ex) {
+    public ResponseDto<Void> handleRuntimeException(RuntimeException ex) {
         logger.error("HTTP message error! " + GeneralStatus.INTERNAL_SERVER_ERROR, ex);
-        return getResponseBuilder()
+        return getResponseBuilder(Void.class)
                 .setGeneralStatus(GeneralStatus.INTERNAL_SERVER_ERROR)
                 .build();
     }
