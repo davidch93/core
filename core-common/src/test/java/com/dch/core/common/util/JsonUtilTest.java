@@ -1,15 +1,22 @@
 package com.dch.core.common.util;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasEntry;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Test class used to test all methods in the {@link JsonUtil} class.
@@ -18,9 +25,6 @@ import static org.junit.Assert.assertThat;
  * @version 2.0.0
  */
 public class JsonUtilTest {
-
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void testCreateEmptyObjectNode() {
@@ -35,7 +39,7 @@ public class JsonUtilTest {
     }
 
     @Test
-    public void testToJsonNodeByteArray() {
+    public void testToJsonNode_withByteArray() {
         byte[] data = "{\"id\":1,\"user\":\"data\"}".getBytes();
         JsonNode jsonNode = JsonUtil.toJsonNode(data);
         int actualId = jsonNode.get("id").asInt();
@@ -46,15 +50,21 @@ public class JsonUtilTest {
     }
 
     @Test
-    public void testToJsonNodeNullByteArray() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Bytes array can't be null!");
-
-        JsonUtil.toJsonNode((byte[]) null);
+    public void testToJsonNode_withNullByteArray_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                JsonUtil.toJsonNode((byte[]) null));
+        assertThat(ex.getMessage(), equalTo("Bytes array can't be null!"));
     }
 
     @Test
-    public void testToJsonNodeString() {
+    public void testToJsonNode_withInvalidByteArray_thenExpectThrowException() {
+        byte[] data = "data".getBytes();
+        RuntimeException ex = assertThrows(RuntimeException.class, () -> JsonUtil.toJsonNode(data));
+        assertThat(ex.getMessage(), equalTo("Invalid byte array of data!"));
+    }
+
+    @Test
+    public void testToJsonNode_withString() {
         String data = "{\"id\":1,\"user\":\"data\"}";
         JsonNode jsonNode = JsonUtil.toJsonNode(data);
         int actualId = jsonNode.get("id").asInt();
@@ -65,23 +75,80 @@ public class JsonUtilTest {
     }
 
     @Test
-    public void testToJsonNodeEmptyString() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("String data can't be empty!");
-
-        JsonUtil.toJsonNode("");
+    public void testToJsonNode_withEmptyString_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> JsonUtil.toJsonNode(""));
+        assertThat(ex.getMessage(), equalTo("String data can't be empty!"));
     }
 
     @Test
-    public void testToJsonNodeNullString() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("String data can't be empty!");
-
-        JsonUtil.toJsonNode((String) null);
+    public void testToJsonNode_withNullString_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                JsonUtil.toJsonNode((String) null));
+        assertThat(ex.getMessage(), equalTo("String data can't be empty!"));
     }
 
     @Test
-    public void testToJsonNodeObject() {
+    public void testToJsonNode_withInvalidString_thenExpectThrowException() {
+        RuntimeException ex = assertThrows(RuntimeException.class, () -> JsonUtil.toJsonNode("data"));
+        assertThat(ex.getMessage(), equalTo("Invalid JSON string!"));
+    }
+
+    @Test
+    public void testToJsonNode_withInputStream() throws Exception {
+        String path = "src/test/resources/valid.json";
+        try (InputStream input = new FileInputStream(path)) {
+            JsonNode jsonNode = JsonUtil.toJsonNode(input);
+            int actualId = jsonNode.get("id").asInt();
+            String actualUser = jsonNode.get("user").asText();
+
+            assertThat(actualId, is(equalTo(1)));
+            assertThat(actualUser, is(equalTo("data")));
+        }
+    }
+
+    @Test
+    public void testToJsonNode_withNullInputStream_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                JsonUtil.toJsonNode((InputStream) null));
+        assertThat(ex.getMessage(), equalTo("Input stream can't be null!"));
+    }
+
+    @Test
+    public void testToJsonNode_withInvalidInputStream_thenExpectThrowException() throws Exception {
+        String path = "src/test/resources/test.txt";
+        try (InputStream input = new FileInputStream(path)) {
+            RuntimeException ex = assertThrows(RuntimeException.class, () -> JsonUtil.toJsonNode(input));
+            assertThat(ex.getMessage(), equalTo("Invalid JSON string!"));
+        }
+    }
+
+    @Test
+    public void testToJsonNode_withFile() {
+        String path = "src/test/resources/valid.json";
+        JsonNode jsonNode = JsonUtil.toJsonNode(new File(path));
+        int actualId = jsonNode.get("id").asInt();
+        String actualUser = jsonNode.get("user").asText();
+
+        assertThat(actualId, is(equalTo(1)));
+        assertThat(actualUser, is(equalTo("data")));
+    }
+
+    @Test
+    public void testToJsonNode_withNullFile_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                JsonUtil.toJsonNode((File) null));
+        assertThat(ex.getMessage(), equalTo("File can't be null!"));
+    }
+
+    @Test
+    public void testToJsonNode_withInvalidFile_thenExpectThrowException() {
+        String path = "src/test/resources/test.txt";
+        RuntimeException ex = assertThrows(RuntimeException.class, () -> JsonUtil.toJsonNode(new File(path)));
+        assertThat(ex.getMessage(), equalTo("Invalid JSON string!"));
+    }
+
+    @Test
+    public void testToJsonNode_withObject() {
         Data data = new Data(1, "data");
         JsonNode jsonNode = JsonUtil.toJsonNode(data);
         int actualId = jsonNode.get("id").asInt();
@@ -92,15 +159,14 @@ public class JsonUtilTest {
     }
 
     @Test
-    public void testToJsonNodeNullObject() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Object data can't be null!");
-
-        JsonUtil.toJsonNode((Object) null);
+    public void testToJsonNode_withNullObject_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                JsonUtil.toJsonNode((Object) null));
+        assertThat(ex.getMessage(), equalTo("Object data can't be null!"));
     }
 
     @Test
-    public void testMergeJsonString() {
+    public void testMerge_withJsonString() {
         String left = "{\"id\":1,\"user\":\"data\"}";
         String right = "{\"user\":\"data1\",\"created_at\":\"2019-01-01\"}";
         JsonNode mergedJsonNode = JsonUtil.merge(left, right);
@@ -114,23 +180,21 @@ public class JsonUtilTest {
     }
 
     @Test
-    public void testMergeEmptyJsonString() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("JSON left can't be empty!");
-
+    public void testMerge_withEmptyJsonString_thenExpectThrowException() {
         String left = "";
         String right = "{\"user\":\"data1\",\"created_at\":\"2019-01-01\"}";
-        JsonUtil.merge(left, right);
+
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> JsonUtil.merge(left, right));
+        assertThat(ex.getMessage(), equalTo("JSON left can't be empty!"));
     }
 
     @Test
-    public void testMergeNullJsonString() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("JSON right can't be empty!");
-
+    public void testMerge_withNullJsonString_thenExpectThrowException() {
         String left = "{\"id\":1,\"user\":\"data\"}";
         String right = null;
-        JsonUtil.merge(left, right);
+
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> JsonUtil.merge(left, right));
+        assertThat(ex.getMessage(), equalTo("JSON right can't be empty!"));
     }
 
     @Test
@@ -162,29 +226,60 @@ public class JsonUtilTest {
     }
 
     @Test
-    public void testMergeNullJsonObject() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("JSON left can't be null!");
-
+    public void testMerge_withNullJsonObject_thenExpectThrowException() {
         JsonNode left = null;
         JsonNode right = JsonUtil.toJsonNode("{\"user\":\"data1\",\"created_at\":\"2019-01-01\"}");
-        JsonUtil.merge(left, right);
+
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> JsonUtil.merge(left, right));
+        assertThat(ex.getMessage(), equalTo("JSON left can't be null!"));
     }
 
     @Test
-    public void testMergeNullJsonObject2() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("JSON right can't be null!");
-
+    public void testMerge_withNullJsonObject2_thenExpectThrowException() {
         JsonNode left = JsonUtil.toJsonNode("{\"id\":1,\"user\":\"data\"}");
         JsonNode right = null;
-        JsonUtil.merge(left, right);
+
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> JsonUtil.merge(left, right));
+        assertThat(ex.getMessage(), equalTo("JSON right can't be null!"));
+    }
+
+    @Test
+    public void testReadValue() {
+        String data = "{\"id\":1,\"user\":\"data\"}";
+        TypeReference<HashMap<String, Object>> typeRef = new TypeReference<HashMap<String, Object>>() {
+        };
+        Map<String, Object> actualResult = JsonUtil.readValue(data, typeRef);
+
+        assertThat(actualResult, hasEntry("id", 1));
+        assertThat(actualResult, hasEntry("user", "data"));
+    }
+
+    @Test
+    public void testReadValue_withEmptyString_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> JsonUtil.readValue("", null));
+        assertThat(ex.getMessage(), equalTo("String data can't be empty!"));
+    }
+
+    @Test
+    public void testReadValue_withNullTypeRef_thenExpectThrowException() {
+        String data = "{\"id\":1,\"user\":\"data\"}";
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                JsonUtil.readValue(data, null));
+        assertThat(ex.getMessage(), equalTo("Value type reference can't be null!"));
+    }
+
+    @Test
+    public void testReadValue_withInvalidJsonString_thenExpectThrowException() {
+        TypeReference<HashMap<String, Object>> typeRef = new TypeReference<HashMap<String, Object>>() {
+        };
+        RuntimeException ex = assertThrows(RuntimeException.class, () -> JsonUtil.readValue("data", typeRef));
+        assertThat(ex.getMessage(), equalTo("Invalid JSON string!"));
     }
 
     /**
      * Class that represent model data for testing purposes.
      */
-    public class Data {
+    static class Data {
 
         private int id;
         private String user;

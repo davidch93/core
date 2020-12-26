@@ -1,7 +1,6 @@
 package com.dch.core.rest.reactive.config;
 
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.reactive.config.ResourceHandlerRegistry;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
 
 /**

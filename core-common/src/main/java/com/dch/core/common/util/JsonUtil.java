@@ -1,12 +1,15 @@
 package com.dch.core.common.util;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.util.Assert;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Classes that provides function to manipulate JSON.
@@ -72,6 +75,40 @@ public class JsonUtil {
     }
 
     /**
+     * Convert input stream to {@link JsonNode}.
+     *
+     * @param inputStream the {@link InputStream}.
+     * @return the {@link JsonNode}
+     * @see ObjectMapper#readTree(InputStream)
+     */
+    public static JsonNode toJsonNode(InputStream inputStream) {
+        Assert.notNull(inputStream, "Input stream can't be null!");
+
+        try {
+            return objectMapper.readTree(inputStream);
+        } catch (IOException ex) {
+            throw new RuntimeException("Invalid JSON string!", ex);
+        }
+    }
+
+    /**
+     * Convert file to {@link JsonNode}.
+     *
+     * @param file the {@link File}.
+     * @return the {@link JsonNode}
+     * @see ObjectMapper#readTree(File)
+     */
+    public static JsonNode toJsonNode(File file) {
+        Assert.notNull(file, "File can't be null!");
+
+        try {
+            return objectMapper.readTree(file);
+        } catch (IOException ex) {
+            throw new RuntimeException("Invalid JSON string!", ex);
+        }
+    }
+
+    /**
      * Convert object data to {@link JsonNode}.
      *
      * @param data the object data.
@@ -119,5 +156,25 @@ public class JsonUtil {
         ObjectNode merged = left.deepCopy();
         right.fields().forEachRemaining(field -> merged.set(field.getKey(), field.getValue()));
         return merged;
+    }
+
+    /**
+     * Deserialize JSON content from given JSON content String.
+     *
+     * @param data         the JSON string
+     * @param valueTypeRef the value type reference
+     * @param <T>          the type of object
+     * @return the object based on type reference
+     * @see ObjectMapper#readValue(String, TypeReference)
+     */
+    public static <T> T readValue(String data, TypeReference<T> valueTypeRef) {
+        Assert.hasLength(data, "String data can't be empty!");
+        Assert.notNull(valueTypeRef, "Value type reference can't be null!");
+
+        try {
+            return objectMapper.readValue(data, valueTypeRef);
+        } catch (IOException ex) {
+            throw new RuntimeException("Invalid JSON string!", ex);
+        }
     }
 }

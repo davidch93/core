@@ -12,6 +12,10 @@
     <name>Core Common</name>
     <description>Core libraries and dependencies for common and util classes.</description>
 
+    <properties>
+        <javax-el.version>3.0.0</javax-el.version>
+    </properties>
+
     <dependencies>
         <!-- Fasterxml Jackson -->
         <dependency>
@@ -37,6 +41,7 @@
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.el</artifactId>
+            <version>${javax-el.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

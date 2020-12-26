@@ -1,7 +1,6 @@
 package com.dch.core.rest.reactive;
 
 import com.dch.core.datastatic.GeneralStatus;
-import com.dch.core.dto.response.GeneralResponse;
 import com.dch.core.dto.response.ResponseDto;
 import com.dch.core.rest.reactive.exception.RestException;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -23,6 +22,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static net.logstash.logback.argument.StructuredArguments.kv;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**
@@ -30,7 +30,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
  *
  * @author david.christianto
  * @version 2.0.0
- * @see com.dch.core.rest.reactive.BaseEndpoint
  */
 @RestControllerAdvice
 public class ExceptionHandlerEndpoint extends BaseEndpoint {
@@ -48,12 +47,14 @@ public class ExceptionHandlerEndpoint extends BaseEndpoint {
      * @param ex {@link MethodArgumentNotValidException}
      * @return {@link ResponseDto Response body} of validation error.
      */
-    @ApiResponse(responseCode = "400", description = "Method argument not valid because of failed to validate JSON request",
-            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ResponseDto.class)))
+    @ApiResponse(responseCode = "400", description = "Method argument not valid because of failed to validate JSON " +
+            "request",
+            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation =
+                    ResponseDto.class)))
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Mono<ResponseDto<Map>> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
-        logger.error("HTTP message error! " + GeneralStatus.ARGUMENT_NOT_VALID, ex);
+        logger.error("Method arguments don't valid! {}", kv("status", GeneralStatus.ARGUMENT_NOT_VALID), ex);
 
         Map<String, String> errorsMap = ex.getBindingResult().getAllErrors().stream()
                 .collect(Collectors.toMap(ObjectError::getCode,
@@ -74,11 +75,12 @@ public class ExceptionHandlerEndpoint extends BaseEndpoint {
      * @return {@link ResponseDto Response body} of internal server error.
      */
     @ApiResponse(responseCode = "400", description = "The server encountered a client side error",
-            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ResponseDto.class)))
+            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation =
+                    ResponseDto.class)))
     @ExceptionHandler(RestException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Mono<ResponseDto<Void>> handleRuntimeException(RestException ex) {
-        logger.error("HTTP message error! " + ex.getGeneralStatus(), ex);
+        logger.error("Encountered a client side error! {}", kv("status", ex.getGeneralStatus()), ex);
         return Mono.just(getResponseBuilder(Void.class)
                 .setGeneralStatus(ex.getGeneralStatus())
                 .build());
@@ -91,11 +93,12 @@ public class ExceptionHandlerEndpoint extends BaseEndpoint {
      * @return {@link ResponseDto Response body} of internal server error.
      */
     @ApiResponse(responseCode = "500", description = "The server encountered an internal error",
-            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ResponseDto.class)))
+            content = @Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation =
+                    ResponseDto.class)))
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Mono<ResponseDto<Void>> handleRuntimeException(RuntimeException ex) {
-        logger.error("HTTP message error! " + GeneralStatus.INTERNAL_SERVER_ERROR, ex);
+        logger.error("Encountered an internal error! {}", kv("status", GeneralStatus.INTERNAL_SERVER_ERROR), ex);
         return Mono.just(getResponseBuilder(Void.class)
                 .setGeneralStatus(GeneralStatus.INTERNAL_SERVER_ERROR)
                 .build());

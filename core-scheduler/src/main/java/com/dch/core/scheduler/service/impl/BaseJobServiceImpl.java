@@ -14,12 +14,11 @@ import org.slf4j.LoggerFactory;
  *
  * @author David.Christianto
  * @version 2.0.0
- * @see com.dch.core.scheduler.service.BaseJobService
  * @since 1.0.0
  */
 public abstract class BaseJobServiceImpl implements BaseJobService {
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(BaseJobServiceImpl.class);
+    protected static final Logger logger = LoggerFactory.getLogger(BaseJobServiceImpl.class);
 
     protected final SchedulerSetting schedulerSetting;
     protected final BaseSchedulerService schedulerService;
@@ -36,7 +35,8 @@ public abstract class BaseJobServiceImpl implements BaseJobService {
             run(schedulerItem);
             schedulerService.afterSchedule(schedulerItem);
         } catch (Exception ex) {
-            LOGGER.error(String.format("[%s] %s", schedulerSetting.getIdentityPrefix(), ex.getMessage()), ex);
+            logger.error("[{}] Error occurred while executing scheduled job! The error is {}.",
+                    schedulerSetting.getIdentityPrefix(), ex.getMessage(), ex);
             schedulerService.afterSchedule(schedulerItem, ex.getMessage());
         }
     }

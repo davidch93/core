@@ -52,8 +52,7 @@ public abstract class BaseBatchServiceImpl implements BaseBatchService {
             jobLauncher.run(getJob(jobName, stepName, jobParameters), jobParameters);
         } catch (JobExecutionAlreadyRunningException | JobRestartException | JobInstanceAlreadyCompleteException
                 | JobParametersInvalidException ex) {
-            logger.error(String.format("[%s] Error occurred when execute batch job!",
-                    batchSetting.getIdentityPrefix()), ex);
+            logger.error("[{}] Error occurred when execute batch job!", batchSetting.getIdentityPrefix(), ex);
             throw new BatchException("Error occurred when execute batch job!", ex);
         }
     }

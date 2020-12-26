@@ -1,14 +1,13 @@
 package com.dch.core.common.util;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Test class used to test all methods in the {@link NumberFormatUtil} class.
@@ -19,12 +18,9 @@ import static org.junit.Assert.assertThat;
  */
 public class NumberFormatUtilTest {
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
     /**
      * Test method for
-     * {@link NumberFormatUtil#formatAmount(java.math.BigDecimal)}.
+     * {@link NumberFormatUtil#formatAmount(BigDecimal)}.
      */
     @Test
     public void testFormatAmountBigDecimal() {
@@ -34,19 +30,18 @@ public class NumberFormatUtilTest {
 
     /**
      * Test method for
-     * {@link NumberFormatUtil#formatAmount(java.math.BigDecimal)}
-     * with empty number.
+     * {@link NumberFormatUtil#formatAmount(BigDecimal)} with empty number.
      */
     @Test
-    public void testFormatAmountBigDecimalWithEmptyNumber() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Number can't be null");
-        NumberFormatUtil.formatAmount(null);
+    public void testFormatAmountBigDecimal_withEmptyNumber_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                NumberFormatUtil.formatAmount(null));
+        assertThat(ex.getMessage(), equalTo("Number can't be null"));
     }
 
     /**
      * Test method for
-     * {@link NumberFormatUtil#formatAmountNoComma(java.math.BigDecimal)}.
+     * {@link NumberFormatUtil#formatAmountNoComma(BigDecimal)}.
      */
     @Test
     public void testFormatAmountNoCommaBigDecimal() {
@@ -56,14 +51,13 @@ public class NumberFormatUtilTest {
 
     /**
      * Test method for
-     * {@link NumberFormatUtil#formatAmountNoComma(java.math.BigDecimal)}
-     * with empty number.
+     * {@link NumberFormatUtil#formatAmountNoComma(BigDecimal)} with empty number.
      */
     @Test
-    public void testFormatAmountNoCommaBigDecimalWithEmptyNumber() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Number can't be null");
-        NumberFormatUtil.formatAmountNoComma(null);
+    public void testFormatAmountNoCommaBigDecimal_withEmptyNumber_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                NumberFormatUtil.formatAmountNoComma(null));
+        assertThat(ex.getMessage(), equalTo("Number can't be null"));
     }
 
     /**
@@ -88,7 +82,7 @@ public class NumberFormatUtilTest {
 
     /**
      * Test method for
-     * {@link NumberFormatUtil#parseToLong(java.lang.String)}.
+     * {@link NumberFormatUtil#parseToLong(String)}.
      */
     @Test
     public void testParseToLong() {
@@ -98,19 +92,18 @@ public class NumberFormatUtilTest {
 
     /**
      * Test method for
-     * {@link NumberFormatUtil#parseToLong(java.lang.String)}
-     * with empty value.
+     * {@link NumberFormatUtil#parseToLong(String)} with empty value.
      */
     @Test
-    public void testParseToLongWithEmptyValue() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Value can't be null");
-        NumberFormatUtil.parseToLong(null);
+    public void testParseToLong_withEmptyValue_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                NumberFormatUtil.parseToLong(null));
+        assertThat(ex.getMessage(), equalTo("Value can't be null"));
     }
 
     /**
      * Test method for
-     * {@link NumberFormatUtil#parseToInteger(java.lang.String)}.
+     * {@link NumberFormatUtil#parseToInteger(String)}.
      */
     @Test
     public void testParseToInteger() {
@@ -120,13 +113,12 @@ public class NumberFormatUtilTest {
 
     /**
      * Test method for
-     * {@link NumberFormatUtil#parseToInteger(java.lang.String)}
-     * with empty value.
+     * {@link NumberFormatUtil#parseToInteger(String)} with empty value.
      */
     @Test
-    public void testParseToIntegerWithEmptyValue() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Value can't be null");
-        NumberFormatUtil.parseToInteger(null);
+    public void testParseToInteger_withEmptyValue_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                NumberFormatUtil.parseToInteger(null));
+        assertThat(ex.getMessage(), equalTo("Value can't be null"));
     }
 }

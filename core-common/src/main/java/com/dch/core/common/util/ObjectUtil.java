@@ -46,8 +46,8 @@ public class ObjectUtil {
         Assert.notNull(bFile, "Array of bytes can't be null");
         Assert.hasLength(destination, "Destination path can't be empty");
 
-        try (FileOutputStream fileOuputStream = new FileOutputStream(destination)) {
-            fileOuputStream.write(bFile);
+        try (FileOutputStream fileOutputStream = new FileOutputStream(destination)) {
+            fileOutputStream.write(bFile);
         } catch (IOException ex) {
             throw new RuntimeException("Output stream failed", ex);
         }
@@ -63,8 +63,8 @@ public class ObjectUtil {
         Assert.notNull(bFile, "Array of bytes can't be null");
         Assert.notNull(file, "File can't be null");
 
-        try (FileOutputStream fileOuputStream = new FileOutputStream(file)) {
-            fileOuputStream.write(bFile);
+        try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+            fileOutputStream.write(bFile);
         } catch (IOException ex) {
             throw new RuntimeException("Output stream failed", ex);
         }

@@ -21,10 +21,10 @@ public abstract class BaseEndpoint {
     /**
      * Method used to Copy bean properties.
      *
-     * @param source {@link Object} source data.
-     * @param clazz  {@code Class<T>} class of destination.
-     * @param <T>    Result object.
-     * @return {@link T} destination object.
+     * @param source {@link Object} source data
+     * @param clazz  {@code Class<T>} of target
+     * @param <T>    the type of object data
+     * @return the {@link T} target object
      */
     protected <T> T copyProperties(Object source, Class<T> clazz) {
         return copyProperties(source, clazz, null);
@@ -33,11 +33,11 @@ public abstract class BaseEndpoint {
     /**
      * Method used to Copy bean properties.
      *
-     * @param source         {@link Object} source data.
-     * @param clazz          {@code Class<T>} class of destination.
-     * @param ignoreProperty {@link String[]} ignore parameter.
-     * @param <T>            Result object.
-     * @return {@link T} destination object.
+     * @param source         {@link Object} source data
+     * @param clazz          {@code Class<T>} of target
+     * @param ignoreProperty {@link String[]} ignore parameter
+     * @param <T>            the type of object data
+     * @return the {@link T} target object
      * @throws RestException if the class or its nullary constructor is not accessible or
      *                       if this Class represents an abstract class, an interface, an
      *                       array class, a primitive type, or void; or if the class has
@@ -64,8 +64,9 @@ public abstract class BaseEndpoint {
     /**
      * Method used to get response builder to build a generic response.
      *
-     * @param clazz the type of object data.
-     * @return {@link ResponseBuilder}
+     * @param clazz {@code Class<T>} of target
+     * @param <T>   the type of object data
+     * @return the {@link ResponseBuilder}
      */
     protected <T> ResponseBuilder<T> getResponseBuilder(Class<T> clazz) {
         return new ResponseBuilder<>(messageSource);

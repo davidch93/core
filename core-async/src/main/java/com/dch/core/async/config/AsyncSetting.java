@@ -64,6 +64,8 @@ public class AsyncSetting {
         private int keepAliveSeconds;
         private int maxPoolSize;
         private int queueCapacity;
+        private boolean waitForCompletion;
+        private int waitTerminationSeconds;
         private String threadNamePrefix;
 
         /**
@@ -136,6 +138,42 @@ public class AsyncSetting {
          */
         public void setQueueCapacity(int queueCapacity) {
             this.queueCapacity = queueCapacity;
+        }
+
+        /**
+         * Is wait for completion boolean.
+         *
+         * @return the boolean
+         */
+        public boolean isWaitForCompletion() {
+            return waitForCompletion;
+        }
+
+        /**
+         * Set wait for completion.
+         *
+         * @param waitForCompletion the wait for completion
+         */
+        public void setWaitForCompletion(boolean waitForCompletion) {
+            this.waitForCompletion = waitForCompletion;
+        }
+
+        /**
+         * Get wait termination seconds.
+         *
+         * @return the wait termination seconds
+         */
+        public int getWaitTerminationSeconds() {
+            return waitTerminationSeconds;
+        }
+
+        /**
+         * Set wait termination seconds.
+         *
+         * @param waitTerminationSeconds the wait termination seconds
+         */
+        public void setWaitTerminationSeconds(int waitTerminationSeconds) {
+            this.waitTerminationSeconds = waitTerminationSeconds;
         }
 
         /**

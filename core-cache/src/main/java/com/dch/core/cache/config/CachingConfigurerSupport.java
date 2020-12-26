@@ -14,6 +14,12 @@ import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import static net.logstash.logback.argument.StructuredArguments.e;
+import static net.logstash.logback.argument.StructuredArguments.v;
+
 /**
  * An implementation of {@link CachingConfigurer} with empty methods allowing
  * sub-classes to override only the methods they're interested in.
@@ -61,22 +67,36 @@ public class CachingConfigurerSupport implements CachingConfigurer {
 
             @Override
             public void handleCacheGetError(RuntimeException exception, Cache cache, Object key) {
-                logger.error(String.format("[%s] %s", cacheSetting.getIdentityPrefix(), cache), exception);
+                Map<String, Object> entries = new HashMap<>(2);
+                entries.put("cache", cache);
+                entries.put("key", key);
+                logger.error("[{}] Error occurred while getting cache! The details are {}",
+                        cacheSetting.getIdentityPrefix(), e(entries), exception);
             }
 
             @Override
             public void handleCachePutError(RuntimeException exception, Cache cache, Object key, Object value) {
-                logger.error(String.format("[%s] %s", cacheSetting.getIdentityPrefix(), cache), exception);
+                Map<String, Object> entries = new HashMap<>(3);
+                entries.put("cache", cache);
+                entries.put("key", key);
+                entries.put("value", value);
+                logger.error("[{}] Error occurred while putting cache! The details are {}",
+                        cacheSetting.getIdentityPrefix(), e(entries), exception);
             }
 
             @Override
             public void handleCacheEvictError(RuntimeException exception, Cache cache, Object key) {
-                logger.error(String.format("[%s] %s", cacheSetting.getIdentityPrefix(), cache), exception);
+                Map<String, Object> entries = new HashMap<>(2);
+                entries.put("cache", cache);
+                entries.put("key", key);
+                logger.error("[{}] Error occurred while evicting cache! The details are {}",
+                        cacheSetting.getIdentityPrefix(), e(entries), exception);
             }
 
             @Override
             public void handleCacheClearError(RuntimeException exception, Cache cache) {
-                logger.error(String.format("[%s] %s", cacheSetting.getIdentityPrefix(), cache), exception);
+                logger.error("[{}] Error occurred while clearing cache! The details are {}",
+                        cacheSetting.getIdentityPrefix(), v("cache", cache), exception);
             }
         };
     }

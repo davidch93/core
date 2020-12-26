@@ -71,6 +71,6 @@ public enum GeneralStatus {
                 "code='" + code + '\'' +
                 ", parameter='" + parameter + '\'' +
                 ", value='" + value + '\'' +
-                "} " + super.toString();
+                "}";
     }
 }

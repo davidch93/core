@@ -51,7 +51,8 @@ public abstract class BaseSchedulerServiceImpl implements BaseSchedulerService {
                     .schedule(new TaskRunnable(applicationContext, this, schedulerItem), getTrigger(schedulerItem));
             scheduleFeatures.put(schedulerItem.getSchedulerId(), scheduledFuture);
         } catch (TaskRejectedException ex) {
-            logger.error(String.format("[%s] %s", schedulerSetting.getIdentityPrefix(), ex.getMessage()), ex);
+            logger.error("[{}] Error occurred while scheduling job! The error is {}.",
+                    schedulerSetting.getIdentityPrefix(), ex.getMessage(), ex);
             throw new SchedulerException("Error occurred while scheduling job!", ex);
         }
     }

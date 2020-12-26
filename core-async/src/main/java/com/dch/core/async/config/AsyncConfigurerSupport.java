@@ -9,8 +9,9 @@ import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executor;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+import static net.logstash.logback.argument.StructuredArguments.a;
+import static net.logstash.logback.argument.StructuredArguments.v;
 
 /**
  * A convenience {@link AsyncConfigurer} that implements all methods so that the
@@ -45,6 +46,8 @@ public class AsyncConfigurerSupport implements AsyncConfigurer {
         executor.setKeepAliveSeconds(asyncSetting.getExecutor().getKeepAliveSeconds());
         executor.setMaxPoolSize(asyncSetting.getExecutor().getMaxPoolSize());
         executor.setQueueCapacity(asyncSetting.getExecutor().getQueueCapacity());
+        executor.setWaitForTasksToCompleteOnShutdown(asyncSetting.getExecutor().isWaitForCompletion());
+        executor.setAwaitTerminationSeconds(asyncSetting.getExecutor().getWaitTerminationSeconds());
         executor.setThreadNamePrefix(asyncSetting.getExecutor().getThreadNamePrefix());
         executor.initialize();
         return executor;
@@ -53,9 +56,9 @@ public class AsyncConfigurerSupport implements AsyncConfigurer {
     @Override
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
         return (throwable, method, objects) -> {
-            logger.error(String.format("[%s] Error method: %s", asyncSetting.getIdentityPrefix(), method), throwable);
-            logger.info(String.format("[%s] Parameter value: [%s]", asyncSetting.getIdentityPrefix(),
-                    Stream.of(objects).map(Object::toString).collect(Collectors.joining(", "))));
+            logger.error("[{}] Error occurred in method: {}",
+                    asyncSetting.getIdentityPrefix(), v("method", method), throwable);
+            logger.info("[{}] Parameter value: {}", asyncSetting.getIdentityPrefix(), a("parameters", objects));
         };
     }
 }

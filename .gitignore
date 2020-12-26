@@ -14,6 +14,9 @@ buildNumber.properties
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/.mvn/wrapper/maven-wrapper.jar
 
+# Test files
+test_convert_bytes_to_file1.txt
+test_convert_bytes_to_file2.txt
 
 ######################
 # NetBeans

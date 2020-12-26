@@ -23,7 +23,7 @@ public interface BaseJobService {
      * Run the job.
      *
      * @param schedulerItem the {@link SchedulerItem}
-     * @throws Exception If error occurred while run the job.
+     * @throws Exception if error occurred while run the job.
      */
     void run(SchedulerItem<?> schedulerItem) throws Exception;
 }

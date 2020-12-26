@@ -12,6 +12,8 @@ import org.springframework.retry.backoff.FixedBackOffPolicy;
 import org.springframework.retry.policy.SimpleRetryPolicy;
 import org.springframework.retry.support.RetryTemplate;
 
+import static net.logstash.logback.argument.StructuredArguments.kv;
+
 /**
  * A convenience retry configurer that used to configure default
  * {@link RetryTemplate} configuration.
@@ -68,13 +70,13 @@ public class RetryConfigurerSupport {
             @Override
             public <T, E extends Throwable> void close(RetryContext context, RetryCallback<T, E> callback,
                                                        Throwable throwable) {
-                logger.info(String.format("[%s] Retry on close", retrySetting.getIdentityPrefix()), throwable);
             }
 
             @Override
             public <T, E extends Throwable> void onError(RetryContext context, RetryCallback<T, E> callback,
                                                          Throwable throwable) {
-                logger.info(String.format("[%s] Retry on error", retrySetting.getIdentityPrefix()), throwable);
+                logger.warn("[{}] Retry on ({}) attempts! {}",
+                        retrySetting.getIdentityPrefix(), context.getRetryCount(), kv("context", context), throwable);
             }
         };
     }

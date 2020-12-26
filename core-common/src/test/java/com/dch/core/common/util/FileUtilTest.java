@@ -1,14 +1,13 @@
 package com.dch.core.common.util;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Test class used to test all methods in the {@link FileUtil} class.
@@ -19,34 +18,29 @@ import static org.junit.Assert.assertThat;
  */
 public class FileUtilTest {
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
     /**
      * Test method for
-     * {@link FileUtil#isAvailable(java.lang.String)}.
+     * {@link FileUtil#isAvailable(String)}.
      */
     @Test
-    public void testIsAvaliable() {
+    public void testIsAvailable() {
         boolean actual = FileUtil.isAvailable("src/test/resources/test.txt");
         assertThat(actual, is(true));
     }
 
     /**
      * Test method for
-     * {@link FileUtil#isAvailable(java.lang.String)} with
-     * empty file path.
+     * {@link FileUtil#isAvailable(String)} with empty file path.
      */
     @Test
-    public void testIsAvaliableWithEmptyPath() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("File path can't be empty");
-        FileUtil.isAvailable(null);
+    public void testIsAvailable_withEmptyPath_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> FileUtil.isAvailable(null));
+        assertThat(ex.getMessage(), equalTo("File path can't be empty"));
     }
 
     /**
      * Test method for
-     * {@link FileUtil#isReadOnly(java.lang.String)}.
+     * {@link FileUtil#isReadOnly(String)}.
      */
     @Test
     public void testIsReadOnly() {
@@ -56,19 +50,17 @@ public class FileUtilTest {
 
     /**
      * Test method for
-     * {@link FileUtil#isReadOnly(java.lang.String)} with empty
-     * file path.
+     * {@link FileUtil#isReadOnly(String)} with empty file path.
      */
     @Test
-    public void testIsReadOnlyWithEmptyPath() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("File path can't be empty");
-        FileUtil.isReadOnly(null);
+    public void testIsReadOnly_withEmptyPath_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> FileUtil.isReadOnly(null));
+        assertThat(ex.getMessage(), equalTo("File path can't be empty"));
     }
 
     /**
      * Test method for
-     * {@link FileUtil#copyFile(java.lang.String, java.lang.String)}.
+     * {@link FileUtil#copyFile(String, String)}.
      */
     @Test
     public void testCopyFile() {
@@ -80,30 +72,28 @@ public class FileUtilTest {
 
     /**
      * Test method for
-     * {@link FileUtil#copyFile(java.lang.String, java.lang.String)}
-     * with empty source path.
+     * {@link FileUtil#copyFile(String, String)} with empty source path.
      */
     @Test
-    public void testCopyFileWithEmptySource() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Source path can't be empty");
-        FileUtil.copyFile(null, "src/test/resources/test(copy).txt");
+    public void testCopyFile_withEmptySource_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                FileUtil.copyFile(null, "src/test/resources/test(copy).txt"));
+        assertThat(ex.getMessage(), equalTo("Source path can't be empty"));
     }
 
     /**
      * Test method for
-     * {@link FileUtil#copyFile(java.lang.String, java.lang.String)}
-     * with empty destination path.
+     * {@link FileUtil#copyFile(String, String)} with empty destination path.
      */
     @Test
-    public void testCopyFileWithEmptyDestination() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Destination path can't be empty");
-        FileUtil.copyFile("src/test/resources/test.txt", null);
+    public void testCopyFile_withEmptyDestination_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                FileUtil.copyFile("src/test/resources/test.txt", null));
+        assertThat(ex.getMessage(), equalTo("Destination path can't be empty"));
     }
 
     /**
-     * Test method for {@link FileUtil#getPath(java.io.File)}.
+     * Test method for {@link FileUtil#getPath(File)}.
      */
     @Test
     public void testGetPath() {
@@ -113,19 +103,17 @@ public class FileUtilTest {
     }
 
     /**
-     * Test method for {@link FileUtil#getPath(java.io.File)}
-     * with null path.
+     * Test method for {@link FileUtil#getPath(File)} with null path.
      */
     @Test
-    public void testGetPathWithNullPath() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("File can't be null");
-        FileUtil.getPath(null);
+    public void testGetPath_withNullPath_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> FileUtil.getPath(null));
+        assertThat(ex.getMessage(), equalTo("File can't be null"));
     }
 
     /**
      * Test method for
-     * {@link FileUtil#pathToFile(java.lang.String)}.
+     * {@link FileUtil#pathToFile(String)}.
      */
     @Test
     public void testPathToFile() {
@@ -136,19 +124,17 @@ public class FileUtilTest {
 
     /**
      * Test method for
-     * {@link FileUtil#pathToFile(java.lang.String)} with empty
-     * file path.
+     * {@link FileUtil#pathToFile(String)} with empty file path.
      */
     @Test
-    public void testPathToFileWithEmptyPath() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("File path can't be empty");
-        FileUtil.pathToFile(null);
+    public void testPathToFile_withEmptyPath_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> FileUtil.pathToFile(null));
+        assertThat(ex.getMessage(), equalTo("File path can't be empty"));
     }
 
     /**
      * Test method for
-     * {@link FileUtil#getAbsolutePath(java.io.File)}.
+     * {@link FileUtil#getAbsolutePath(File)}.
      */
     @Test
     public void testGetAbsolutePath() {
@@ -159,19 +145,18 @@ public class FileUtilTest {
 
     /**
      * Test method for
-     * {@link FileUtil#getAbsolutePath(java.io.File)} with null
-     * file.
+     * {@link FileUtil#getAbsolutePath(File)} with null file.
      */
     @Test
-    public void testGetAbsolutePathWithNullFile() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("File can't be null");
-        FileUtil.getAbsolutePath(null);
+    public void testGetAbsolutePath_withNullFile_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                FileUtil.getAbsolutePath(null));
+        assertThat(ex.getMessage(), equalTo("File can't be null"));
     }
 
     /**
      * Test method for
-     * {@link FileUtil#getCanonicalPath(java.io.File)}.
+     * {@link FileUtil#getCanonicalPath(File)}.
      */
     @Test
     public void testGetCanonicalPath() throws Exception {
@@ -182,19 +167,18 @@ public class FileUtilTest {
 
     /**
      * Test method for
-     * {@link FileUtil#getCanonicalPath(java.io.File)} with
-     * null file.
+     * {@link FileUtil#getCanonicalPath(File)} with null file.
      */
     @Test
-    public void testGetCanonicalPathWithNullFile() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("File can't be null");
-        FileUtil.getCanonicalPath(null);
+    public void testGetCanonicalPath_withNullFile_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+                () -> FileUtil.getCanonicalPath(null));
+        assertThat(ex.getMessage(), equalTo("File can't be null"));
     }
 
     /**
      * Test method for
-     * {@link FileUtil#getFileName(java.io.File)}.
+     * {@link FileUtil#getFileName(File)}.
      */
     @Test
     public void testGetFileName() {
@@ -205,19 +189,17 @@ public class FileUtilTest {
 
     /**
      * Test method for
-     * {@link FileUtil#getFileName(java.io.File)} with null
-     * file.
+     * {@link FileUtil#getFileName(File)} with null file.
      */
     @Test
-    public void testGetFileNameWithNullFile() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("File can't be null");
-        FileUtil.getFileName(null);
+    public void testGetFileName_withNullFile_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> FileUtil.getFileName(null));
+        assertThat(ex.getMessage(), equalTo("File can't be null"));
     }
 
     /**
      * Test method for
-     * {@link FileUtil#deleteFile(java.lang.String)}.
+     * {@link FileUtil#deleteFile(String)}.
      */
     @Test
     public void testDeleteFile() {
@@ -230,14 +212,11 @@ public class FileUtilTest {
 
     /**
      * Test method for
-     * {@link FileUtil#deleteFile(java.lang.String)} with empty
-     * file path.
+     * {@link FileUtil#deleteFile(String)} with empty file path.
      */
     @Test
-    public void testDeleteFileWithEmptyPath() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("File path can't be empty");
-        FileUtil.deleteFile(null);
+    public void testDeleteFile_withEmptyPath_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> FileUtil.deleteFile(null));
+        assertThat(ex.getMessage(), equalTo("File path can't be empty"));
     }
-
 }

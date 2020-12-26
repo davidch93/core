@@ -47,7 +47,7 @@ public class SchedulerConfigurerSupport {
      * @return the {@link ErrorHandler}
      */
     private ErrorHandler schedulerErrorHandler() {
-        return throwable -> logger.error(String.format("[%s] Error occurred while executing scheduler job!",
-                schedulerSetting.getIdentityPrefix()), throwable);
+        return throwable -> logger.error("[{}] Error occurred while executing scheduler job!",
+                schedulerSetting.getIdentityPrefix(), throwable);
     }
 }

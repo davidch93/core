@@ -1,14 +1,13 @@
 package com.dch.core.common.util;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Test class used to test all methods in the {@link ObjectUtil} class.
@@ -19,12 +18,9 @@ import static org.junit.Assert.assertThat;
  */
 public class ObjectUtilTest {
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
     /**
      * Test method for
-     * {@link ObjectUtil#convertFileToBytes(java.io.File)}.
+     * {@link ObjectUtil#convertFileToBytes(File)}.
      */
     @Test
     public void testConvertFileToBytes() {
@@ -38,19 +34,17 @@ public class ObjectUtilTest {
 
     /**
      * Test method for
-     * {@link ObjectUtil#convertFileToBytes(java.io.File)} with
-     * null parameter.
+     * {@link ObjectUtil#convertFileToBytes(File)} with null parameter.
      */
     @Test
-    public void testConvertFileToBytesWithNullParam() {
-        expectedException.expect(Exception.class);
-        expectedException.expectMessage("File can't be null");
-        ObjectUtil.convertFileToBytes(null);
+    public void testConvertFileToBytes_withNullParam_thenExpectThrowException() {
+        Exception ex = assertThrows(Exception.class, () -> ObjectUtil.convertFileToBytes(null));
+        assertThat(ex.getMessage(), equalTo("File can't be null"));
     }
 
     /**
      * Test method for
-     * {@link ObjectUtil#convertBytesToFile(byte[], java.lang.String)}.
+     * {@link ObjectUtil#convertBytesToFile(byte[], String)}.
      */
     @Test
     public void testConvertBytesToFileByteArrayString() {
@@ -68,32 +62,29 @@ public class ObjectUtilTest {
 
     /**
      * Test method for
-     * {@link ObjectUtil#convertBytesToFile(byte[], java.lang.String)}
-     * with null byte array.
+     * {@link ObjectUtil#convertBytesToFile(byte[], String)} with null byte array.
      */
     @Test
-    public void testConvertBytesToFileByteArrayStringWithNullByteArray() {
-        expectedException.expect(Exception.class);
-        expectedException.expectMessage("Array of bytes can't be null");
-        ObjectUtil.convertBytesToFile(null, "src/test/resources/test_convert_bytes_to_file1.txt");
+    public void testConvertBytesToFileByteArrayString_withNullByteArray_thenExpectThrowException() {
+        Exception ex = assertThrows(Exception.class, () ->
+                ObjectUtil.convertBytesToFile(null, "src/test/resources/test_convert_bytes_to_file1.txt"));
+        assertThat(ex.getMessage(), equalTo("Array of bytes can't be null"));
     }
 
     /**
      * Test method for
-     * {@link ObjectUtil#convertBytesToFile(byte[], java.lang.String)}
-     * with empty destination path.
+     * {@link ObjectUtil#convertBytesToFile(byte[], String)} with empty destination path.
      */
     @Test
-    public void testConvertBytesToFileByteArrayStringWithEmptyDestinationPath() {
-        expectedException.expect(Exception.class);
-        expectedException.expectMessage("Destination path can't be empty");
+    public void testConvertBytesToFileByteArrayString_withEmptyDestinationPath_thenExpectThrowException() {
         byte[] byteFile = ObjectUtil.convertFileToBytes(new File("src/test/resources/test.txt"));
-        ObjectUtil.convertBytesToFile(byteFile, "");
+        Exception ex = assertThrows(Exception.class, () -> ObjectUtil.convertBytesToFile(byteFile, ""));
+        assertThat(ex.getMessage(), equalTo("Destination path can't be empty"));
     }
 
     /**
      * Test method for
-     * {@link ObjectUtil#convertBytesToFile(byte[], java.io.File)}.
+     * {@link ObjectUtil#convertBytesToFile(byte[], File)}.
      */
     @Test
     public void testConvertBytesToFileByteArrayFile() {
@@ -111,13 +102,59 @@ public class ObjectUtilTest {
 
     /**
      * Test method for
-     * {@link ObjectUtil#convertBytesToFile(byte[], java.io.File)}
-     * with null byte array.
+     * {@link ObjectUtil#convertBytesToFile(byte[], File)} with null byte array.
      */
     @Test
-    public void testConvertBytesToFileByteArrayFileWithNullByteArray() {
-        expectedException.expect(Exception.class);
-        expectedException.expectMessage("Array of bytes can't be null");
-        ObjectUtil.convertBytesToFile(null, new File("src/test/resources/test_convert_bytes_to_file2.txt"));
+    public void testConvertBytesToFileByteArrayFile_withNullByteArray_thenExpectThrowException() {
+        Exception ex = assertThrows(Exception.class, () ->
+                ObjectUtil.convertBytesToFile(null, new File("src/test/resources/test_convert_bytes_to_file2.txt")));
+        assertThat(ex.getMessage(), equalTo("Array of bytes can't be null"));
+    }
+
+    @Test
+    public void testGetFieldValue() {
+        Data data = new Data(1, "data");
+        int actualId = (Integer) ObjectUtil.getFieldValue(data, "id");
+        String actualUser = (String) ObjectUtil.getFieldValue(data, "user");
+
+        assertThat(actualId, equalTo(1));
+        assertThat(actualUser, equalTo("data"));
+    }
+
+    @Test
+    public void testGetFieldValue_withNotExistField_thenExpectThrowException() {
+        Data data = new Data(1, "data");
+        RuntimeException ex = assertThrows(RuntimeException.class, () -> ObjectUtil.getFieldValue(data, "address"));
+        assertThat(ex.getMessage(), equalTo("Error occurred while reflect object"));
+    }
+
+    /**
+     * Class that represent model data for testing purposes.
+     */
+    static class Data {
+
+        private int id;
+        private String user;
+
+        Data(int id, String user) {
+            this.id = id;
+            this.user = user;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getUser() {
+            return user;
+        }
+
+        public void setUser(String user) {
+            this.user = user;
+        }
     }
 }

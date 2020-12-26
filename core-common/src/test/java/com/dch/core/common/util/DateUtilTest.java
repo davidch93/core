@@ -1,8 +1,6 @@
 package com.dch.core.common.util;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -11,7 +9,8 @@ import java.util.TimeZone;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Test class used to test all methods in the {@link DateUtil} class.
@@ -23,9 +22,6 @@ import static org.junit.Assert.assertThat;
 public class DateUtilTest {
 
     private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
 
     /**
      * Test method for
@@ -43,7 +39,7 @@ public class DateUtilTest {
      * {@link DateUtil#formatDate(Date, String, TimeZone)}.
      */
     @Test
-    public void testFormatDateWithTimeZone() {
+    public void testFormatDate_withTimeZone() {
         String actualDate = DateUtil.formatDate(new Date(), DATE_FORMAT, TimeZone.getTimeZone("UTC"));
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
@@ -55,26 +51,44 @@ public class DateUtilTest {
 
     /**
      * Test method for
-     * {@link DateUtil#formatDate(Date, String)}
-     * with empty parameter date.
+     * {@link DateUtil#formatDate(Date, String)} with empty parameter date.
      */
     @Test
-    public void testFormatDateEmptyDate() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Parameter date can't be null");
-        DateUtil.formatDate(null, DATE_FORMAT);
+    public void testFormatDate_withEmptyDate_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                DateUtil.formatDate(null, DATE_FORMAT));
+        assertThat(ex.getMessage(), equalTo("Parameter date can't be null"));
     }
 
     /**
      * Test method for
-     * {@link DateUtil#formatDate(Date, String)}
-     * with empty parameter format.
+     * {@link DateUtil#formatDate(Date, String)} with empty parameter format.
      */
     @Test
-    public void testFormatDateEmptyFormat() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Parameter format can't be empty");
-        DateUtil.formatDate(new Date(), null);
+    public void testFormatDate_withEmptyFormat_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                DateUtil.formatDate(new Date(), null));
+        assertThat(ex.getMessage(), equalTo("Parameter format can't be empty"));
+    }
+
+    /**
+     * Test method for
+     * {@link DateUtil#formatDate(Date, String, TimeZone)} with null time zone.
+     */
+    @Test
+    public void testFormatDate_withNullTimeZone_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                DateUtil.formatDate(new Date(), DATE_FORMAT, null));
+        assertThat(ex.getMessage(), equalTo("Parameter time zone can't be null"));
+    }
+
+    /**
+     * Test method for {@link DateUtil#formatDate(Date, String)} with invalid string.
+     */
+    @Test
+    public void testParseDate_withInvalidString_thenExpectThrowException() {
+        RuntimeException ex = assertThrows(RuntimeException.class, () -> DateUtil.parseDate("test", DATE_FORMAT));
+        assertThat(ex.getMessage(), equalTo("Specified string can't be parsed!"));
     }
 
     /**
@@ -94,7 +108,7 @@ public class DateUtilTest {
      * {@link DateUtil#parseDate(String, String, TimeZone)}.
      */
     @Test
-    public void testParseDateWithTimeZone() throws Exception {
+    public void testParseDate_withTimeZone() throws Exception {
         String date = "2019-01-01 00:00:00";
         Date actualDate = DateUtil.parseDate(date, DATE_FORMAT, TimeZone.getTimeZone("UTC"));
 
@@ -107,26 +121,35 @@ public class DateUtilTest {
 
     /**
      * Test method for
-     * {@link DateUtil#parseDate(String, String)}
-     * with empty parameter date.
+     * {@link DateUtil#parseDate(String, String)} with empty parameter date.
      */
     @Test
-    public void testParseDateEmptyDate() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Parameter date can't be empty");
-        DateUtil.parseDate(null, DATE_FORMAT);
+    public void testParseDate_withEmptyDate_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                DateUtil.parseDate(null, DATE_FORMAT));
+        assertThat(ex.getMessage(), equalTo("Parameter date can't be empty"));
     }
 
     /**
      * Test method for
-     * {@link DateUtil#parseDate(String, String)}
-     * with empty parameter format.
+     * {@link DateUtil#parseDate(String, String)} with empty parameter format.
      */
     @Test
-    public void testParseDateEmptyFormat() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Parameter format can't be empty");
-        DateUtil.parseDate(new Date().toString(), null);
+    public void testParseDate_withEmptyFormat_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                DateUtil.parseDate(new Date().toString(), null));
+        assertThat(ex.getMessage(), equalTo("Parameter format can't be empty"));
+    }
+
+    /**
+     * Test method for
+     * {@link DateUtil#parseDate(String, String, TimeZone)} with null time zone.
+     */
+    @Test
+    public void testParseDate_withNullTimeZone_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                DateUtil.parseDate(new Date().toString(), DATE_FORMAT, null));
+        assertThat(ex.getMessage(), equalTo("Parameter time zone can't be null"));
     }
 
     /**
@@ -135,14 +158,15 @@ public class DateUtilTest {
      */
     @Test
     public void testSetBeginningOfDay() {
+        Date date = new Date();
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
+        calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
 
-        Date actualDate = DateUtil.setBeginningOfDay(new Date());
+        Date actualDate = DateUtil.setBeginningOfDay(date);
         Date expectedDate = calendar.getTime();
         assertThat(actualDate, is(equalTo(expectedDate)));
     }
@@ -152,39 +176,29 @@ public class DateUtilTest {
      * {@link DateUtil#setBeginningOfDay(Date, TimeZone)}.
      */
     @Test
-    public void testSetBeginningOfDayWithTimeZone() {
+    public void testSetBeginningOfDay_withTimeZone() {
+        Date date = new Date();
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        calendar.setTime(new Date());
+        calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
 
-        Date actualDate = DateUtil.setBeginningOfDay(new Date(), TimeZone.getTimeZone("UTC"));
+        Date actualDate = DateUtil.setBeginningOfDay(date, TimeZone.getTimeZone("UTC"));
         Date expectedDate = calendar.getTime();
         assertThat(actualDate, is(equalTo(expectedDate)));
     }
 
     /**
      * Test method for
-     * {@link DateUtil#setBeginningOfDay(Date)} with
-     * empty parameter date.
+     * {@link DateUtil#setBeginningOfDay(Date)} with empty parameter date.
      */
     @Test
-    public void testSetBeginningOfDayWithEmptyDate() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Parameter date can't be null");
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-
-        Date actualDate = DateUtil.setBeginningOfDay(null);
-        Date expectedDate = calendar.getTime();
-        assertThat(actualDate, is(equalTo(expectedDate)));
+    public void testSetBeginningOfDay_withEmptyDate_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                DateUtil.setBeginningOfDay(null));
+        assertThat(ex.getMessage(), equalTo("Parameter date can't be null"));
     }
 
     /**
@@ -193,14 +207,15 @@ public class DateUtilTest {
      */
     @Test
     public void testSetEndingOfDay() {
+        Date date = new Date();
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
+        calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
         calendar.set(Calendar.MILLISECOND, 999);
 
-        Date actualDate = DateUtil.setEndingOfDay(new Date());
+        Date actualDate = DateUtil.setEndingOfDay(date);
         Date expectedDate = calendar.getTime();
         assertThat(actualDate, is(equalTo(expectedDate)));
     }
@@ -210,39 +225,29 @@ public class DateUtilTest {
      * {@link DateUtil#setEndingOfDay(Date, TimeZone)}.
      */
     @Test
-    public void testSetEndingOfDayWithTimeZone() {
+    public void testSetEndingOfDay_withTimeZone() {
+        Date date = new Date();
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        calendar.setTime(new Date());
+        calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 23);
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
         calendar.set(Calendar.MILLISECOND, 999);
 
-        Date actualDate = DateUtil.setEndingOfDay(new Date(), TimeZone.getTimeZone("UTC"));
+        Date actualDate = DateUtil.setEndingOfDay(date, TimeZone.getTimeZone("UTC"));
         Date expectedDate = calendar.getTime();
         assertThat(actualDate, is(equalTo(expectedDate)));
     }
 
     /**
      * Test method for
-     * {@link DateUtil#setEndingOfDay(Date)} with
-     * empty parameter date.
+     * {@link DateUtil#setEndingOfDay(Date)} with empty parameter date.
      */
     @Test
-    public void testSetEndingOfDayWithEmptDate() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Parameter date can't be null");
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 59);
-        calendar.set(Calendar.SECOND, 59);
-        calendar.set(Calendar.MILLISECOND, 999);
-
-        Date actualDate = DateUtil.setEndingOfDay(null);
-        Date expectedDate = calendar.getTime();
-        assertThat(actualDate, is(equalTo(expectedDate)));
+    public void testSetEndingOfDay_withEmptyDate_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                DateUtil.setEndingOfDay(null));
+        assertThat(ex.getMessage(), equalTo("Parameter date can't be null"));
     }
 
     /**
@@ -251,11 +256,12 @@ public class DateUtilTest {
      */
     @Test
     public void testAddDate() {
+        Date date = new Date();
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
+        calendar.setTime(date);
         calendar.add(Calendar.DATE, 1);
 
-        Date actualDate = DateUtil.addDate(new Date(), 1);
+        Date actualDate = DateUtil.addDate(date, 1);
         Date expectedDate = calendar.getTime();
         assertThat(actualDate, is(equalTo(expectedDate)));
     }
@@ -265,33 +271,26 @@ public class DateUtilTest {
      * {@link DateUtil#addDate(Date, int, TimeZone)}.
      */
     @Test
-    public void testAddDateWithTimeZone() {
+    public void testAddDate_withTimeZone() {
+        Date date = new Date();
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        calendar.setTime(new Date());
+        calendar.setTime(date);
         calendar.add(Calendar.DATE, 1);
 
-        Date actualDate = DateUtil.addDate(new Date(), 1, TimeZone.getTimeZone("UTC"));
+        Date actualDate = DateUtil.addDate(date, 1, TimeZone.getTimeZone("UTC"));
         Date expectedDate = calendar.getTime();
         assertThat(actualDate, is(equalTo(expectedDate)));
     }
 
     /**
      * Test method for
-     * {@link DateUtil#addDate(Date, int)} with empty
-     * parameter date.
+     * {@link DateUtil#addDate(Date, int)} with empty parameter date.
      */
     @Test
-    public void testAddDateWithEmptyDate() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Parameter date can't be null");
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        calendar.add(Calendar.DATE, 1);
-
-        Date actualDate = DateUtil.addDate(null, 1);
-        Date expectedDate = calendar.getTime();
-        assertThat(actualDate, is(equalTo(expectedDate)));
+    public void testAddDate_withEmptyDate_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                DateUtil.addDate(null, 1));
+        assertThat(ex.getMessage(), equalTo("Parameter date can't be null"));
     }
 
     /**
@@ -300,11 +299,12 @@ public class DateUtilTest {
      */
     @Test
     public void testAddHour() {
+        Date date = new Date();
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
+        calendar.setTime(date);
         calendar.add(Calendar.HOUR, 1);
 
-        Date actualDate = DateUtil.addHour(new Date(), 1);
+        Date actualDate = DateUtil.addHour(date, 1);
         Date expectedDate = calendar.getTime();
         assertThat(actualDate, is(equalTo(expectedDate)));
     }
@@ -314,7 +314,7 @@ public class DateUtilTest {
      * {@link DateUtil#addHour(Date, int, TimeZone)}.
      */
     @Test
-    public void testAddHourWithTimeZone() {
+    public void testAddHour_withTimeZone() {
         Date date = new Date();
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         calendar.setTime(date);
@@ -327,21 +327,13 @@ public class DateUtilTest {
 
     /**
      * Test method for
-     * {@link DateUtil#addHour(Date, int)} with empty
-     * parameter date.
+     * {@link DateUtil#addHour(Date, int)} with empty parameter date.
      */
     @Test
-    public void testAddHourWithEmptyDate() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Parameter date can't be null");
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        calendar.add(Calendar.HOUR, 1);
-
-        Date actualDate = DateUtil.addHour(null, 1);
-        Date expectedDate = calendar.getTime();
-        assertThat(actualDate, is(equalTo(expectedDate)));
+    public void testAddHour_withEmptyDate_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                DateUtil.addHour(null, 1));
+        assertThat(ex.getMessage(), equalTo("Parameter date can't be null"));
     }
 
     /**
@@ -350,11 +342,12 @@ public class DateUtilTest {
      */
     @Test
     public void testAddMinute() {
+        Date date = new Date();
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
+        calendar.setTime(date);
         calendar.add(Calendar.MINUTE, 1);
 
-        Date actualDate = DateUtil.addMinute(new Date(), 1);
+        Date actualDate = DateUtil.addMinute(date, 1);
         Date expectedDate = calendar.getTime();
         assertThat(actualDate, is(equalTo(expectedDate)));
     }
@@ -364,7 +357,7 @@ public class DateUtilTest {
      * {@link DateUtil#addMinute(Date, int, TimeZone)}.
      */
     @Test
-    public void testAddMinuteWithTimeZone() {
+    public void testAddMinute_withTimeZone() {
         Date date = new Date();
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         calendar.setTime(date);
@@ -377,21 +370,13 @@ public class DateUtilTest {
 
     /**
      * Test method for
-     * {@link DateUtil#addMinute(Date, int)}with
-     * empty parameter date.
+     * {@link DateUtil#addMinute(Date, int)} with empty parameter date.
      */
     @Test
-    public void testAddMinuteWithEmptyDate() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Parameter date can't be null");
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        calendar.add(Calendar.MINUTE, 1);
-
-        Date actualDate = DateUtil.addMinute(null, 1);
-        Date expectedDate = calendar.getTime();
-        assertThat(actualDate, is(equalTo(expectedDate)));
+    public void testAddMinute_withEmptyDate_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                DateUtil.addMinute(null, 1));
+        assertThat(ex.getMessage(), equalTo("Parameter date can't be null"));
     }
 
     /**
@@ -400,11 +385,12 @@ public class DateUtilTest {
      */
     @Test
     public void testAddSecond() {
+        Date date = new Date();
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
+        calendar.setTime(date);
         calendar.add(Calendar.SECOND, 1);
 
-        Date actualDate = DateUtil.addSecond(new Date(), 1);
+        Date actualDate = DateUtil.addSecond(date, 1);
         Date expectedDate = calendar.getTime();
         assertThat(actualDate, is(equalTo(expectedDate)));
     }
@@ -414,7 +400,7 @@ public class DateUtilTest {
      * {@link DateUtil#addSecond(Date, int, TimeZone)}.
      */
     @Test
-    public void testAddSecondWithTimeZone() {
+    public void testAddSecond_withTimeZone() {
         Date date = new Date();
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         calendar.setTime(date);
@@ -427,21 +413,12 @@ public class DateUtilTest {
 
     /**
      * Test method for
-     * {@link DateUtil#addSecond(Date, int)} with
-     * empty parameter date.
+     * {@link DateUtil#addSecond(Date, int)} with empty parameter date.
      */
     @Test
-    public void testAddSecondWithEmptyDate() {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Parameter date can't be null");
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        calendar.add(Calendar.SECOND, 1);
-
-        Date actualDate = DateUtil.addSecond(null, 1);
-        Date expectedDate = calendar.getTime();
-        assertThat(actualDate, is(equalTo(expectedDate)));
+    public void testAddSecond_withEmptyDate_thenExpectThrowException() {
+        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
+                DateUtil.addSecond(null, 1));
+        assertThat(ex.getMessage(), equalTo("Parameter date can't be null"));
     }
-
 }

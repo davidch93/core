@@ -1,16 +1,16 @@
 package com.dch.core.common.model;
 
 import com.google.common.collect.ImmutableList;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class used to test all methods in the {@link KV} class.
@@ -29,6 +29,13 @@ public class KVTest {
         } else {
             return b == null ? 1 : a.compareTo(b);
         }
+    }
+
+    @Test
+    public void testGet() {
+        KV<String, String> kv = KV.of("user", "data");
+        assertThat(kv.getKey(), equalTo("user"));
+        assertThat(kv.getValue(), equalTo("data"));
     }
 
     @Test
